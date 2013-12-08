@@ -25,7 +25,7 @@ class ChartEntry:
 
 class ChartData:
 
-    def __init__(self, name, date=None):
+    def __init__(self, name, date=None, fetch=True, all=False):
         self.name = name
         if date:
             self.date = date
@@ -34,6 +34,8 @@ class ChartData:
             self.date = None
             self.latest = True
         self.entries = []
+        if fetch:
+            self.fetchEntries(all=all)
 
     def __repr__(self):
         if self.latest:
