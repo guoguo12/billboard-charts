@@ -29,6 +29,11 @@ hot-100 chart (current)
 10. 'Say Something' by A Great Big World & Christina Aguilera
 ```
 
+Dependencies
+------------
+* [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/)
+* [Requests](http://requests.readthedocs.org/en/latest/) 
+
 License
 -------
 
