@@ -1,5 +1,12 @@
 #!/usr/bin/env python
 
+"""billboard.py: Unofficial Python API for accessing ranking charts from Billboard.com."""
+
+__author__     = "Allen Guo"
+__license__    = "MIT"
+__maintainer__ = "Allen Guo"
+__email__      = "guoguo12@gmail.com"
+
 import requests
 from bs4 import BeautifulSoup
 
