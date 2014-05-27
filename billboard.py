@@ -71,7 +71,10 @@ class ChartData:
                 if len(chartInfoSoup.contents) >= 4:
                     # Chart info includes both artist and album info
                     artist = chartInfoSoup.contents[1].string
-                    album = chartInfoSoup.contents[3].string.strip()
+                    if chartInfoSoup.contents[3].string:
+                        album = chartInfoSoup.contents[3].string.strip()
+                    else:
+                        album = None
                 else:
                     album = None  # Chart info includes only artist info
                     if chartInfoSoup.find('a'):
