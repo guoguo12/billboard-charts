@@ -53,6 +53,9 @@ class ChartData:
         for n, entry in enumerate(self.entries):
             s += '\n%s. %s' % (str(n + 1), str(entry))
         return s
+        
+    def __getitem__(self, key):
+        return self.entries[key]
 
     def fetchEntries(self, all=False):
         if self.latest:
