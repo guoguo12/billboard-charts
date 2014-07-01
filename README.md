@@ -3,7 +3,7 @@ billboard.py
 
 **billboard.py** is a Python API for accessing ranking charts from Billboard.com.
 
-Quick Start
+Quick start
 -----------
 
 Let's fetch the current [Hot 100](http://www.billboard.com/charts/hot-100) chart.
