@@ -6,6 +6,8 @@ billboard.py
 Quick start
 -----------
 
+To download a *Billboard* chart, we use the `ChartData()` constructor.
+
 Let's fetch the current [Hot 100](http://www.billboard.com/charts/hot-100) chart.
 
 ```Python
@@ -13,7 +15,26 @@ Let's fetch the current [Hot 100](http://www.billboard.com/charts/hot-100) chart
 >>> chart = billboard.ChartData('hot-100')
 ```
 
-As of 8 December 2013, printing `chart` gives:
+Now we can manipulate the chart entries, which are of type `ChartEntry` and have attributes like `artist`, `title`, and `album`:
+
+```Python
+>>> song = chart[0]  # Get no. 1 song on chart
+>>> song.artist
+# u'Miley Cyrus'
+>>> song.title
+# u'Wrecking Ball'
+>>> song.album
+# u'Bangerz [Deluxe Edition]'
+```
+
+We can also easily pretty-print the entire chart with:
+
+```Python
+print chart
+```
+
+which as of 8 December 2013 gives:
+
 ```
 hot-100 chart (current)
 -----------------------
