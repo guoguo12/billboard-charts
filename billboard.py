@@ -15,13 +15,14 @@ HEADERS = {'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-ch
 
 class ChartEntry:
 
-    def __init__(self, title, artist, album, peakPos, lastPos, weeks):
+    def __init__(self, title, artist, album, peakPos, lastPos, weeks, rank):
         self.title = title
         self.artist = artist
         self.album = album
         self.peakPos = peakPos
         self.lastPos = lastPos
         self.weeks = weeks
+        self.rank = rank
 
     def __repr__(self):
         if self.album:
@@ -51,7 +52,7 @@ class ChartData:
             s = '%s chart from %s' % (self.name, self.date)
         s += '\n' + '-' * len(s)
         for n, entry in enumerate(self.entries):
-            s += '\n%s. %s' % (str(n + 1), str(entry))
+            s += '\n%s. %s' % (entry.rank, str(entry))
         return s
         
     def __getitem__(self, key):
@@ -96,7 +97,8 @@ class ChartData:
                     # No last position
                     lastPos = 0
                 weeks = int(pos_soups[2].contents[2].strip())
-                self.entries.append(ChartEntry(title, artist, album, peakPos, lastPos, weeks))
+                rank = entry_soup.header.find('span', 'chart_position').string.strip()
+                self.entries.append(ChartEntry(title, artist, album, peakPos, lastPos, weeks, rank))
 
 
 def downloadHTML(url, params):
