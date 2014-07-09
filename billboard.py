@@ -77,6 +77,9 @@ class ChartData:
                     artist = chartInfoSoup.contents[1].string
                     if chartInfoSoup.contents[3].string:
                         album = chartInfoSoup.contents[3].string.strip()
+                       	# Index where album info is stored might be off by one depending on client/IP.
+                    elif chartInfoSoup.contents[4].string:
+                        album = chartInfoSoup.contents[4].string.strip()
                     else:
                         album = None
                 else:
