@@ -3,6 +3,8 @@ billboard.py
 
 **billboard.py** is a Python API for accessing ranking charts from Billboard.com.
 
+As of October 2014, billboard.py does not work with the new Billboard.com design.
+
 Quick start
 -----------
 
