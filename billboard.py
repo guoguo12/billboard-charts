@@ -54,6 +54,10 @@ class ChartData:
         
     def __getitem__(self, key):
         return self.entries[key]
+        
+    def __len__(self):
+        '''useful for things like top 40'''
+        return len(self.entries)
 
     def fetchEntries(self, all=False):
         if self.latest:
