@@ -20,11 +20,13 @@ Now we can manipulate the chart entries, which are of type `ChartEntry` and have
 ```Python
 >>> song = chart[0]  # Get no. 1 song on chart
 >>> song.artist
-# u'The Weeknd'
+u'The Weeknd'
 >>> song.title
-# u'The Hills'
->>> song.peakPos  # Peak position
-1
+u'The Hills'
+>>> song.weeks       # Get no. of weeks on chart
+19
+>>> print song
+'The Hills' by The Weeknd
 ```
 
 We can also easily pretty-print the entire chart with:
