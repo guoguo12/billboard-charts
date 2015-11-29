@@ -60,10 +60,10 @@ hot-100 chart (current)
 # ... 90 more lines
 ```
 
-Full Documentation
+Full documentation
 ------------------
 
-### Downloading a Chart
+### Downloading a chart
 
 Use the `ChartData` constructor to download a chart:
 
@@ -73,18 +73,18 @@ ChartData(name, date=None, fetch=True, all=False)
 
 The arguments are:
 
-* `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`. You can browse the Charts section of Billboard.com to find valid chart names; the URL of a chart will look like "http://www.billboard.com/charts/CHART-NAME" ([example](http://www.billboard.com/charts/artist-100)).
+* `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`. You can browse the Charts section of Billboard.com to find valid chart names; the URL of a chart will look like `http://www.billboard.com/charts/CHART-NAME` ([example](http://www.billboard.com/charts/artist-100)).
 * `date` &ndash; The chart date as a string, in YYYY-MM-DD format. If this argument is omitted, the latest chart will be fetched. Again, the best way to find valid dates is by browsing the Billboard website. For the Hot 100 chart, an example of a valid date is `'2015-11-28'`, which gets [this chart](http://www.billboard.com/charts/hot-100/2015-11-28). If this argument is invalid, no exception will be raised; instead, the chart will contain no entries.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
 * `all` &ndash; Deprecated; has no effect.
 
-### Accessing Chart Entries
+### Accessing chart entries
 
 If `chart` is a `ChartData` instance, we can ask for its `entries` attribute to get the chart entries (see below) as a list.
 
 For convenience, `chart[x]` is equivalent to `chart.entries[x]`.
 
-### Chart Entry Attributes
+### Chart entry attributes
 
 A chart entry (typically a song) is of type `ChartEntry`. A `ChartEntry` instance has the following attributes:
 
@@ -96,6 +96,12 @@ A chart entry (typically a song) is of type `ChartEntry`. A `ChartEntry` instanc
 * `rank` &ndash; The song's current position on the chart.
 * `change` &ndash; A string indicating how the song's position has changed since last week. This may be of the form '+n' or '-n', where 'n' is an integer; this indicates that the song's position has increased or decreased by 'n' points. This string could also be 'New' or 'Re-Entry'; this indicates that the song wasn't on the chart last week because it is either completely new to the chart or re-entering the chart after leaving it for at least a week. Additionally, this string is 'Hot Shot Debut' for the highest-ranked 'New' song.
 
+### More resources
+
+For additional documentation, take a look at the source code for `billboard.py`, or use Python's interactive `help` feature.
+
+If you're stuck or confused: This is a small project, so you can also just email me (Allen). My contact info is on my profile page.
+
 Contributing
 ------------
 
@@ -103,7 +109,7 @@ Found a bug? Create an issue [here](https://github.com/guoguo12/billboard-charts
 
 Pull requests are welcome!
 
-### Running Tests
+### Running tests
 
 Install [tox](https://tox.readthedocs.org/en/latest/) and [nose](https://nose.readthedocs.org/en/latest/).
 
