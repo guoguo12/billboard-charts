@@ -85,7 +85,7 @@ Assuming you have both Python 2.7 and 3.4 installed on your machine, you can als
 tox
 ```
 
-to run tests on both versions.
+to run tests on both versions; see `tox.ini` for configuration details.
 
 License
 -------
