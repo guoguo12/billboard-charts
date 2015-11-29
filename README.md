@@ -14,8 +14,8 @@ pip install billboard.py
 
 Alternatively, simply clone this repository and run `python setup.py install`.
 
-Quick start
------------
+Quickstart
+----------
 
 To download a *Billboard* chart, we use the `ChartData()` constructor.
 
@@ -68,6 +68,24 @@ Dependencies
 ------------
 * [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/)
 * [Requests](http://requests.readthedocs.org/en/latest/) 
+
+Running Tests (for Contributors)
+--------------------------------
+Install [tox](https://tox.readthedocs.org/en/latest/) and [nose](https://nose.readthedocs.org/en/latest/).
+
+To run all of the tests, run
+
+```
+nosetests
+```
+
+Assuming you have both Python 2.7 and 3.4 installed on your machine, you can also run
+
+```
+tox
+```
+
+to run tests on both versions.
 
 License
 -------
