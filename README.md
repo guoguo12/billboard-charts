@@ -3,6 +3,17 @@ billboard.py
 
 **billboard.py** is a Python API for accessing ranking charts from Billboard.com.
 
+Installation
+------------
+
+To install with pip, run
+
+```
+pip install billboard.py
+```
+
+Alternatively, simply clone this repository and run `python setup.py install`.
+
 Quick start
 -----------
 
