@@ -83,7 +83,7 @@ class ChartData:
                 self.name, self.date)
 
         html = downloadHTML(url)
-        soup = BeautifulSoup(html)
+        soup = BeautifulSoup(html, 'html.parser')
 
         for entry_soup in soup.find_all('article', {"class": "chart-row"}):
 
