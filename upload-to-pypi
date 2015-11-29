@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+sudo rm -rf dist/
+sudo python setup.py bdist_wheel --universal
+twine upload dist/*
