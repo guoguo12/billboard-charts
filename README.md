@@ -34,6 +34,8 @@ Now we can look at the chart entries, which are of type `ChartEntry` and have at
 u'Hello'
 >>> song.artist      # Get the artist
 u'Adele'
+>>> song.weeks       # Get number of weeks on chart
+4
 ```
 
 We can also easily pretty-print the entire chart with:
