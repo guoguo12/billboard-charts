@@ -2,6 +2,7 @@ billboard.py
 ============
 
 [![Build Status](https://travis-ci.org/guoguo12/billboard-charts.svg)](https://travis-ci.org/guoguo12/billboard-charts)
+[![PyPI](https://img.shields.io/pypi/dm/billboard.py.svg)](https://pypi.python.org/pypi/billboard.py)
 
 **billboard.py** is a Python API for accessing ranking charts from Billboard.com.
 
