@@ -46,6 +46,20 @@ class HistoricalHot100Test(CurrentHot100Test):
         with open(reference_path) as reference:
             assert str(self.chart) == reference.read()
 
+class DetailedHistoricalHot100Test(CurrentHot100Test):
+
+    def setUp(self):
+        self.chart = billboard.ChartData('hot-100', date='2016-02-13')
+
+    def test_correct_fields(self):
+        assert self.chart.date == '2016-02-13'
+        assert self.chart.latest is False
+
+    def test_correct_entries(self):
+        reference_path = os.path.join(get_test_dir(), '2016-02-13-output.json')
+        with open(reference_path) as reference:
+            assert self.chart.to_JSON().strip() == reference.read().strip()
+
 
 def get_test_dir():
     return os.path.dirname(os.path.realpath(__file__))
