@@ -149,10 +149,10 @@ class ChartData:
         html = downloadHTML(url)
         soup = BeautifulSoup(html, 'html.parser')
 
-        for entry_soup in soup.find_all('article', {"class": "chart-row"}):
+        for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
 
             # Grab title and artist
-            basicInfoSoup = entry_soup.find('div', 'row-title').contents
+            basicInfoSoup = entry_soup.find('div', 'chart-row__title').contents
             title = basicInfoSoup[1].string.strip()
 
             if (basicInfoSoup[3].find('a')):
@@ -160,19 +160,20 @@ class ChartData:
             else:
                 artist = basicInfoSoup[3].string.strip()
 
+            def getRowValue(rowName):
+                return entry_soup.select_one('div.chart-row__' + rowName + ' .chart-row__value').string.strip()
+
             # Grab week data (peak rank, last week's rank, total weeks on
             # chart)
-            weekInfoSoup = entry_soup.find('div', 'stats').contents
-            peakPos = int(weekInfoSoup[3].find('span', 'value').string.strip())
+            peakPos = int(getRowValue('top-spot'))
 
-            lastPos = weekInfoSoup[1].find('span', 'value').string.strip()
+            lastPos = getRowValue('last-week')
             lastPos = 0 if lastPos == '--' else int(lastPos)
 
-            weeks = int(weekInfoSoup[5].find('span', 'value').string.strip())
+            weeks = int(getRowValue('weeks-on-chart'))
 
             # Get current rank
-            rank = int(
-                entry_soup.find('div', 'row-rank').find('span', 'this-week').string.strip())
+            rank = int(entry_soup.select_one('.chart-row__current-week').string.strip())
 
             change = lastPos - rank
             if lastPos == 0:
