@@ -58,7 +58,9 @@ class DetailedHistoricalHot100Test(CurrentHot100Test):
     def test_correct_entries(self):
         reference_path = os.path.join(get_test_dir(), '2016-02-13-output.json')
         with open(reference_path) as reference:
-            assert self.chart.to_JSON().strip() == reference.read().strip()
+            normalized_chart_json = self.chart.to_JSON().strip().replace(' ', '')
+            normalized_ref_json = reference.read().strip().replace(' ', '')
+            assert normalized_ref_json == normalized_chart_json
 
 
 def get_test_dir():
