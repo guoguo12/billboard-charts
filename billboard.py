@@ -93,6 +93,7 @@ class ChartData:
             all: Deprecated; has no effect.
         """
         self.name = name
+        self.previousDate = None
         if date:
             self.date = date
             self.latest = False
@@ -148,6 +149,12 @@ class ChartData:
 
         html = downloadHTML(url)
         soup = BeautifulSoup(html, 'html.parser')
+
+        prevLink = soup.find('a', {'title': 'Previous Week'})
+        if prevLink:
+            # Extract the previous date from the link. 
+            # eg, /charts/country-songs/2016-02-13
+            self.previousDate = prevLink.get('href').split('/')[-1]
 
         for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
 

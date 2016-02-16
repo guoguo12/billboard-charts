@@ -62,6 +62,14 @@ class DetailedHistoricalHot100Test(CurrentHot100Test):
             normalized_ref_json = reference.read().strip().replace(' ', '')
             assert normalized_ref_json == normalized_chart_json
 
+class PreviousDateTest(unittest.TestCase):
+
+    def setUp(self):
+        self.chart = billboard.ChartData('hot-100', date='2016-02-13')
+
+    def test_correct_fields(self):
+        assert self.chart.previousDate == '2016-02-06'
+
 
 def get_test_dir():
     return os.path.dirname(os.path.realpath(__file__))
