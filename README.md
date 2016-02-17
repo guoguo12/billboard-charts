@@ -83,6 +83,22 @@ The arguments are:
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
 * `all` &ndash; Deprecated; has no effect.
 
+### Walking through chart dates
+
+Every `ChartData` instance has a `previousDate` attribute containing a string representation of the previous chart's date. You can feed this into another `ChartData` instance to effectively walk back through previous charts.
+
+```python
+import billboard
+from time import sleep
+
+chart = billboard.ChartData('hot-100')
+while chart.previousDate:
+  doSomething(chart)
+  chart = billboard.ChartData('hot-100', chart.previousDate)
+  sleep(2) # try not to hammer Billboard.
+
+``` 
+
 ### Accessing chart entries
 
 If `chart` is a `ChartData` instance, we can ask for its `entries` attribute to get the chart entries (see below) as a list.
