@@ -205,7 +205,7 @@ class ChartData:
 
             # Get spotify link for this track
             linkInfo = entry_soup.find('a', 'chart-row__player-link')
-            spotifyLink = linkInfo.get('href').strip() if linkInfo else 'none'
+            spotifyLink = linkInfo.get('href').strip() if linkInfo else ''
 
             self.entries.append(
                 ChartEntry(title, artist, peakPos,
