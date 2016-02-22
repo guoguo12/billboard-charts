@@ -157,6 +157,13 @@ class ChartData:
             # Extract the previous date from the link. 
             # eg, /charts/country-songs/2016-02-13
             self.previousDate = prevLink.get('href').split('/')[-1]
+            
+        currentTime = soup.find('time')
+        if currentTime:
+            # Extract the previous date from the link. 
+            # eg, /charts/country-songs/2016-02-13
+            self.date = currentTime.get('datetime')
+            
         for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
             # Grab title and artist
             basicInfoSoup = entry_soup.find('div', 'chart-row__title').contents
