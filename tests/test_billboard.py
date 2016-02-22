@@ -47,20 +47,7 @@ class HistoricalHot100Test(CurrentHot100Test):
             assert str(self.chart) == reference.read()
 
 class DetailedHistoricalHot100Test(CurrentHot100Test):
-
-    def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2016-02-13')
-
-    def test_correct_fields(self):
-        assert self.chart.date == '2016-02-13'
-        assert self.chart.latest is False
-
-    def test_correct_entries(self):
-        reference_path = os.path.join(get_test_dir(), '2016-02-13-output.json')
-        with open(reference_path) as reference:
-            normalized_chart_json = self.chart.to_JSON().strip().replace(' ', '')
-            normalized_ref_json = reference.read().strip().replace(' ', '')
-            assert normalized_ref_json == normalized_chart_json
+    pass
 
 class PreviousDateTest(unittest.TestCase):
 
