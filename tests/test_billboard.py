@@ -46,8 +46,10 @@ class HistoricalHot100Test(CurrentHot100Test):
         with open(reference_path) as reference:
             assert str(self.chart) == reference.read()
 
+
 class DetailedHistoricalHot100Test(CurrentHot100Test):
     pass
+
 
 class PreviousDateTest(unittest.TestCase):
 

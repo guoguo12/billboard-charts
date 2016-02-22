@@ -154,16 +154,16 @@ class ChartData:
 
         prevLink = soup.find('a', {'title': 'Previous Week'})
         if prevLink:
-            # Extract the previous date from the link. 
+            # Extract the previous date from the link.
             # eg, /charts/country-songs/2016-02-13
             self.previousDate = prevLink.get('href').split('/')[-1]
-            
+
         currentTime = soup.find('time')
         if currentTime:
-            # Extract the previous date from the link. 
+            # Extract the previous date from the link.
             # eg, /charts/country-songs/2016-02-13
             self.date = currentTime.get('datetime')
-            
+
         for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
             # Grab title and artist
             basicInfoSoup = entry_soup.find('div', 'chart-row__title').contents
@@ -175,7 +175,8 @@ class ChartData:
                 artist = basicInfoSoup[3].string.strip()
 
             def getRowValue(rowName):
-                return entry_soup.select_one('div.chart-row__' + rowName + ' .chart-row__value').string.strip()
+                selector = 'div.chart-row__' + rowName + ' .chart-row__value'
+                return entry_soup.select_one(selector).string.strip()
 
             # Grab week data (peak rank, last week's rank, total weeks on
             # chart)
@@ -201,11 +202,11 @@ class ChartData:
                 change = "+" + str(change)
             else:
                 change = str(change)
-            
+
             # Get spotify link for this track
             linkInfo = entry_soup.find('a', 'chart-row__player-link')
             spotifyLink = linkInfo.get('href').strip() if linkInfo else 'none'
-            
+
             self.entries.append(
                 ChartEntry(title, artist, peakPos,
                            lastPos, weeks, rank, change, spotifyLink))
