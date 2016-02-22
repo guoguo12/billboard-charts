@@ -11,7 +11,7 @@ class CurrentHot100Test(unittest.TestCase):
         self.chart = billboard.ChartData('hot-100')
 
     def test_correct_fields(self):
-        assert self.chart.date is None
+        assert self.chart.date is not None
         assert self.chart.latest is True
 
     def test_valid_entries(self):
