@@ -60,5 +60,14 @@ class PreviousDateTest(unittest.TestCase):
         assert self.chart.previousDate == '2016-02-06'
 
 
+class InvalidDateTest(unittest.TestCase):
+
+    def setUp(self):
+        self.chart = billboard.ChartData('hot-100', date='2016-02-12')
+
+    def test_correct_entries(self):
+        assert len(self.chart) == 0
+
+
 def get_test_dir():
     return os.path.dirname(os.path.realpath(__file__))
