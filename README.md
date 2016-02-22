@@ -79,7 +79,7 @@ ChartData(name, date=None, fetch=True, all=False)
 The arguments are:
 
 * `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`. You can browse the Charts section of Billboard.com to find valid chart names; the URL of a chart will look like `http://www.billboard.com/charts/CHART-NAME` ([example](http://www.billboard.com/charts/artist-100)).
-* `date` &ndash; The chart date as a string, in YYYY-MM-DD format. If this argument is omitted, the latest chart will be fetched. Again, the best way to find valid dates is by browsing the Billboard website. For the Hot 100 chart, an example of a valid date is `'2015-11-28'`, which gets [this chart](http://www.billboard.com/charts/hot-100/2015-11-28). If this argument is invalid, no exception will be raised; instead, the chart will contain no entries.
+* `date` &ndash; The chart date as a string, in YYYY-MM-DD format. If this argument is omitted (or is `None`), the latest chart will be fetched. Again, the best way to find valid dates is by browsing the Billboard website. For the Hot 100 chart, an example of a valid date is `'2015-11-28'`, which gets [this chart](http://www.billboard.com/charts/hot-100/2015-11-28). If this argument is invalid, no exception will be raised; instead, the chart will contain no entries.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
 * `all` &ndash; Deprecated; has no effect.
 
