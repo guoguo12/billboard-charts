@@ -37,9 +37,10 @@ class ChartEntry:
             re-entering the chart after leaving it for at least a week.
             Additionally, this string is 'Hot Shot Debut' for the
             highest-ranked 'New' song.
+        spotifyLink: the link for spotify track.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyLink):
         """Constructs a new ChartEntry instance with given attributes.
         """
         self.title = title
@@ -49,6 +50,7 @@ class ChartEntry:
         self.weeks = weeks
         self.rank = rank
         self.change = change
+        self.spotifyLink = spotifyLink
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -155,9 +157,14 @@ class ChartData:
             # Extract the previous date from the link. 
             # eg, /charts/country-songs/2016-02-13
             self.previousDate = prevLink.get('href').split('/')[-1]
-
+            
+        currentTime = soup.find('time')
+        if currentTime:
+            # Extract the previous date from the link. 
+            # eg, /charts/country-songs/2016-02-13
+            self.date = currentTime.get('datetime')
+            
         for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
-
             # Grab title and artist
             basicInfoSoup = entry_soup.find('div', 'chart-row__title').contents
             title = basicInfoSoup[1].string.strip()
@@ -194,10 +201,14 @@ class ChartData:
                 change = "+" + str(change)
             else:
                 change = str(change)
-
+            
+            # Get spotify link for this track
+            linkInfo = entry_soup.find('a', 'chart-row__player-link')
+            spotifyLink = linkInfo.get('href').strip() if linkInfo else 'none'
+            
             self.entries.append(
                 ChartEntry(title, artist, peakPos,
-                           lastPos, weeks, rank, change))
+                           lastPos, weeks, rank, change, spotifyLink))
 
         # Hot Shot Debut is the top-ranked new entry, or the first "New" entry
         # we find.
