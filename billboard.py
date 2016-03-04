@@ -15,29 +15,23 @@ HEADERS = {'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-ch
 
 
 class ChartEntry:
-    """Represents a single entry (song) on a chart.
+    """Represents an entry (typically a single track) on a chart.
 
     Attributes:
-        title: The title of the song.
-        artist: The name of the song artist, as formatted on Billboard.com.
+        title: The title of the track.
+        artist: The name of the track artist, as formatted on Billboard.com.
             If there are multiple artists and/or featured artists, they will
             be included in this string.
-        peakPos: The song's peak position on the chart, as an int.
-        lastPos: The song's position on the chart last week, as an int.
-            This value is 0 if the song has never been on the chart before.
-        weeks: The number of weeks the song has been on the chart.
-            This value is 1 if the song is new on the chart.
-        rank: The song's current position on the chart.
-        change: A string indicating how the song's position has changed since
-            last week. This may be of the form '+n' or '-n', where 'n' is an
-            integer; this indicates that the song's position has increased
-            or decreased by 'n' points. This string could also be 'New' or
-            'Re-Entry'; this indicates that the song wasn't on the chart last
-            week because it is either completely new to the chart or
-            re-entering the chart after leaving it for at least a week.
-            Additionally, this string is 'Hot Shot Debut' for the
-            highest-ranked 'New' song.
-        spotifyLink: the link for spotify track.
+        peakPos: The track's peak position on the chart, as an int.
+        lastPos: The track's position on the previous week's chart, as an int.
+            This value is 0 if the track has never been on the chart before.
+        weeks: The number of weeks the track has been on the chart.
+            This value is 1 if the track is new on the chart.
+        rank: The track's current position on the chart.
+        change: A string indicating how the track's position has changed since the previous week.
+            See web documentation for details.
+        spotifyLink: The Spotify embed URL of the track, or an empty string if no such URL was provided.
+            This can be used to access more information about the track via the Spotify Web API.
     """
 
     def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyLink):
