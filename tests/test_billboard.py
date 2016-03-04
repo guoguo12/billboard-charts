@@ -1,11 +1,17 @@
 import json
 import os
+import re
 import unittest
 
 import billboard
 
+VALID_CHANGE_REGEX = r'^(\+\d{1,2}|\-\d{1,2}|0|Hot Shot Debut|New|Re-Entry)$'
+
 
 class CurrentHot100Test(unittest.TestCase):
+    """Checks that the ChartData object for the current Hot 100 chart
+    has all valid fields, and that its entries also have valid fields.
+    """
 
     def setUp(self):
         self.chart = billboard.ChartData('hot-100')
@@ -26,6 +32,9 @@ class CurrentHot100Test(unittest.TestCase):
             assert entry.weeks >= 0
             assert entry.rank >= 1 \
                and entry.rank <= 100
+            assert re.match(VALID_CHANGE_REGEX, entry.change)
+            assert entry.spotifyLink == '' \
+                or 'embed.spotify.com' in entry.spotifyLink
             assert repr(entry)
 
     def test_valid_json(self):
@@ -33,6 +42,10 @@ class CurrentHot100Test(unittest.TestCase):
 
 
 class HistoricalHot100Test(CurrentHot100Test):
+    """Checks that the ChartData object for a previous week's Hot 100 chart
+    has all valid fields, and that its string representation matches what
+    is expected.
+    """
 
     def setUp(self):
         self.chart = billboard.ChartData('hot-100', date='2015-11-28')
@@ -40,6 +53,7 @@ class HistoricalHot100Test(CurrentHot100Test):
     def test_correct_fields(self):
         assert self.chart.date == '2015-11-28'
         assert self.chart.latest is False
+        assert self.chart.previousDate == '2015-11-21'
 
     def test_correct_entries(self):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-output.txt')
@@ -47,20 +61,10 @@ class HistoricalHot100Test(CurrentHot100Test):
             assert str(self.chart) == reference.read()
 
 
-class DetailedHistoricalHot100Test(CurrentHot100Test):
-    pass
-
-
-class PreviousDateTest(unittest.TestCase):
-
-    def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2016-02-13')
-
-    def test_correct_fields(self):
-        assert self.chart.previousDate == '2016-02-06'
-
-
 class InvalidDateTest(unittest.TestCase):
+    """Checks that the ChartData object created when the date is invalid
+    has no entries.
+    """
 
     def setUp(self):
         self.chart = billboard.ChartData('hot-100', date='2016-02-12')
@@ -70,4 +74,6 @@ class InvalidDateTest(unittest.TestCase):
 
 
 def get_test_dir():
+    """Returns the name of the directory containing this test file.
+    """
     return os.path.dirname(os.path.realpath(__file__))
