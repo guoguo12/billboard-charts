@@ -11,7 +11,8 @@ __maintainer__ = "Allen Guo"
 __email__ = "guoguo12@gmail.com"
 
 
-HEADERS = {'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'}
+HEADERS = {
+    'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'}
 
 
 class ChartEntry:
@@ -35,7 +36,7 @@ class ChartEntry:
             information about the track via the Spotify Web API.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyLink):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink):
         """Constructs a new ChartEntry instance with given attributes.
         """
         self.title = title
@@ -46,6 +47,7 @@ class ChartEntry:
         self.rank = rank
         self.change = change
         self.spotifyLink = spotifyLink
+        self.spotifyID = spotifyID
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -56,8 +58,9 @@ class ChartEntry:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+        jstring = json.dumps(self, default=lambda o: o.__dict__,
+                             sort_keys=True, indent=4)
+        return jstring
 
 
 class ChartData:
@@ -129,10 +132,9 @@ class ChartData:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        for entry in self.entries:
-            entry = entry.to_JSON()
-        return json.dumps(self, default=lambda o: o.__dict__,
-                          sort_keys=True, indent=4)
+        jstring = json.dumps(self, default=lambda o: o.__dict__,
+                             sort_keys=True, indent=4)
+        return jstring
 
     def fetchEntries(self, all=False):
         """GETs the corresponding chart data from Billboard.com, then parses
@@ -183,7 +185,8 @@ class ChartData:
             weeks = int(getRowValue('weeks-on-chart'))
 
             # Get current rank
-            rank = int(entry_soup.select_one('.chart-row__current-week').string.strip())
+            rank = int(
+                entry_soup.select_one('.chart-row__current-week').string.strip())
 
             change = lastPos - rank
             if lastPos == 0:
@@ -199,12 +202,17 @@ class ChartData:
                 change = str(change)
 
             # Get spotify link for this track
-            linkInfo = entry_soup.find('a', 'chart-row__player-link')
-            spotifyLink = linkInfo.get('href').strip() if linkInfo else ''
+            spotifyID = entry_soup["data-spotifyid"]
+            if spotifyID:
+                spotifyLink = "https://embed.spotify.com/?uri=spotify:track:" + \
+                    spotifyID
+            else:
+                spotifyLink = ''
 
             self.entries.append(
                 ChartEntry(title, artist, peakPos,
-                           lastPos, weeks, rank, change, spotifyLink))
+                           lastPos, weeks, rank, change,
+                           spotifyID, spotifyLink))
 
         # Hot Shot Debut is the top-ranked new entry, or the first "New" entry
         # we find.

@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='billboard.py',
-      version='2.0.0',
+      version='2.0.1',
       description='Unofficial Python API for accessing Billboard.com charts',
       author='Allen Guo',
       author_email='guoguo12@gmail.com',
