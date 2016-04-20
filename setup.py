@@ -11,4 +11,4 @@ setup(name='billboard.py',
       py_modules=['billboard'],
       license='MIT License',
       install_requires=['beautifulsoup4', 'requests >= 2.2.1']
-     )
+      )
