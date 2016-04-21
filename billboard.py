@@ -58,9 +58,8 @@ class ChartEntry:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        jstring = json.dumps(self, default=lambda o: o.__dict__,
-                             sort_keys=True, indent=4)
-        return jstring
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class ChartData:
@@ -132,9 +131,8 @@ class ChartData:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        jstring = json.dumps(self, default=lambda o: o.__dict__,
-                             sort_keys=True, indent=4)
-        return jstring
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
     def fetchEntries(self, all=False):
         """GETs the corresponding chart data from Billboard.com, then parses
