@@ -137,6 +137,7 @@ Pull requests are welcome! Please adhere to the following style guidelines:
 
 * In general, follow [PEP 8](https://www.python.org/dev/peps/pep-0008/). You may ignore E501 ("line too long") and E127 ("continuation line over-indented for visual indent") if following them would detract from the readability of the code. Use your best judgement!
 * We use `mixedCase` for variable names.
+* All-uppercase words remain all-uppercase when they appear at the end of variable names (e.g. `downloadHTML` not `downloadHtml`).
 
 ### Running tests
 
