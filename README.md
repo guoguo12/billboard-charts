@@ -133,7 +133,10 @@ Contributing
 
 Found a bug? Create an issue [here](https://github.com/guoguo12/billboard-charts/issues).
 
-Pull requests are welcome!
+Pull requests are welcome! Please adhere to the following style guidelines:
+
+* In general, follow [PEP 8](https://www.python.org/dev/peps/pep-0008/). You may ignore E501 ("line too long") and E127 ("continuation line over-indented for visual indent") if following them would detract from the readability of the code. Use your best judgement!
+* We use `mixedCase` for variable names.
 
 ### Running tests
 
