@@ -200,7 +200,7 @@ class ChartData:
                 change = str(change)
 
             # Get spotify link for this track
-            spotifyID = entry_soup["data-spotifyid"]
+            spotifyID = entry_soup.get('data-spotifyid')
             if spotifyID:
                 spotifyLink = "https://embed.spotify.com/?uri=spotify:track:" + \
                     spotifyID
