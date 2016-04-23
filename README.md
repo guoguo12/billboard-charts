@@ -120,7 +120,10 @@ A chart entry (typically a single track) is of type `ChartEntry`. A `ChartEntry`
   * 'Hot Shot Debut', which means track is the highest-rated track that is completely new to the chart.
   * 'New', which means the track is completely new to the chart, yet not the highest rated new track.
   * 'Re-Entry', which means the track is re-entering the chart after leaving it for at least a week.
-* `spotifyLink` &ndash; The Spotify embed URL of the track, or an empty string if no such URL was provided. This can be used to access more information about the track via the [Spotify Web API](https://developer.spotify.com/web-api/get-track/).
+* `spotifyID` &ndash; The Spotify ID of the track, or an empty string if it was not provided. This can be used to access more information about the track via the [Spotify Web API](https://developer.spotify.com/web-api/get-tr ack/).
+* `spotifyLink` &ndash; The Spotify embed URL of the track, generated from the spotifyID. Will be an empty string if no such ID was provided.
+
+
 
 ### More resources
 
