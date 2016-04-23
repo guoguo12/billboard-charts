@@ -58,9 +58,8 @@ class ChartEntry:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        jstring = json.dumps(self, default=lambda o: o.__dict__,
-                             sort_keys=True, indent=4)
-        return jstring
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
 
 class ChartData:
@@ -132,9 +131,8 @@ class ChartData:
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
-        jstring = json.dumps(self, default=lambda o: o.__dict__,
-                             sort_keys=True, indent=4)
-        return jstring
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
     def fetchEntries(self, all=False):
         """GETs the corresponding chart data from Billboard.com, then parses
@@ -161,9 +159,9 @@ class ChartData:
             # eg, /charts/country-songs/2016-02-13
             self.date = currentTime.get('datetime')
 
-        for entry_soup in soup.find_all('article', {'class': 'chart-row'}):
+        for entrySoup in soup.find_all('article', {'class': 'chart-row'}):
             # Grab title and artist
-            basicInfoSoup = entry_soup.find('div', 'chart-row__title').contents
+            basicInfoSoup = entrySoup.find('div', 'chart-row__title').contents
             title = basicInfoSoup[1].string.strip()
 
             if (basicInfoSoup[3].find('a')):
@@ -173,7 +171,7 @@ class ChartData:
 
             def getRowValue(rowName):
                 selector = 'div.chart-row__' + rowName + ' .chart-row__value'
-                return entry_soup.select_one(selector).string.strip()
+                return entrySoup.select_one(selector).string.strip()
 
             # Grab week data (peak rank, last week's rank, total weeks on
             # chart)
@@ -186,7 +184,7 @@ class ChartData:
 
             # Get current rank
             rank = int(
-                entry_soup.select_one('.chart-row__current-week').string.strip())
+                entrySoup.select_one('.chart-row__current-week').string.strip())
 
             change = lastPos - rank
             if lastPos == 0:
@@ -202,7 +200,7 @@ class ChartData:
                 change = str(change)
 
             # Get spotify link for this track
-            spotifyID = entry_soup["data-spotifyid"]
+            spotifyID = entrySoup.get('data-spotifyid')
             if spotifyID:
                 spotifyLink = "https://embed.spotify.com/?uri=spotify:track:" + \
                     spotifyID
