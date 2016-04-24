@@ -19,6 +19,7 @@ class CurrentHot100Test(unittest.TestCase):
     def test_correct_fields(self):
         assert self.chart.date is not None
         assert self.chart.latest is True
+        assert sorted(entry.rank for entry in self.chart) == range(1, 101)
 
     def test_valid_entries(self):
         assert len(self.chart) == 100
