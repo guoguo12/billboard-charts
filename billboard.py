@@ -207,6 +207,7 @@ class ChartData:
                 spotifyLink = "https://embed.spotify.com/?uri=spotify:track:" + \
                     spotifyID
             else:
+                spotifyID = ''
                 spotifyLink = ''
 
             self.entries.append(
