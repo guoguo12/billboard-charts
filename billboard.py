@@ -31,9 +31,11 @@ class ChartEntry:
         rank: The track's current position on the chart.
         change: A string indicating how the track's position has changed since
             the previous week. See web documentation for details.
-        spotifyLink: The Spotify embed URL of the track, or an empty string if
-            no such URL was provided. This can be used to access more
-            information about the track via the Spotify Web API.
+        spotifyID: The Spotify ID of the track, or an empty string if it was
+            not provided. This can be used to access more information about the
+            track via the Spotify Web API.
+        spotifyLink: The Spotify embed URL of the track, generated from the
+            spotifyID. Will be an empty string if no such ID was provided.
     """
 
     def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink):
