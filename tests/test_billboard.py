@@ -33,6 +33,7 @@ class CurrentHot100Test(unittest.TestCase):
             assert entry.rank >= 1 \
                and entry.rank <= 100
             assert re.match(VALID_CHANGE_REGEX, entry.change)
+            assert entry.spotifyID is not None
             assert entry.spotifyLink == '' \
                 or 'embed.spotify.com' in entry.spotifyLink
             assert repr(entry)
