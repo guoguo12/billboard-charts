@@ -1,3 +1,4 @@
+from itertools import chain, repeat
 import json
 import os
 import re
@@ -61,6 +62,21 @@ class HistoricalHot100Test(CurrentHot100Test):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-output.txt')
         with open(reference_path) as reference:
             assert str(self.chart) == reference.read()
+
+
+class Hot100QuantizationTest(unittest.TestCase):
+    """Checks that the date quantization feature for ChartData
+    functions correctly.
+    """
+
+    def setUp(self):
+        dates = ['2016-07-0%d' % x for x in xrange(1, 8)]  # 7/1/16 to 7/7/16
+        self.charts = [billboard.ChartData('hot-100', date=date, fetch=False) for date in dates]
+
+    def test_correct_fields(self):
+        dates = [chart.date for chart in self.charts]
+        reference_dates = list(chain(repeat('2016-07-02', 2), repeat('2016-07-09', 5)))
+        assert dates == reference_dates
 
 
 class InvalidDateTest(unittest.TestCase):
