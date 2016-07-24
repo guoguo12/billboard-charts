@@ -3,7 +3,7 @@ billboard.py
 
 [![Build Status](https://travis-ci.org/guoguo12/billboard-charts.svg)](https://travis-ci.org/guoguo12/billboard-charts)
 
-**billboard.py** is a Python API for accessing ranking charts from Billboard.com.
+**billboard.py** is a Python API for accessing music charts from [Billboard.com](www.billboard.com/charts/).
 
 Installation
 ------------
@@ -32,21 +32,17 @@ Now we can look at the chart entries, which are of type `ChartEntry` and have at
 
 ```Python
 >>> song = chart[0]  # Get no. 1 song on chart
->>> song.title       # Get the title
+>>> song.title
 u'One Dance'
->>> song.artist      # Get the artist
+>>> song.artist
 u'Drake Featuring WizKid & Kyla'
->>> song.weeks       # Get number of weeks on chart
+>>> song.weeks  # Number of weeks on chart
 15
+>>> song.spotifyID
+u'11hqMWwX7sF3sOGdtijofF'
 ```
 
-We can also easily pretty-print the entire chart:
-
-```Python
->>> print chart
-```
-
-which gives (as of July 23, 2016):
+We can also `print` the entire chart:
 
 ```
 hot-100 chart (current)
@@ -54,14 +50,7 @@ hot-100 chart (current)
 1. 'One Dance' by Drake Featuring WizKid & Kyla (0)
 2. 'Can't Stop The Feeling!' by Justin Timberlake (0)
 3. 'Cheap Thrills' by Sia Featuring Sean Paul (+2)
-4. 'This Is What You Came For' by Calvin Harris Featuring Rihanna (0)
-5. 'Don't Let Me Down' by The Chainsmokers Featuring Daya (-2)
-6. 'Ride' by twenty one pilots (+2)
-7. 'Needed Me' by Rihanna (0)
-8. 'Panda' by Desiigner (-2)
-9. 'Don't Mind' by Kent Jones (0)
-10. 'Send My Love (To Your New Lover)' by Adele (+2)
-# ... 90 more lines
+# ... 97 more lines
 ```
 
 Full documentation
@@ -88,15 +77,10 @@ The arguments are:
 Every `ChartData` instance has a `previousDate` attribute containing a string representation of the previous chart's date. You can feed this into another `ChartData` instance to effectively walk back through previous charts.
 
 ```python
-from time import sleep
-
-import billboard
-
 chart = billboard.ChartData('hot-100')
 while chart.previousDate:
     doSomething(chart)
     chart = billboard.ChartData('hot-100', chart.previousDate)
-    sleep(2)  # Throttle requests
 ``` 
 
 ### Accessing chart entries
