@@ -2,7 +2,6 @@ billboard.py
 ============
 
 [![Build Status](https://travis-ci.org/guoguo12/billboard-charts.svg)](https://travis-ci.org/guoguo12/billboard-charts)
-[![PyPI](https://img.shields.io/pypi/dm/billboard.py.svg)](https://pypi.python.org/pypi/billboard.py)
 
 **billboard.py** is a Python API for accessing ranking charts from Billboard.com.
 
@@ -159,6 +158,16 @@ tox
 ```
 
 to run tests on both versions; see `tox.ini` for configuration details.
+
+Made with billboard.py
+------------
+Projects and articles that use billboard.py:
+
+* ["What Makes Music Pop?"](https://cs1951a2016millionsong.wordpress.com/2016/05/14/final-report/) by Zach Loery
+* ["How Has Hip Hop Changed Over the Years?"](https://rohankshir.github.io/2016/02/28/topic-modeling-on-hiphop/) by Rohan Kshirsagar
+* ["Spotify and billboard.py"](http://aguo.us/writings/spotify-billboard.html) by Allen Guo
+
+Have an addition? Make a pull request!
 
 Dependencies
 ------------
