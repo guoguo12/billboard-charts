@@ -2,6 +2,7 @@
 import json
 import requests
 import datetime
+
 from bs4 import BeautifulSoup
 
 """billboard.py: Unofficial Python API for accessing ranking charts from Billboard.com."""
@@ -99,9 +100,7 @@ class ChartData:
         self.name = name
         self.previousDate = None
         if date:
-            if quantize:
-                date = self._quantize_date(date)
-            self.date = date
+            self.date = self._quantize_date(date) if quantize else date
             self.latest = False
         else:
             self.date = None
@@ -139,17 +138,17 @@ class ChartData:
         Billboard charts are always dated by Saturday.
         This behavior is consistent with the website, even though charts
         are released 11 days in advance.
-        EG, entering 2016-07-19 corresponds to the chart dated 2016-07-23
+        E.g., entering 2016-07-19 corresponds to the chart dated 2016-07-23.
 
         Args:
             date: The chart date as a string, in YYYY-MM-DD format.
         """
-        year, month, day = [int(x) for x in date.split('-')]
+        year, month, day = map(int, date.split('-'))
         passedDate = datetime.date(year, month, day)
         passedWeekday = passedDate.weekday()
-        if passedWeekday == 5:  # saturday
+        if passedWeekday == 5:  # Saturday
             return date
-        elif passedWeekday == 6:  # sunday
+        elif passedWeekday == 6:  # Sunday
             quantizedDate = passedDate + datetime.timedelta(days=6)
         else:
             quantizedDate = passedDate + datetime.timedelta(days=5 - passedWeekday)
