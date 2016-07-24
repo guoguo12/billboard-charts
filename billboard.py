@@ -38,6 +38,8 @@ class ChartEntry:
             track via the Spotify Web API.
         spotifyLink: The Spotify embed URL of the track, generated from the
             spotifyID. Will be an empty string if no such ID was provided.
+        videoLink: The video URL of the track. Will be an empty string if no
+            such URL was provided.
     """
 
     def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink, videoLink):
@@ -83,20 +85,17 @@ class ChartData:
                 valid chart names; the URL of a chart will look like
                 "http://www.billboard.com/charts/CHART-NAME".
             date: The chart date as a string, in YYYY-MM-DD format.
-                If this argument is omitted, the latest chart will be fetched.
-                Again, the best way to find valid dates is by browsing the
-                Billboard website. An example of a valid date is '2015-11-28',
-                which gets the chart viewable at
-                http://www.billboard.com/charts/hot-100/2015-11-28.
-                If this argument is invalid, no exception will be raised;
-                instead, the chart will contain no entries.
+                By default, the latest chart is fetched.
+                If this argument is invalid and the date is not quantized (see
+                below), no exception will be raised; instead, the chart will
+                contain no entries.
             fetch: A boolean indicating whether to fetch the chart data from
                 Billboard.com immediately (at instantiation time).
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
             all: Deprecated; has no effect.
-            quantize: A boolean indicating whether or not to quantize the
-                date passed to the nearest date with a chart entry
+            quantize: A boolean indicating whether or not to round the
+                date argument to the nearest date with a chart entry.
         """
         self.name = name
         self.previousDate = None
