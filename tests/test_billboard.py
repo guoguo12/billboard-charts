@@ -64,12 +64,12 @@ class HistoricalHot100Test(CurrentHot100Test):
 
 
 class InvalidDateTest(unittest.TestCase):
-    """Checks that the ChartData object created when the date is invalid
-    has no entries.
+    """Checks that the ChartData object created when the date is
+    invalid (and quantization is turned off) has no entries.
     """
 
     def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2016-02-12')
+        self.chart = billboard.ChartData('hot-100', date='2016-02-12', quantize=False)
 
     def test_correct_entries(self):
         assert len(self.chart) == 0
