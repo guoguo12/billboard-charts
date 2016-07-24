@@ -39,7 +39,7 @@ class ChartEntry:
             spotifyID. Will be an empty string if no such ID was provided.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink, videoLink):
         """Constructs a new ChartEntry instance with given attributes.
         """
         self.title = title
@@ -51,6 +51,7 @@ class ChartEntry:
         self.change = change
         self.spotifyLink = spotifyLink
         self.spotifyID = spotifyID
+        self.videoLink = videoLink
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -236,10 +237,16 @@ class ChartData:
                 spotifyID = ''
                 spotifyLink = ''
 
+            videoElement = entrySoup.find('a', 'chart-row__link--video')
+            if videoElement:
+                videoLink = videoElement.get('data-href')
+            else:
+                videoLink = ''
+
             self.entries.append(
                 ChartEntry(title, artist, peakPos,
                            lastPos, weeks, rank, change,
-                           spotifyID, spotifyLink))
+                           spotifyID, spotifyLink, videoLink))
 
         # Hot Shot Debut is the top-ranked new entry, or the first "New" entry
         # we find.

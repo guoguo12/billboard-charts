@@ -63,16 +63,31 @@ class HistoricalHot100Test(CurrentHot100Test):
             assert str(self.chart) == reference.read()
 
 
-class InvalidDateTest(unittest.TestCase):
+class QuantizeDateTest(unittest.TestCase):
+    """Checks that the ChartData object created when the date is invalid
+    quantizes to valid date.
+    """
+
+    def setUp(self):
+        self.chart = billboard.ChartData('hot-100', date='2016-02-12')
+        self.chart2 = billboard.ChartData('hot-100', date='2016-02-14')
+
+    def test_correct_entries(self):
+        assert len(self.chart) == 100
+        assert len(self.chart2) == 100
+
+
+class VideoLinkTest(unittest.TestCase):
     """Checks that the ChartData object created when the date is invalid
     has no entries.
     """
 
     def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2016-02-12')
+        self.chart = billboard.ChartData('hot-100', date='2016-07-26')
 
     def test_correct_entries(self):
-        assert len(self.chart) == 0
+        assert self.chart.entries[31].videoLink == 'http://cache.vevo.com/assets/html/embed.html?video=USSM21600522&partnerId=0bcf11f5-81bc-469a-a74f-b370f19def6e&siteSection=billboard_billboard.com'
+        assert not self.chart.entries[32].videoLink
 
 
 def get_test_dir():
