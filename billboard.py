@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import json
 import requests
+import datetime
 from bs4 import BeautifulSoup
 
 """billboard.py: Unofficial Python API for accessing ranking charts from Billboard.com."""
@@ -68,7 +69,7 @@ class ChartData:
     """Represents a particular Billboard chart for a particular date.
     """
 
-    def __init__(self, name, date=None, fetch=True, all=False):
+    def __init__(self, name, date=None, fetch=True, all=False, quantize=True):
         """Constructs a new ChartData instance.
 
         By default, this constructor will download the requested data from
@@ -92,10 +93,14 @@ class ChartData:
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
             all: Deprecated; has no effect.
+            quantize: A boolean indicating whether or not to quantize the
+                date passed to the nearest date with a chart entry
         """
         self.name = name
         self.previousDate = None
         if date:
+            if quantize:
+                date = self._quantize_date(date)
             self.date = date
             self.latest = False
         else:
@@ -128,6 +133,27 @@ class ChartData:
         A length of zero may indicated a failed/bad request.
         """
         return len(self.entries)
+
+    def _quantize_date(self, date):
+        """Quantizes the passed date to the nearest Saturday, since
+        Billboard charts are always dated by Saturday.
+        This behavior is consistent with the website, even though charts
+        are released 11 days in advance.
+        EG, entering 2016-07-19 corresponds to the chart dated 2016-07-23
+
+        Args:
+            date: The chart date as a string, in YYYY-MM-DD format.
+        """
+        year, month, day = [int(x) for x in date.split('-')]
+        passedDate = datetime.date(year, month, day)
+        passedWeekday = passedDate.weekday()
+        if passedWeekday == 5:  # saturday
+            return date
+        elif passedWeekday == 6:  # sunday
+            quantizedDate = passedDate + datetime.timedelta(days=6)
+        else:
+            quantizedDate = passedDate + datetime.timedelta(days=5 - passedWeekday)
+        return str(quantizedDate)
 
     def to_JSON(self):
         """Returns the entry as a JSON string.
