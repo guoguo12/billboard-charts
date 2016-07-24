@@ -33,34 +33,34 @@ Now we can look at the chart entries, which are of type `ChartEntry` and have at
 ```Python
 >>> song = chart[0]  # Get no. 1 song on chart
 >>> song.title       # Get the title
-u'Hello'
+u'One Dance'
 >>> song.artist      # Get the artist
-u'Adele'
+u'Drake Featuring WizKid & Kyla'
 >>> song.weeks       # Get number of weeks on chart
-4
+15
 ```
 
-We can also easily pretty-print the entire chart with:
+We can also easily pretty-print the entire chart:
 
 ```Python
-print chart
+>>> print chart
 ```
 
-which as of 29 November 2015 gives:
+which gives (as of July 23, 2016):
 
 ```
 hot-100 chart (current)
 -----------------------
-1. 'Hello' by Adele (0)
-2. 'Sorry' by Justin Bieber (+1)
-3. 'Hotline Bling' by Drake (-1)
-4. 'Love Yourself' by Justin Bieber (Hot Shot Debut)
-5. 'What Do You Mean?' by Justin Bieber (+1)
-6. 'The Hills' by The Weeknd (-2)
-7. 'Stitches' by Shawn Mendes (-2)
-8. '679' by Fetty Wap Featuring Remy Boyz (-1)
-9. 'Wildest Dreams' by Taylor Swift (-1)
-10. 'Here' by Alessia Cara (+1)
+1. 'One Dance' by Drake Featuring WizKid & Kyla (0)
+2. 'Can't Stop The Feeling!' by Justin Timberlake (0)
+3. 'Cheap Thrills' by Sia Featuring Sean Paul (+2)
+4. 'This Is What You Came For' by Calvin Harris Featuring Rihanna (0)
+5. 'Don't Let Me Down' by The Chainsmokers Featuring Daya (-2)
+6. 'Ride' by twenty one pilots (+2)
+7. 'Needed Me' by Rihanna (0)
+8. 'Panda' by Desiigner (-2)
+9. 'Don't Mind' by Kent Jones (0)
+10. 'Send My Love (To Your New Lover)' by Adele (+2)
 # ... 90 more lines
 ```
 
@@ -72,15 +72,16 @@ Full documentation
 Use the `ChartData` constructor to download a chart:
 
 ```Python
-ChartData(name, date=None, fetch=True, all=False)
+ChartData(name, date=None, fetch=True, all=False, quantize=True)
 ```
 
 The arguments are:
 
 * `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`. You can browse the Charts section of Billboard.com to find valid chart names; the URL of a chart will look like `http://www.billboard.com/charts/CHART-NAME` ([example](http://www.billboard.com/charts/artist-100)).
-* `date` &ndash; The chart date as a string, in YYYY-MM-DD format. If this argument is omitted (or is `None`), the latest chart will be fetched. Again, the best way to find valid dates is by browsing the Billboard website. For the Hot 100 chart, an example of a valid date is `'2015-11-28'`, which gets [this chart](http://www.billboard.com/charts/hot-100/2015-11-28). If this argument is invalid, no exception will be raised; instead, the chart will contain no entries.
+* `date` &ndash; The chart date as a string, in YYYY-MM-DD format. By default, the latest chart is fetched.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
 * `all` &ndash; Deprecated; has no effect.
+* `quantize` &ndash; A boolean indicating whether to round the `date` parameter to the nearest date with a chart.
 
 ### Walking through chart dates
 
@@ -121,6 +122,7 @@ A chart entry (typically a single track) is of type `ChartEntry`. A `ChartEntry`
   * 'Re-Entry', which means the track is re-entering the chart after leaving it for at least a week.
 * `spotifyID` &ndash; The Spotify ID of the track, or an empty string if it was not provided. This can be used to access more information about the track via the [Spotify Web API](https://developer.spotify.com/web-api/get-tr ack/).
 * `spotifyLink` &ndash; The Spotify embed URL of the track, generated from the spotifyID. Will be an empty string if no such ID was provided.
+* `videoLink` &ndash; The video URL of the track. Will be an empty string if no such URL was provided.
 
 
 
