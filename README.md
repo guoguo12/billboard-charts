@@ -45,6 +45,7 @@ u'11hqMWwX7sF3sOGdtijofF'
 We can also `print` the entire chart:
 
 ```
+>>> print chart
 hot-100 chart (current)
 -----------------------
 1. 'One Dance' by Drake Featuring WizKid & Kyla (0)
