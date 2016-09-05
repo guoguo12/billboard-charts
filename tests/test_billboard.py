@@ -70,7 +70,7 @@ class Hot100QuantizationTest(unittest.TestCase):
     """
 
     def setUp(self):
-        dates = ['2016-07-0%d' % x for x in xrange(1, 8)]  # 7/1/16 to 7/7/16
+        dates = ['2016-07-0%d' % x for x in range(1, 8)]  # 7/1/16 to 7/7/16
         self.charts = [billboard.ChartData('hot-100', date=date, fetch=False) for date in dates]
 
     def test_correct_fields(self):
