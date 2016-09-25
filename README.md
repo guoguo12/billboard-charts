@@ -154,6 +154,7 @@ Projects and articles that use billboard.py:
 * ["How Has Hip Hop Changed Over the Years?"](https://rohankshir.github.io/2016/02/28/topic-modeling-on-hiphop/) by Rohan Kshirsagar
 * ["Spotify and billboard.py"](http://aguo.us/writings/spotify-billboard.html) by Allen Guo
 * ["Top Billboard Streaks"](https://twitter.com/polygraphing/status/748543281345224704) and ["Drake's Hot-100 Streak"](https://twitter.com/polygraphing/status/748987711541940224) by James Wenzel @ Polygraph
+* ["Determining the 'Lifecycle' of Each Music Genre"](http://thedataface.com/genre-lifecycles/) by Jack Beckwith @ The Data Face
 
 Have an addition? Make a pull request!
 
