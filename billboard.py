@@ -62,7 +62,10 @@ class ChartEntry:
         """Returns a string of the form 'TITLE by ARTIST'.
         """
         s = u"'%s' by %s" % (self.title, self.artist)
-        return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
+        if sys.version_info.major < 3:
+            return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
+        else:
+            return s
 
     def to_JSON(self):
         """Returns the entry as a JSON string.
