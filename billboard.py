@@ -1,9 +1,11 @@
 #!/usr/bin/env python
-import json
-import requests
+
 import datetime
+import json
+import sys
 
 from bs4 import BeautifulSoup
+import requests
 
 """billboard.py: Unofficial Python API for accessing ranking charts from Billboard.com."""
 
@@ -59,7 +61,8 @@ class ChartEntry:
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
         """
-        return "'%s' by %s" % (self.title, self.artist)
+        s = u"'%s' by %s" % (self.title, self.artist)
+        return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
 
     def to_JSON(self):
         """Returns the entry as a JSON string.
