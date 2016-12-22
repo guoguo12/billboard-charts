@@ -3,7 +3,7 @@ billboard.py
 
 [![Build Status](https://travis-ci.org/guoguo12/billboard-charts.svg)](https://travis-ci.org/guoguo12/billboard-charts)
 
-**billboard.py** is a Python API for accessing music charts from [Billboard.com](www.billboard.com/charts/).
+**billboard.py** is a Python API for accessing music charts from [Billboard.com](http://www.billboard.com/charts/).
 
 Installation
 ------------
