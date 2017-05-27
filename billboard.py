@@ -154,7 +154,7 @@ class ChartData:
         if isinstance(date, str):
             year, month, day = map(int, date.split('-'))
             passedDate = datetime.date(year, month, day)
-        elif isinstance(date, datetime.date):
+        else:
             passedDate = date
         passedWeekday = passedDate.weekday()
         if passedWeekday == 5:  # Saturday
