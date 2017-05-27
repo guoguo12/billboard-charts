@@ -108,24 +108,6 @@ class InvalidDateTest(unittest.TestCase):
         assert len(self.chart) == 0
 
 
-<<<<<<< HEAD
-=======
-class MissingSpotifyButtonTest(unittest.TestCase):
-    """Checks that the ChartData object created when there is no green Spotify
-    button has no spotifyID/spotifyLink. This test may break if the song used
-    below is added to Spotify.
-    """
-
-    def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2014-01-11')
-
-    def test_correct_entries(self):
-        mine = self.chart[81]  # "Mine" by Beyonce ft. Drake
-        assert mine.spotifyID == '' and mine.spotifyLink == ''
-        assert all(self.chart[i] for i in range(100) if i != 81)
-
-
->>>>>>> f9eb1ab... chartdata now accepts datetime.date as date parameter; unit test
 def get_test_dir():
     """Returns the name of the directory containing this test file.
     """
