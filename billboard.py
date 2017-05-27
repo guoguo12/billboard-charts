@@ -149,15 +149,21 @@ class ChartData:
         Args:
             date: The chart date as a string, in YYYY-MM-DD format.
         """
-        year, month, day = map(int, date.split('-'))
-        passedDate = datetime.date(year, month, day)
+        assert any(isinstance(date, x) for x in (str, datetime.date)
+                   ), 'Provided date must be str or datetime.date'
+        if isinstance(date, str):
+            year, month, day = map(int, date.split('-'))
+            passedDate = datetime.date(year, month, day)
+        elif isinstance(date, datetime.date):
+            passedDate = date
         passedWeekday = passedDate.weekday()
         if passedWeekday == 5:  # Saturday
             return date
         elif passedWeekday == 6:  # Sunday
             quantizedDate = passedDate + datetime.timedelta(days=6)
         else:
-            quantizedDate = passedDate + datetime.timedelta(days=5 - passedWeekday)
+            quantizedDate = passedDate + \
+                datetime.timedelta(days=5 - passedWeekday)
         return str(quantizedDate)
 
     def to_JSON(self):
