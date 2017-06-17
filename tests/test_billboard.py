@@ -3,6 +3,7 @@ import json
 import os
 import re
 import unittest
+import datetime
 
 import billboard
 
@@ -20,7 +21,8 @@ class CurrentHot100Test(unittest.TestCase):
     def test_correct_fields(self):
         assert self.chart.date is not None
         assert self.chart.latest is True
-        assert list(sorted(entry.rank for entry in self.chart)) == list(range(1, 101))
+        assert list(sorted(entry.rank for entry in self.chart)
+                    ) == list(range(1, 101))
 
     def test_valid_entries(self):
         assert len(self.chart) == 100
@@ -28,12 +30,12 @@ class CurrentHot100Test(unittest.TestCase):
             assert len(entry.title) > 0
             assert len(entry.artist) > 0
             assert entry.peakPos >= 1 \
-               and entry.peakPos <= 100
+                and entry.peakPos <= 100
             assert entry.lastPos >= 0 \
-               and entry.lastPos <= 100  # 0 means new entry
+                and entry.lastPos <= 100  # 0 means new entry
             assert entry.weeks >= 0
             assert entry.rank >= 1 \
-               and entry.rank <= 100
+                and entry.rank <= 100
             assert re.match(VALID_CHANGE_REGEX, entry.change)
             assert entry.spotifyID is not None
             assert entry.spotifyLink == '' \
@@ -71,12 +73,26 @@ class Hot100QuantizationTest(unittest.TestCase):
 
     def setUp(self):
         dates = ['2016-07-0%d' % x for x in range(1, 8)]  # 7/1/16 to 7/7/16
-        self.charts = [billboard.ChartData('hot-100', date=date, fetch=False) for date in dates]
+        self.charts = [billboard.ChartData(
+            'hot-100', date=date, fetch=False) for date in dates]
 
     def test_correct_fields(self):
         dates = [chart.date for chart in self.charts]
-        reference_dates = list(chain(repeat('2016-07-02', 2), repeat('2016-07-09', 5)))
+        reference_dates = list(
+            chain(repeat('2016-07-02', 2), repeat('2016-07-09', 5)))
         assert dates == reference_dates
+
+
+class DatetimeTest(unittest.TestCase):
+    """Checks that ChartData correctly handles datetime objects as the
+    date parameter.
+    """
+
+    def setUp(self):
+        self.chart = billboard.ChartData('hot-100', datetime.date(2016, 7, 8))
+
+    def test_successful_load(self):
+        self.assertTrue(len(self.chart) > 0)
 
 
 class InvalidDateTest(unittest.TestCase):
@@ -85,7 +101,8 @@ class InvalidDateTest(unittest.TestCase):
     """
 
     def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2016-02-12', quantize=False)
+        self.chart = billboard.ChartData(
+            'hot-100', date='2016-02-12', quantize=False)
 
     def test_correct_entries(self):
         assert len(self.chart) == 0
