@@ -66,6 +66,40 @@ class HistoricalHot100Test(CurrentHot100Test):
             assert str(self.chart) == reference.read()
 
 
+class CurrentGreatestHot100SinglesTest(unittest.TestCase):
+    """Checks that the ChartData object for the current
+    greatest-hot-100-singles chart has all valid fields, and that its entries
+    also have valid fields.
+    """
+
+    def setUp(self):
+        self.chart = billboard.ChartData('greatest-hot-100-singles')
+
+    def test_correct_fields(self):
+        assert self.chart.date is None
+        assert self.chart.latest is True
+        assert list(sorted(entry.rank for entry in self.chart)
+                    ) == list(range(1, 101))
+
+    def test_valid_entries(self):
+        assert len(self.chart) == 100
+        for entry in self.chart:
+            assert len(entry.title) > 0
+            assert len(entry.artist) > 0
+            assert entry.peakPos is None
+            assert entry.lastPos is None
+            assert entry.weeks is None
+            assert entry.rank >= 1 \
+                and entry.rank <= 100
+            assert entry.change is None
+            assert entry.spotifyID == ''
+            assert entry.spotifyLink == ''
+            assert repr(entry)
+
+    def test_valid_json(self):
+        assert json.loads(self.chart.to_JSON())
+
+
 class Hot100QuantizationTest(unittest.TestCase):
     """Checks that the date quantization feature for ChartData
     functions correctly.

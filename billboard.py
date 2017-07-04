@@ -19,6 +19,10 @@ HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'}
 
 
+class BillboardParseException(Exception):
+    pass
+
+
 class ChartEntry:
     """Represents an entry (typically a single track) on a chart.
 
@@ -209,34 +213,43 @@ class ChartData:
                 artist = basicInfoSoup[3].string.strip()
 
             def getRowValue(rowName):
-                selector = 'div.chart-row__' + rowName + ' .chart-row__value'
-                return entrySoup.select_one(selector).string.strip()
+                try:
+                    selector = 'div.chart-row__' + rowName + ' .chart-row__value'
+                    return entrySoup.select_one(selector).string.strip()
+                except:
+                    raise BillboardParseException()
 
             # Grab week data (peak rank, last week's rank, total weeks on
             # chart)
-            peakPos = int(getRowValue('top-spot'))
+            try:
+                peakPos = int(getRowValue('top-spot'))
 
-            lastPos = getRowValue('last-week')
-            lastPos = 0 if lastPos == '--' else int(lastPos)
+                lastPos = getRowValue('last-week')
+                lastPos = 0 if lastPos == '--' else int(lastPos)
 
-            weeks = int(getRowValue('weeks-on-chart'))
+                weeks = int(getRowValue('weeks-on-chart'))
+            except BillboardParseException:
+                peakPos = lastPos = weeks = None
 
             # Get current rank
             rank = int(
                 entrySoup.select_one('.chart-row__current-week').string.strip())
 
-            change = lastPos - rank
-            if lastPos == 0:
-                # New entry
-                if weeks > 1:
-                    # If entry has been on charts before, it's a re-entry
-                    change = "Re-Entry"
-                else:
-                    change = "New"
-            elif change > 0:
-                change = "+" + str(change)
+            if lastPos is None:
+                change = None
             else:
-                change = str(change)
+                change = lastPos - rank
+                if lastPos == 0:
+                    # New entry
+                    if weeks > 1:
+                        # If entry has been on charts before, it's a re-entry
+                        change = "Re-Entry"
+                    else:
+                        change = "New"
+                elif change > 0:
+                    change = "+" + str(change)
+                else:
+                    change = str(change)
 
             # Get spotify link for this track
             spotifyID = entrySoup.get('data-spotifyid')
