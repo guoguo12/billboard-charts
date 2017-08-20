@@ -7,8 +7,6 @@ import datetime
 
 import billboard
 
-VALID_CHANGE_REGEX = r'^(\+\d{1,2}|\-\d{1,2}|0|Hot Shot Debut|New|Re-Entry)$'
-
 
 class CurrentHot100Test(unittest.TestCase):
     """Checks that the ChartData object for the current Hot 100 chart
@@ -20,7 +18,6 @@ class CurrentHot100Test(unittest.TestCase):
 
     def test_correct_fields(self):
         assert self.chart.date is not None
-        assert self.chart.latest is True
         assert list(sorted(entry.rank for entry in self.chart)
                     ) == list(range(1, 101))
 
@@ -36,14 +33,10 @@ class CurrentHot100Test(unittest.TestCase):
             assert entry.weeks >= 0
             assert entry.rank >= 1 \
                 and entry.rank <= 100
-            assert re.match(VALID_CHANGE_REGEX, entry.change)
-            assert entry.spotifyID is not None
-            assert entry.spotifyLink == '' \
-                or 'embed.spotify.com' in entry.spotifyLink
             assert repr(entry)
 
     def test_valid_json(self):
-        assert json.loads(self.chart.to_JSON())
+        assert json.loads(self.chart.json())
 
 
 class HistoricalHot100Test(CurrentHot100Test):
@@ -57,7 +50,6 @@ class HistoricalHot100Test(CurrentHot100Test):
 
     def test_correct_fields(self):
         assert self.chart.date == '2015-11-28'
-        assert self.chart.latest is False
         assert self.chart.previousDate == '2015-11-21'
 
     def test_correct_entries(self):
@@ -77,7 +69,6 @@ class CurrentGreatestHot100SinglesTest(unittest.TestCase):
 
     def test_correct_fields(self):
         assert self.chart.date is None
-        assert self.chart.latest is True
         assert list(sorted(entry.rank for entry in self.chart)
                     ) == list(range(1, 101))
 
@@ -91,30 +82,10 @@ class CurrentGreatestHot100SinglesTest(unittest.TestCase):
             assert entry.weeks is None
             assert entry.rank >= 1 \
                 and entry.rank <= 100
-            assert entry.change is None
-            assert entry.spotifyID == ''
-            assert entry.spotifyLink == ''
             assert repr(entry)
 
     def test_valid_json(self):
-        assert json.loads(self.chart.to_JSON())
-
-
-class Hot100QuantizationTest(unittest.TestCase):
-    """Checks that the date quantization feature for ChartData
-    functions correctly.
-    """
-
-    def setUp(self):
-        dates = ['2016-07-0%d' % x for x in range(1, 8)]  # 7/1/16 to 7/7/16
-        self.charts = [billboard.ChartData(
-            'hot-100', date=date, fetch=False) for date in dates]
-
-    def test_correct_fields(self):
-        dates = [chart.date for chart in self.charts]
-        reference_dates = list(
-            chain(repeat('2016-07-02', 2), repeat('2016-07-09', 5)))
-        assert dates == reference_dates
+        assert json.loads(self.chart.json())
 
 
 class DatetimeTest(unittest.TestCase):
@@ -127,19 +98,6 @@ class DatetimeTest(unittest.TestCase):
 
     def test_successful_load(self):
         self.assertTrue(len(self.chart) > 0)
-
-
-class InvalidDateTest(unittest.TestCase):
-    """Checks that the ChartData object created when the date is
-    invalid (and quantization is turned off) has no entries.
-    """
-
-    def setUp(self):
-        self.chart = billboard.ChartData(
-            'hot-100', date='2016-02-12', quantize=False)
-
-    def test_correct_entries(self):
-        assert len(self.chart) == 0
 
 
 def get_test_dir():
