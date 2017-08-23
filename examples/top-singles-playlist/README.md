@@ -1,5 +1,7 @@
 # Example: Top Singles Playlist
 
+**Note: This example no longer works, as of [#22](https://github.com/guoguo12/billboard-charts/pull/22).**
+
 In this example, we'll create a Spotify playlist containing the past 100 songs that have reached the top spot on the Hot 100. We'll be using billboard.py and [Spotipy](https://spotipy.readthedocs.org/), which is a wrapper around the [Spotify Web API](https://developer.spotify.com/web-api/).
 
 To view the example, see `run.py`.

@@ -7,16 +7,17 @@ import sys
 from bs4 import BeautifulSoup
 import requests
 
-"""billboard.py: Unofficial Python API for accessing ranking charts from Billboard.com."""
+"""billboard.py: Unofficial Python API for accessing music charts from Billboard.com."""
 
-__author__ = "Allen Guo"
-__license__ = "MIT"
+__author__     = "Allen Guo"
+__license__    = "MIT"
 __maintainer__ = "Allen Guo"
-__email__ = "guoguo12@gmail.com"
+__email__      = "guoguo12@gmail.com"
 
 
 HEADERS = {
-    'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'}
+    'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
+}
 
 
 class BillboardParseException(Exception):
@@ -31,36 +32,24 @@ class ChartEntry:
         artist: The name of the track artist, as formatted on Billboard.com.
             If there are multiple artists and/or featured artists, they will
             be included in this string.
-        peakPos: The track's peak position on the chart, as an int.
-        lastPos: The track's position on the previous week's chart, as an int.
-            This value is 0 if the track has never been on the chart before.
-        weeks: The number of weeks the track has been on the chart.
-            This value is 1 if the track is new on the chart.
-        rank: The track's current position on the chart.
-        change: A string indicating how the track's position has changed since
-            the previous week. See web documentation for details.
-        spotifyID: The Spotify ID of the track, or an empty string if it was
-            not provided. This can be used to access more information about the
-            track via the Spotify Web API.
-        spotifyLink: The Spotify embed URL of the track, generated from the
-            spotifyID. Will be an empty string if no such ID was provided.
-        videoLink: The video URL of the track. Will be an empty string if no
-            such URL was provided.
+        peakPos: The track's peak position on the chart at any point in time,
+            including future dates, as an int (or None if the chart does not
+            include this information).
+        lastPos: The track's position on the previous week's chart, as an int
+            (or None if the chart does not include this information).
+            This value is 0 if the track was not on the previous week's chart.
+        weeks: The number of weeks the track has been or was on the chart,
+            including future dates (up until the present time).
+        rank: The track's position on the chart, as an int.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, change, spotifyID, spotifyLink, videoLink):
-        """Constructs a new ChartEntry instance with given attributes.
-        """
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
         self.lastPos = lastPos
         self.weeks = weeks
         self.rank = rank
-        self.change = change
-        self.spotifyLink = spotifyLink
-        self.spotifyID = spotifyID
-        self.videoLink = videoLink
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -71,7 +60,7 @@ class ChartEntry:
         else:
             return s
 
-    def to_JSON(self):
+    def json(self):
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
@@ -81,59 +70,58 @@ class ChartEntry:
 
 class ChartData:
     """Represents a particular Billboard chart for a particular date.
+
+    Attributes:
+        name: The chart name, as a string.
+        date: The date of the chart.
+        previousDate: The date of the previous chart, as a string in YYYY-MM-DD
+            format, or None if this information was not available.
+        entries: A list of ChartEntry objects, ordered by position on the chart
+            (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, all=False, quantize=True):
+    def __init__(self, name, date=None, fetch=True):
         """Constructs a new ChartData instance.
-
-        By default, this constructor will download the requested data from
-        Billboard.com by calling fetchEntries().
 
         Args:
             name: The chart name, e.g. 'hot-100' or 'pop-songs'.
                 You can browse the Charts section of Billboard.com to find
                 valid chart names; the URL of a chart will look like
                 "http://www.billboard.com/charts/CHART-NAME".
-            date: The chart date as a string, in YYYY-MM-DD format.
+            date: The chart date, as a string in YYYY-MM-DD format.
                 By default, the latest chart is fetched.
-                If this argument is invalid and the date is not quantized (see
-                below), no exception will be raised; instead, the chart will
-                contain no entries.
+                If the argument is not a date on which a chart was published,
+                Billboard automatically rounds dates up to the nearest date on
+                which a chart was published.
+                If this argument is invalid, no exception will be raised;
+                instead, the chart will contain no entries.
             fetch: A boolean indicating whether to fetch the chart data from
                 Billboard.com immediately (at instantiation time).
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
-            all: Deprecated; has no effect.
-            quantize: A boolean indicating whether or not to round the
-                date argument to the nearest date with a chart entry.
         """
         self.name = name
         self.previousDate = None
-        if date:
-            self.date = self._quantize_date(date) if quantize else date
-            self.latest = False
-        else:
-            self.date = None
-            self.latest = True
+        self.date = date
         self.entries = []
         if fetch:
-            self.fetchEntries(all=all)
+            self.fetchEntries()
 
     def __repr__(self):
         """Returns the chart as a human-readable string (typically multi-line).
         """
-        if self.latest:
+        if not self.date:
             s = '%s chart (current)' % self.name
         else:
             s = '%s chart from %s' % (self.name, self.date)
         s += '\n' + '-' * len(s)
         for n, entry in enumerate(self.entries):
-            s += '\n%s. %s (%s)' % (entry.rank, str(entry), entry.change)
+            s += '\n%s. %s' % (entry.rank, str(entry))
         return s
 
     def __getitem__(self, key):
         """Returns the (key + 1)-th chart entry; i.e., chart[0] refers to the
-        song at the No. 1 (top) position on the chart.
+        top entry on the chart.
         """
         return self.entries[key]
 
@@ -143,45 +131,19 @@ class ChartData:
         """
         return len(self.entries)
 
-    def _quantize_date(self, date):
-        """Quantizes the passed date to the nearest Saturday, since
-        Billboard charts are always dated by Saturday.
-        This behavior is consistent with the website, even though charts
-        are released 11 days in advance.
-        E.g., entering 2016-07-19 corresponds to the chart dated 2016-07-23.
-
-        Args:
-            date: The chart date as a string, in YYYY-MM-DD format.
-        """
-        assert any(isinstance(date, x) for x in (str, datetime.date)
-                   ), 'Provided date must be str or datetime.date'
-        if isinstance(date, str):
-            year, month, day = map(int, date.split('-'))
-            passedDate = datetime.date(year, month, day)
-        else:
-            passedDate = date
-        passedWeekday = passedDate.weekday()
-        if passedWeekday == 5:  # Saturday
-            return date
-        elif passedWeekday == 6:  # Sunday
-            quantizedDate = passedDate + datetime.timedelta(days=6)
-        else:
-            quantizedDate = passedDate + \
-                datetime.timedelta(days=5 - passedWeekday)
-        return str(quantizedDate)
-
-    def to_JSON(self):
+    def json(self):
         """Returns the entry as a JSON string.
         This is useful for caching.
         """
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
 
-    def fetchEntries(self, all=False):
+    def fetchEntries(self):
         """GETs the corresponding chart data from Billboard.com, then parses
-        the data. Makes use of BeautifulSoup.
+        the data using BeautifulSoup.
         """
-        if self.latest:
+        if not self.date:
+            # Fetch latest chart
             url = 'http://www.billboard.com/charts/%s' % (self.name)
         else:
             url = 'http://www.billboard.com/charts/%s/%s' % (
@@ -192,35 +154,38 @@ class ChartData:
 
         prevLink = soup.find('a', {'title': 'Previous Week'})
         if prevLink:
-            # Extract the previous date from the link.
-            # eg, /charts/country-songs/2016-02-13
             self.previousDate = prevLink.get('href').split('/')[-1]
 
         currentTime = soup.find('time')
         if currentTime:
-            # Extract the previous date from the link.
-            # eg, /charts/country-songs/2016-02-13
             self.date = currentTime.get('datetime')
 
         for entrySoup in soup.find_all('article', {'class': 'chart-row'}):
-            # Grab title and artist
             basicInfoSoup = entrySoup.find('div', 'chart-row__title').contents
-            title = basicInfoSoup[1].string.strip()
 
-            if (basicInfoSoup[3].find('a')):
-                artist = basicInfoSoup[3].a.string.strip()
-            else:
-                artist = basicInfoSoup[3].string.strip()
+            try:
+                title = basicInfoSoup[1].string.strip()
+            except:
+                message = "Failed to parse title"
+                raise BillboardParseException(message)
+
+            try:
+                if (basicInfoSoup[3].find('a')):
+                    artist = basicInfoSoup[3].a.string.strip()
+                else:
+                    artist = basicInfoSoup[3].string.strip()
+            except:
+                message = "Failed to parse artist"
+                raise BillboardParseException(message)
 
             def getRowValue(rowName):
                 try:
-                    selector = 'div.chart-row__' + rowName + ' .chart-row__value'
+                    selector = 'div.chart-row__%s .chart-row__value' % rowName
                     return entrySoup.select_one(selector).string.strip()
                 except:
-                    raise BillboardParseException()
+                    message = "Failed to parse row value: %s" % rowName
+                    raise BillboardParseException(message)
 
-            # Grab week data (peak rank, last week's rank, total weeks on
-            # chart)
             try:
                 peakPos = int(getRowValue('top-spot'))
 
@@ -229,54 +194,20 @@ class ChartData:
 
                 weeks = int(getRowValue('weeks-on-chart'))
             except BillboardParseException:
+                # Assume not available for this chart
                 peakPos = lastPos = weeks = None
 
-            # Get current rank
-            rank = int(
-                entrySoup.select_one('.chart-row__current-week').string.strip())
+            try:
+                rank = int(
+                    entrySoup.select_one('.chart-row__current-week')
+                             .string
+                             .strip())
+            except:
+                message = "Failed to parse rank"
+                raise BillboardParseException(message)
 
-            if lastPos is None:
-                change = None
-            else:
-                change = lastPos - rank
-                if lastPos == 0:
-                    # New entry
-                    if weeks > 1:
-                        # If entry has been on charts before, it's a re-entry
-                        change = "Re-Entry"
-                    else:
-                        change = "New"
-                elif change > 0:
-                    change = "+" + str(change)
-                else:
-                    change = str(change)
-
-            # Get spotify link for this track
-            spotifyID = entrySoup.get('data-spotifyid')
-            if spotifyID:
-                spotifyLink = "https://embed.spotify.com/?uri=spotify:track:" + \
-                    spotifyID
-            else:
-                spotifyID = ''
-                spotifyLink = ''
-
-            videoElement = entrySoup.find('a', 'chart-row__link--video')
-            if videoElement:
-                videoLink = videoElement.get('data-href')
-            else:
-                videoLink = ''
-
-            self.entries.append(
-                ChartEntry(title, artist, peakPos,
-                           lastPos, weeks, rank, change,
-                           spotifyID, spotifyLink, videoLink))
-
-        # Hot Shot Debut is the top-ranked new entry, or the first "New" entry
-        # we find.
-        for entry in self.entries:
-            if entry.change == "New":
-                entry.change = "Hot Shot Debut"
-                break
+            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank)
+            self.entries.append(entry)
 
 
 def downloadHTML(url):
