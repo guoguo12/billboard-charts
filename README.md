@@ -102,12 +102,10 @@ A chart entry (typically a single track) is of type `ChartEntry`. A `ChartEntry`
 
 For additional documentation, look at the file `billboard.py`, or use Python's interactive `help` feature.
 
-If you're stuck or confused: This is a small project, so you can also just email me (Allen). My contact info is on my profile page.
+Think you found a bug? Create an issue [here](https://github.com/guoguo12/billboard-charts/issues).
 
 Contributing
 ------------
-
-Found a bug? Create an issue [here](https://github.com/guoguo12/billboard-charts/issues).
 
 Pull requests are welcome! Please adhere to the following style guidelines:
 
