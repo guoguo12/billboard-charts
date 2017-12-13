@@ -141,7 +141,7 @@ Projects and articles that use billboard.py:
 * ["What Makes Music Pop?"](https://cs1951a2016millionsong.wordpress.com/2016/05/14/final-report/) by Zach Loery
 * ["How Has Hip Hop Changed Over the Years?"](https://rohankshir.github.io/2016/02/28/topic-modeling-on-hiphop/) by Rohan Kshirsagar
 * ["Spotify and billboard.py"](http://aguo.us/writings/spotify-billboard.html) by Allen Guo
-* ["Calculate Chart Success"](https://github.com/3ngthrust/calculate-chart-success-2/) by 3ngthrust
+* [chart_success.py](https://github.com/3ngthrust/calculate-chart-success-2/) by 3ngthrust
 * ["Top Billboard Streaks"](https://twitter.com/polygraphing/status/748543281345224704) and ["Drake's Hot-100 Streak"](https://twitter.com/polygraphing/status/748987711541940224) by James Wenzel @ Polygraph
 * ["Determining the 'Lifecycle' of Each Music Genre"](http://thedataface.com/genre-lifecycles/) by Jack Beckwith @ The Data Face
 
