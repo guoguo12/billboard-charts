@@ -43,13 +43,14 @@ class ChartEntry:
         rank: The track's position on the chart, as an int.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, newEntry=False):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
         self.lastPos = lastPos
         self.weeks = weeks
         self.rank = rank
+        self.newEntry = newEntry
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -206,7 +207,16 @@ class ChartData:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
-            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank)
+            try:
+                newEntry = False
+                selector = 'div.chart-row__new-indicator'
+                if entrySoup.select_one(selector):
+                    newEntry = True 
+            except BillboardParseException:
+                # assume no new entry
+                newEntry = False
+                
+            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, newEntry)
             self.entries.append(entry)
 
 
