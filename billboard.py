@@ -164,7 +164,8 @@ class ChartData:
             basicInfoSoup = entrySoup.find('div', 'chart-row__title').contents
 
             try:
-                title = basicInfoSoup[1].string.strip()
+                title = basicInfoSoup[1].string or ''
+                title = title.strip()
             except:
                 message = "Failed to parse title"
                 raise BillboardParseException(message)
