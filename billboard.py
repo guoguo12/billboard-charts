@@ -54,7 +54,11 @@ class ChartEntry:
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
         """
-        s = u"'%s' by %s" % (self.title, self.artist)
+        if self.title:
+            s = u"'%s' by %s" % (self.title, self.artist)
+        else:
+            s = u"%s" % self.artist
+
         if sys.version_info.major < 3:
             return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
         else:
