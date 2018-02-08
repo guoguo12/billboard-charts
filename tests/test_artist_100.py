@@ -1,12 +1,11 @@
 import json
 import os
-import unittest
 
 import billboard
 from utils import get_test_dir
 
 
-class CurrentArtist100Test(unittest.TestCase):
+class TestCurrentArtist100:
     """Checks that the ChartData object for the current Artist 100 chart
     has all valid fields, and that its entries also have valid fields.
 
@@ -39,7 +38,7 @@ class CurrentArtist100Test(unittest.TestCase):
         assert json.loads(self.chart.json())
 
 
-class HistoricalArtist100Test(CurrentArtist100Test):
+class TestHistoricalArtist100(TestCurrentArtist100):
     """Checks that the ChartData object for a previous week's Artist 100 chart
     has all valid fields, and that its string representation matches what
     is expected.

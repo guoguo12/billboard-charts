@@ -1,6 +1,5 @@
 import datetime
 import json
-import unittest
 
 import billboard
 

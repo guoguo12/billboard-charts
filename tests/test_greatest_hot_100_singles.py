@@ -1,10 +1,9 @@
 import json
-import unittest
 
 import billboard
 
 
-class CurrentGreatestHot100SinglesTest(unittest.TestCase):
+class TestCurrentGreatestHot100Singles:
     """Checks that the ChartData object for the current Greatest Hot 100
     Singles chart has all valid fields, and that its entries also have valid
     fields.
