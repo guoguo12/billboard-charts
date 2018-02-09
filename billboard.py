@@ -84,7 +84,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True):
+    def __init__(self, name, date=None, fetch=True, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -103,10 +103,15 @@ class ChartData:
                 Billboard.com immediately (at instantiation time).
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
+            timeout: The number of seconds to wait for a server response.
+                If None, no timeout is applied.
         """
         self.name = name
         self.previousDate = None
         self.date = date
+
+        self._timeout = timeout
+
         self.entries = []
         if fetch:
             self.fetchEntries()
@@ -153,7 +158,7 @@ class ChartData:
             url = 'http://www.billboard.com/charts/%s/%s' % (
                 self.name, self.date)
 
-        html = downloadHTML(url)
+        html = downloadHTML(url, self._timeout)
         soup = BeautifulSoup(html, 'html.parser')
 
         prevLink = soup.find('a', {'title': 'Previous Week'})
@@ -215,12 +220,12 @@ class ChartData:
             self.entries.append(entry)
 
 
-def downloadHTML(url):
+def downloadHTML(url, timeout):
     """Downloads and returns the webpage with the given URL.
     Returns an empty string on failure.
     """
     assert url.startswith('http://')
-    req = requests.get(url, headers=HEADERS)
+    req = requests.get(url, headers=HEADERS, timeout=timeout)
     if req.status_code == 200:
         return req.text
     else:

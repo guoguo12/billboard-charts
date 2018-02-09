@@ -61,7 +61,7 @@ Guide
 Use the `ChartData` constructor to download a chart:
 
 ```Python
-ChartData(name, date=None, fetch=True)
+ChartData(name, date=None, fetch=True, timeout=25)
 ```
 
 The arguments are:
@@ -69,6 +69,7 @@ The arguments are:
 * `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`. You can browse the [Charts page](http://www.billboard.com/charts) on Billboard.com to find valid chart names; the URL of a chart will look like `http://www.billboard.com/charts/CHART-NAME` ([example](http://www.billboard.com/charts/artist-100)). Almost any chart should work; the only chart known not to work is `spotify-rewind`.
 * `date` &ndash; The chart date as a string, in YYYY-MM-DD format. By default, the latest chart is fetched.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
+* `timeout` &ndash; The number of seconds to wait for a server response. If `None`, no timeout is applied.
 
 ### Walking through chart dates
 
