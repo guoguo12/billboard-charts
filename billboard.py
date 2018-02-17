@@ -2,6 +2,7 @@
 
 import datetime
 import json
+import re
 import sys
 
 from bs4 import BeautifulSoup
@@ -107,8 +108,11 @@ class ChartData:
                 If None, no timeout is applied.
         """
         self.name = name
-        self.previousDate = None
+
+        if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
+            raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
+        self.previousDate = None
 
         self._timeout = timeout
 
