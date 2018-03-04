@@ -145,6 +145,7 @@ Projects and articles that use billboard.py:
 * [chart_success.py](https://github.com/3ngthrust/calculate-chart-success-2/) by 3ngthrust
 * ["Top Billboard Streaks"](https://twitter.com/polygraphing/status/748543281345224704) and ["Drake's Hot-100 Streak"](https://twitter.com/polygraphing/status/748987711541940224) by James Wenzel @ Polygraph
 * ["Determining the 'Lifecycle' of Each Music Genre"](http://thedataface.com/genre-lifecycles/) by Jack Beckwith @ The Data Face
+* ["Splunking the Billboard Hot 100 with Help from the Spotify API"](https://www.function1.com/2017/09/splunking-the-billboard-hot-100-with-help-from-the-spotify-api) by Karthik Subramanian
 
 Have an addition? Make a pull request!
 
