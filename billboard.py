@@ -44,7 +44,7 @@ class ChartEntry:
         rank: The track's position on the chart, as an int.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, newEntry=False):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, newEntry):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
@@ -222,12 +222,9 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                newEntry = False
-                selector = 'div.chart-row__new-indicator'
-                if entrySoup.select_one(selector):
-                    newEntry = True 
-            except BillboardParseException:
-                # assume no new entry
+                newEntry = bool(entrySoup.select_one('div.chart-row__new-indicator'))
+            except:
+                # Assume no new entry
                 newEntry = False
                 
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, newEntry)
