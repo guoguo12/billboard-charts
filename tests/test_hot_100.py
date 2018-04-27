@@ -42,9 +42,12 @@ class TestCurrentHot100:
 
 
 class TestHistoricalHot100(TestCurrentHot100):
-    """Checks that the ChartData object for a previous week's Hot 100 chart
-    has all valid fields, and that its string representation matches what
-    is expected.
+    """Checks that the ChartData object for a previous week's Hot 100 chart has
+    entries and instance variables that are valid and reasonable.
+
+    Also compares the chart data against a previously downloaded "reference"
+    version. This comparison is done based on the string representation; it
+    excludes attributes like peakPos and weeks, which can change over time.
     """
 
     def setUp(self):

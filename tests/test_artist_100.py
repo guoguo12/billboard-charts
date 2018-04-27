@@ -45,7 +45,7 @@ class TestCurrentArtist100:
 
 class TestHistoricalArtist100(TestCurrentArtist100):
     """Checks that the ChartData object for a previous week's Artist 100 chart
-    has fields and instance variables that are valid and reasonable.
+    has entries and instance variables that are valid and reasonable.
 
     Also compares the chart data against a previously downloaded "reference"
     version. This comparison is done based on the string representation; it
