@@ -225,7 +225,7 @@ class ChartData:
             try:
                 isNew = bool(entrySoup.select_one('div.chart-row__new-indicator'))
             except:
-                # Assume no new entry
+                # Assume entry is not new
                 isNew = False
 
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
