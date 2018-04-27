@@ -98,6 +98,7 @@ A chart entry (typically a single track) is of type `ChartEntry`. A `ChartEntry`
 * `lastPos` &ndash; The track's position on the previous week's chart, as an int (or `None` if the chart does not include this information). This value is 0 if the track was not on the previous week's chart.
 * `weeks` &ndash; The number of weeks the track has been or was on the chart, including future dates (up until the present time).
 * `rank` &ndash; The track's current position on the chart.
+* `isNew` &ndash; Whether the track is new to the chart.
 
 ### More resources
 

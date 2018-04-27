@@ -42,16 +42,17 @@ class ChartEntry:
         weeks: The number of weeks the track has been or was on the chart,
             including future dates (up until the present time).
         rank: The track's position on the chart, as an int.
+        isNew: Whether the track is new to the chart, as a boolean.
     """
 
-    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, newEntry):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, isNew):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
         self.lastPos = lastPos
         self.weeks = weeks
         self.rank = rank
-        self.newEntry = newEntry
+        self.isNew = isNew
 
     def __repr__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
@@ -222,12 +223,12 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                newEntry = bool(entrySoup.select_one('div.chart-row__new-indicator'))
+                isNew = bool(entrySoup.select_one('div.chart-row__new-indicator'))
             except:
                 # Assume no new entry
-                newEntry = False
+                isNew = False
 
-            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, newEntry)
+            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
 
 
