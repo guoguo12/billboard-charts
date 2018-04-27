@@ -226,7 +226,7 @@ class ChartData:
             except:
                 # Assume no new entry
                 newEntry = False
-                
+
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, newEntry)
             self.entries.append(entry)
 
