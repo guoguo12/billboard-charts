@@ -34,6 +34,11 @@ class TestCurrentArtist100:
             assert 1 <= entry.rank <= 100  # Redundant because of test_ranks
             assert isinstance(entry.isNew, bool)
 
+    def test_entries_consistency(self):
+        for entry in self.chart:
+            if entry.isNew:
+                assert entry.lastPos == 0
+
     def test_json(self):
         assert json.loads(self.chart.json())
 
