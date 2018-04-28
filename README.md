@@ -33,23 +33,24 @@ Now we can look at the chart entries, which are of type `ChartEntry` and have at
 ```Python
 >>> song = chart[0]  # Get no. 1 song on chart
 >>> song.title
-u'Despacito'
+'Nice For What'
 >>> song.artist
-u'Luis Fonsi & Daddy Yankee Featuring Justin Bieber'
+'Drake'
 >>> song.weeks  # Number of weeks on chart
-30
+2
 ```
 
 We can also `print` the entire chart:
 
 ```
->>> print chart
-hot-100 chart from 2017-08-26
+>>> print(chart)
+hot-100 chart from 2018-04-28
 -----------------------------
-1. 'Despacito' by Luis Fonsi & Daddy Yankee Featuring Justin Bieber
-2. 'Wild Thoughts' by DJ Khaled Featuring Rihanna & Bryson Tiller
-3. 'Unforgettable' by French Montana Featuring Swae Lee
-4. 'Believer' by Imagine Dragons
+1. 'Nice For What' by Drake
+2. 'God's Plan' by Drake
+3. 'Meant To Be' by Bebe Rexha & Florida Georgia Line
+4. 'Psycho' by Post Malone Featuring Ty Dolla $ign
+5. 'The Middle' by Zedd, Maren Morris & Grey
 # ...
 ```
 
