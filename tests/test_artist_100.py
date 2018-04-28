@@ -41,6 +41,8 @@ class TestCurrentArtist100:
 
     def test_json(self):
         assert json.loads(self.chart.json())
+        for entry in self.chart:
+            assert json.loads(entry.json())
 
 
 class TestHistoricalArtist100(TestCurrentArtist100):

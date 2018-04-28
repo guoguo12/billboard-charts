@@ -39,6 +39,8 @@ class TestCurrentHot100:
 
     def test_json(self):
         assert json.loads(self.chart.json())
+        for entry in self.chart:
+            assert json.loads(entry.json())
 
 
 class TestHistoricalHot100(TestCurrentHot100):

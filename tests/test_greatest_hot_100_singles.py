@@ -35,3 +35,5 @@ class TestCurrentGreatestHot100Singles:
 
     def test_json(self):
         assert json.loads(self.chart.json())
+        for entry in self.chart:
+            assert json.loads(entry.json())
