@@ -179,7 +179,6 @@ class ChartData:
         if currentTime:
             self.date = currentTime.get('datetime')
 
-        ye = self.yearEnd
         if self.yearEnd:
             for entrySoup in soup.find_all('article', {'class': 'ye-chart-item'}):
 
@@ -240,8 +239,7 @@ class ChartData:
                     # Assume entry is not new
                     isNew = False
 
-                    entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
-
+                entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
                 self.entries.append(entry)
 
 
