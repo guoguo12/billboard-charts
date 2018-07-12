@@ -27,7 +27,6 @@ class BillboardParseException(Exception):
 
 class ChartEntry:
     """Represents an entry (typically a single track) on a chart.
-
     Attributes:
         title: The title of the track.
         artist: The name of the track artist, as formatted on Billboard.com.
@@ -77,7 +76,6 @@ class ChartEntry:
 
 class ChartData:
     """Represents a particular Billboard chart for a particular date.
-
     Attributes:
         name: The chart name, as a string.
         date: The date of the chart.
@@ -87,9 +85,8 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, timeout=25):
+    def __init__(self, name, date=None, fetch=True, timeout=25, yearEnd=False):
         """Constructs a new ChartData instance.
-
         Args:
             name: The chart name, e.g. 'hot-100' or 'pop-songs'.
                 You can browse the Charts section of Billboard.com to find
@@ -112,8 +109,10 @@ class ChartData:
         self.name = name
 
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
-            raise ValueError('Date argument is not in YYYY-MM-DD format')
+            if not (yearEnd and re.match('\d{4}', str(date))):
+                raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
+        self.yearEnd = yearEnd
         self.previousDate = None
 
         self._timeout = timeout
@@ -159,11 +158,16 @@ class ChartData:
         """
         if not self.date:
             # Fetch latest chart
+            if self.yearEnd:
+                lastYear = datetime.datetime.now().year - 1
+                url = 'http://www.billboard.com/charts/year-end/%s/%s' % (lastYear, self.name)
             url = 'http://www.billboard.com/charts/%s' % (self.name)
         else:
-            url = 'http://www.billboard.com/charts/%s/%s' % (
+            if self.yearEnd:
+                url = 'http://www.billboard.com/charts/year-end/%s/%s' % (self.date, self.name)
+            else:
+                url = 'http://www.billboard.com/charts/%s/%s' % (
                 self.name, self.date)
-
         html = downloadHTML(url, self._timeout)
         soup = BeautifulSoup(html, 'html.parser')
 
@@ -175,61 +179,70 @@ class ChartData:
         if currentTime:
             self.date = currentTime.get('datetime')
 
-        for entrySoup in soup.find_all('article', {'class': 'chart-row'}):
-            basicInfoSoup = entrySoup.find('div', 'chart-row__title').contents
+        ye = self.yearEnd
+        if self.yearEnd:
+            for entrySoup in soup.find_all('article', {'class': 'ye-chart-item'}):
 
-            try:
-                title = basicInfoSoup[1].string or ''
-                title = title.strip()
-            except:
-                message = "Failed to parse title"
-                raise BillboardParseException(message)
+                title = entrySoup.find('div', 'ye-chart-item__title').contents[0].strip()    
+                artist = entrySoup.find('div', 'ye-chart-item__artist').contents[0].strip()
+                rank = int(entrySoup.find('div', 'ye-chart-item__rank').contents[0].strip())
 
-            try:
-                if (basicInfoSoup[3].find('a')):
-                    artist = basicInfoSoup[3].a.string.strip()
-                else:
-                    artist = basicInfoSoup[3].string.strip()
-            except:
-                message = "Failed to parse artist"
-                raise BillboardParseException(message)
-
-            def getRowValue(rowName):
+                entry = ChartEntry(title, artist, None, None, None, rank, None)
+                self.entries.append(entry)
+        else:
+            for entrySoup in soup.find_all('article', {'class': 'chart-row'}):
+                basicInfoSoup = entrySoup.find('div', 'ye-chart-item__title' if ye else 'chart-row__title').contents
                 try:
-                    selector = 'div.chart-row__%s .chart-row__value' % rowName
-                    return entrySoup.select_one(selector).string.strip()
+                    title = basicInfoSoup[1].string or ''
+                    title = title.strip()
                 except:
-                    message = "Failed to parse row value: %s" % rowName
+                    message = "Failed to parse title"
+                    raise BillboardParseException(message)
+                try:
+                    if (basicInfoSoup[3].find('a')):
+                        artist = basicInfoSoup[3].a.string.strip()
+                    else:
+                        artist = basicInfoSoup[3].string.strip()
+                except:
+                    message = "Failed to parse artist"
                     raise BillboardParseException(message)
 
-            try:
-                peakPos = int(getRowValue('top-spot'))
+                def getRowValue(rowName):
+                    try:
+                        selector = 'div.chart-row__%s .chart-row__value' % rowName
+                        return entrySoup.select_one(selector).string.strip()
+                    except:
+                        message = "Failed to parse row value: %s" % rowName
+                        raise BillboardParseException(message)
+                try:
+                    peakPos = int(getRowValue('top-spot'))
 
-                lastPos = getRowValue('last-week')
-                lastPos = 0 if lastPos == '--' else int(lastPos)
+                    lastPos = getRowValue('last-week')
+                    lastPos = 0 if lastPos == '--' else int(lastPos)
 
-                weeks = int(getRowValue('weeks-on-chart'))
-            except BillboardParseException:
-                # Assume not available for this chart
-                peakPos = lastPos = weeks = None
+                    weeks = int(getRowValue('weeks-on-chart'))
+                except BillboardParseException:
+                    # Assume not available for this chart
+                    peakPos = lastPos = weeks = None
 
-            try:
-                rank = int(
-                    entrySoup.select_one('.chart-row__current-week')
-                             .string
-                             .strip())
-            except:
-                message = "Failed to parse rank"
-                raise BillboardParseException(message)
+                try:
+                    rank = int(
+                        entrySoup.select_one('.chart-row__current-week')
+                                 .string
+                                 .strip())
+                except:
+                    message = "Failed to parse rank"
+                    raise BillboardParseException(message)
 
-            try:
-                isNew = bool(entrySoup.select_one('div.chart-row__new-indicator'))
-            except:
-                # Assume entry is not new
-                isNew = False
+                try:
+                    isNew = bool(entrySoup.select_one('div.chart-row__new-indicator'))
+                except:
+                    # Assume entry is not new
+                    isNew = False
 
-            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
-            self.entries.append(entry)
+                    entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
+
+                self.entries.append(entry)
 
 
 def downloadHTML(url, timeout):
