@@ -4,6 +4,7 @@ import datetime
 import json
 import re
 import sys
+import datetime
 
 from bs4 import BeautifulSoup
 import requests
@@ -19,6 +20,7 @@ __email__      = "guoguo12@gmail.com"
 HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
 }
+EARLIEST_DATE = datetime.datetime.strptime('1958-08-04', '%Y-%m-%d').date()
 
 
 class BillboardParseException(Exception):
@@ -114,6 +116,16 @@ class ChartData:
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
             raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
+        if self.date is not None:
+            if isinstance(self.date, str):
+                if datetime.datetime.strptime(self.date, '%Y-%m-%d').date() < EARLIEST_DATE:
+                    self.date = EARLIEST_DATE
+            elif isinstance(self.date, datetime.date):
+                if self.date < EARLIEST_DATE:
+                    self.date = EARLIEST_DATE
+            else:
+                message = "Passed date is an unexpected type: " + str(type(self.date))
+                raise BillboardParseException(message)
         self.previousDate = None
 
         self._timeout = timeout
@@ -167,70 +179,95 @@ class ChartData:
         html = downloadHTML(url, self._timeout)
         soup = BeautifulSoup(html, 'html.parser')
 
-        prevLink = soup.find('a', {'title': 'Previous Week'})
-        if prevLink:
-            self.previousDate = prevLink.get('href').split('/')[-1]
+        prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
 
-        currentTime = soup.find('time')
-        if currentTime:
-            self.date = currentTime.get('datetime')
+        if prevWeek:
+            prevLink = prevWeek.parent
+            if prevLink.get('href') is None:
+                self.date = '1958-08-04'
+            else:
+                self.previousDate = prevLink.get('href').split('/')[-1]
+                self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d') 
+        
+        topElement = soup.find('div', {'class': 'chart-number-one'})
+        try:
+            topTitle = topElement.select_one('div.chart-number-one__title').string.strip()
+        except:
+            message = "Failed to parse top track title"
+            raise BillboardParseException(message)
 
-        for entrySoup in soup.find_all('article', {'class': 'chart-row'}):
-            basicInfoSoup = entrySoup.find('div', 'chart-row__title').contents
+        try:
+            topArtistElement = topElement.select_one('div.chart-number-one__artist')
+            if topArtistElement.a is None:
+                topArtist = topArtistElement.getText().strip()
+            else:
+                topArtist = topArtistElement.a.getText().strip()
+        except:
+            message = "Failed to parse top track artist"
+            raise BillboardParseException(message)
 
+        topRank = 1
+
+        if self.date:
+            topPeakPos = 1
             try:
-                title = basicInfoSoup[1].string or ''
-                title = title.strip()
+                topLastPos = int(topElement.select_one('div.chart-number-one__last-week').string.strip())
+            except:
+                # if there is no div with class div.chart-number-one__last-week, that means it was the top song the prior week
+                topLastPos = 1
+
+            topWeeksElement = topElement.select_one('div.chart-number-one__weeks-on-chart')
+            topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
+            topIsNew = True if topWeeks == 0 else False
+        else:
+            topPeakPos = topLastPos = topWeeks = None
+            topIsNew = False
+
+        topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
+        self.entries.append(topEntry)
+
+        for entrySoup in soup.find_all('div', {'class': 'chart-list-item'}):
+            try:
+                title = entrySoup['data-title'].strip()
             except:
                 message = "Failed to parse title"
                 raise BillboardParseException(message)
 
             try:
-                if (basicInfoSoup[3].find('a')):
-                    artist = basicInfoSoup[3].a.string.strip()
-                else:
-                    artist = basicInfoSoup[3].string.strip()
+                artist = entrySoup['data-artist'].strip()
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
 
-            def getRowValue(rowName):
+            try:
+                rank = int(entrySoup['data-rank'].strip())
+            except:
+                message = "Failed to parse rank"
+                raise BillboardParseException(message)
+            def getPositionRowValue(rowName):
                 try:
-                    selector = 'div.chart-row__%s .chart-row__value' % rowName
-                    return entrySoup.select_one(selector).string.strip()
+                    selector = 'div.chart-list-item__%s' % rowName
+                    selected = entrySoup.select_one(selector)
+                    if selected is None or selected.string == '-':
+                        return 0
+                    else:
+                        return int(selected.string.strip())
                 except:
                     message = "Failed to parse row value: %s" % rowName
                     raise BillboardParseException(message)
 
-            try:
-                peakPos = int(getRowValue('top-spot'))
-
-                lastPos = getRowValue('last-week')
-                lastPos = 0 if lastPos == '--' else int(lastPos)
-
-                weeks = int(getRowValue('weeks-on-chart'))
-            except BillboardParseException:
-                # Assume not available for this chart
+            if self.date:
+                peakPos = getPositionRowValue('weeks-at-one')
+                peakPos = rank if peakPos == 0 else peakPos
+                lastPos = getPositionRowValue('last-week')
+                weeks = getPositionRowValue('weeks-on-chart')
+                isNew = True if weeks == 0 else False
+            else:
                 peakPos = lastPos = weeks = None
-
-            try:
-                rank = int(
-                    entrySoup.select_one('.chart-row__current-week')
-                             .string
-                             .strip())
-            except:
-                message = "Failed to parse rank"
-                raise BillboardParseException(message)
-
-            try:
-                isNew = bool(entrySoup.select_one('div.chart-row__new-indicator'))
-            except:
-                # Assume entry is not new
                 isNew = False
 
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
-
 
 def downloadHTML(url, timeout):
     """Downloads and returns the webpage with the given URL.
