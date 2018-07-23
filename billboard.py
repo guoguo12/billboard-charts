@@ -169,14 +169,14 @@ class ChartData:
 
         prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
         nextWeek = soup.find('span', {'class': 'fa-chevron-right'})
-        
+
         if prevWeek and prevWeek.parent.get('href'):
             self.previousDate = prevWeek.parent.get('href').split('/')[-1]
-            self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d') 
+            self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d')
         elif nextWeek and nextWeek.parent.get('href'):
             nextDate = nextWeek.parent.get('href').split('/')[-1]
             self.date = (datetime.datetime.strptime(nextDate, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
-        
+
         topElement = soup.find('div', {'class': 'chart-number-one'})
         try:
             topTitle = topElement.select_one('div.chart-number-one__title').string.strip()
@@ -228,10 +228,10 @@ class ChartData:
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
-            
+
             if artist == '':
                 title, artist = artist, title
-            
+
             try:
                 rank = int(entrySoup['data-rank'].strip())
             except:
