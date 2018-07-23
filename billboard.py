@@ -65,7 +65,7 @@ class ChartEntry:
             s = u"%s" % self.artist
 
         if sys.version_info.major < 3:
-            return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
+            return s.encode('utf8' or getattr(sys.stdout, 'encoding', ''))
         else:
             return s
 
@@ -116,6 +116,7 @@ class ChartData:
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
             raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
+        """
         if self.date is not None:
             if isinstance(self.date, str):
                 if datetime.datetime.strptime(self.date, '%Y-%m-%d').date() < EARLIEST_DATE:
@@ -126,6 +127,7 @@ class ChartData:
             else:
                 message = "Passed date is an unexpected type: " + str(type(self.date))
                 raise BillboardParseException(message)
+        """
         self.previousDate = None
 
         self._timeout = timeout
@@ -180,6 +182,16 @@ class ChartData:
         soup = BeautifulSoup(html, 'html.parser')
 
         prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
+        nextWeek = soup.find('span', {'class': 'fa-chevron-right'})
+        
+        if prevWeek and prevWeek.parent.get('href'):
+            self.previousDate = prevWeek.parent.get('href').split('/')[-1]
+            self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d') 
+        elif nextWeek and nextWeek.parent.get('href'):
+            nextDate = nextWeek.parent.get('href').split('/')[-1]
+            self.date = (datetime.datetime.strptime(nextDate, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
+        """
+        print prevWeek.parent
 
         if prevWeek:
             prevLink = prevWeek.parent
@@ -188,7 +200,7 @@ class ChartData:
             else:
                 self.previousDate = prevLink.get('href').split('/')[-1]
                 self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d') 
-        
+        """
         topElement = soup.find('div', {'class': 'chart-number-one'})
         try:
             topTitle = topElement.select_one('div.chart-number-one__title').string.strip()
@@ -197,8 +209,10 @@ class ChartData:
             raise BillboardParseException(message)
 
         try:
-            topArtistElement = topElement.select_one('div.chart-number-one__artist')
-            if topArtistElement.a is None:
+            topArtistElement = topElement.select_one('div.chart-number-one__artist') or ''
+            if topArtistElement == '':
+                topTitle, topArtist = '', topTitle
+            elif topArtistElement.a is None:
                 topArtist = topArtistElement.getText().strip()
             else:
                 topArtist = topArtistElement.a.getText().strip()
@@ -234,11 +248,14 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                artist = entrySoup['data-artist'].strip()
+                artist = entrySoup['data-artist'].strip() or ''
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
-
+            
+            if artist == '':
+                title, artist = artist, title
+            
             try:
                 rank = int(entrySoup['data-rank'].strip())
             except:
