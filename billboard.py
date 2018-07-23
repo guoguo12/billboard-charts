@@ -21,6 +21,10 @@ HEADERS = {
 }
 
 
+class BillboardNotFoundException(Exception):
+    pass
+
+
 class BillboardParseException(Exception):
     pass
 
@@ -164,8 +168,13 @@ class ChartData:
             url = 'http://www.billboard.com/charts/%s/%s' % (
                 self.name, self.date)
 
-        html = downloadHTML(url, self._timeout)
-        soup = BeautifulSoup(html, 'html.parser')
+        req = requests.get(url, headers=HEADERS, timeout=self._timeout)
+        if req.status_code == 404:
+            message = "Chart not found (perhaps the name is misspelled?)"
+            raise BillboardNotFoundException(message)
+        req.raise_for_status()
+
+        soup = BeautifulSoup(req.text, 'html.parser')
 
         dateElement = soup.select_one('button.chart-detail-header__date-selector-button')
         if dateElement:
@@ -263,14 +272,3 @@ class ChartData:
 
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
-
-def downloadHTML(url, timeout):
-    """Downloads and returns the webpage with the given URL.
-    Returns an empty string on failure.
-    """
-    assert url.startswith('http://')
-    req = requests.get(url, headers=HEADERS, timeout=timeout)
-    if req.status_code == 200:
-        return req.text
-    else:
-        return ''
