@@ -167,15 +167,17 @@ class ChartData:
         html = downloadHTML(url, self._timeout)
         soup = BeautifulSoup(html, 'html.parser')
 
+        dateElement = soup.select_one('button.chart-detail-header__date-selector-button')
+        if dateElement:
+            dateText = dateElement.text.strip()
+            self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
+
         prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
         nextWeek = soup.find('span', {'class': 'fa-chevron-right'})
-
         if prevWeek and prevWeek.parent.get('href'):
             self.previousDate = prevWeek.parent.get('href').split('/')[-1]
-            self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d')
-        elif nextWeek and nextWeek.parent.get('href'):
-            nextDate = nextWeek.parent.get('href').split('/')[-1]
-            self.date = (datetime.datetime.strptime(nextDate, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
+        if nextWeek and nextWeek.parent.get('href'):
+            self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
         topElement = soup.find('div', {'class': 'chart-number-one'})
         try:
