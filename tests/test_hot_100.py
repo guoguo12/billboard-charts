@@ -58,6 +58,7 @@ class TestHistoricalHot100(TestCurrentHot100):
     def test_date(self):
         assert self.chart.date == '2015-11-28'
         assert self.chart.previousDate == '2015-11-21'
+        assert self.chart.nextDate == '2015-12-05'
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-hot-100.txt')

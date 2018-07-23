@@ -60,6 +60,7 @@ class TestHistoricalArtist100(TestCurrentArtist100):
     def test_date(self):
         assert self.chart.date == '2014-07-26'
         assert self.chart.previousDate == '2014-07-19'
+        assert self.chart.nextDate == '2014-08-02'
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(),
