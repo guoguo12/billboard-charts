@@ -15,6 +15,21 @@ def test_date_rounding():
     assert chart.date == '1996-08-03'
 
 
+def test_previous_next():
+    """Checks that the date, previousDate, and nextDate attributes are parsed
+    from the HTML, not computed. Specifically, we shouldn't assume charts are
+    always published seven days apart, since (as this example demonstrates)
+    this is not true.
+    """
+    chart = billboard.ChartData('hot-100', date='1962-01-06')
+    assert chart.date == '1962-01-06'
+    assert chart.previousDate == '1961-12-25'
+
+    chart = billboard.ChartData('hot-100', date='1961-12-25')
+    assert chart.date == '1961-12-25'
+    assert chart.nextDate == '1962-01-06'
+
+
 def test_datetime_date():
     """Checks that ChartData correctly handles datetime objects as the
     date parameter.
