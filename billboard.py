@@ -4,7 +4,6 @@ import datetime
 import json
 import re
 import sys
-import datetime
 
 from bs4 import BeautifulSoup
 import requests
@@ -20,7 +19,6 @@ __email__      = "guoguo12@gmail.com"
 HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
 }
-EARLIEST_DATE = datetime.datetime.strptime('1958-08-04', '%Y-%m-%d').date()
 
 
 class BillboardParseException(Exception):
@@ -116,18 +114,6 @@ class ChartData:
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
             raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
-        """
-        if self.date is not None:
-            if isinstance(self.date, str):
-                if datetime.datetime.strptime(self.date, '%Y-%m-%d').date() < EARLIEST_DATE:
-                    self.date = EARLIEST_DATE
-            elif isinstance(self.date, datetime.date):
-                if self.date < EARLIEST_DATE:
-                    self.date = EARLIEST_DATE
-            else:
-                message = "Passed date is an unexpected type: " + str(type(self.date))
-                raise BillboardParseException(message)
-        """
         self.previousDate = None
 
         self._timeout = timeout
@@ -190,17 +176,7 @@ class ChartData:
         elif nextWeek and nextWeek.parent.get('href'):
             nextDate = nextWeek.parent.get('href').split('/')[-1]
             self.date = (datetime.datetime.strptime(nextDate, '%Y-%m-%d') - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
-        """
-        print prevWeek.parent
-
-        if prevWeek:
-            prevLink = prevWeek.parent
-            if prevLink.get('href') is None:
-                self.date = '1958-08-04'
-            else:
-                self.previousDate = prevLink.get('href').split('/')[-1]
-                self.date = (datetime.datetime.strptime(self.previousDate, '%Y-%m-%d') + datetime.timedelta(days=7)).strftime('%Y-%m-%d') 
-        """
+        
         topElement = soup.find('div', {'class': 'chart-number-one'})
         try:
             topTitle = topElement.select_one('div.chart-number-one__title').string.strip()
