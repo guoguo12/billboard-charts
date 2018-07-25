@@ -1,11 +1,11 @@
 import json
 import os
-
+import unittest
 import billboard
 from utils import get_test_dir
 
 
-class TestCurrentHot100:
+class TestCurrentHot100(unittest.TestCase):
     """Checks that the ChartData object for the current Hot 100 chart has
     entries and instance variables that are valid and reasonable. Does not test
     whether the data is actually correct.
@@ -15,32 +15,33 @@ class TestCurrentHot100:
         self.chart = billboard.ChartData('hot-100')
 
     def test_date(self):
-        assert self.chart.date is not None
+        self.assertIsNotNone(self.chart.date)
 
     def test_ranks(self):
         ranks = list(entry.rank for entry in self.chart)
-        assert ranks == list(range(1, 101))
+        self.assertEqual(ranks, list(range(1, 101)))
 
     def test_entries_validity(self):
-        assert len(self.chart) == 100
+        self.assertEqual(len(self.chart), 100)
         for entry in self.chart:
-            assert len(entry.title) > 0
-            assert len(entry.artist) > 0
-            assert 1 <= entry.peakPos <= 100
-            assert 0 <= entry.lastPos <= 100
-            assert entry.weeks >= 0
-            assert 1 <= entry.rank <= 100  # Redundant because of test_ranks
-            assert isinstance(entry.isNew, bool)
+            self.assertGreater(len(entry.title), 0)
+            self.assertGreater(len(entry.artist), 0)
+            self.assertTrue(1 <= entry.peakPos <= 100)
+            self.assertTrue(0 <= entry.lastPos <= 100)
+            self.assertGreaterEqual(entry.weeks, 0)
+            # Redundant because of test_ranks
+            self.assertTrue(1 <= entry.rank <= 100)
+            self.assertIsInstance(entry.isNew, bool)
 
     def test_entries_consistency(self):
         for entry in self.chart:
             if entry.isNew:
-                assert entry.lastPos == 0
+                self.assertEqual(entry.lastPos, 0)
 
     def test_json(self):
-        assert json.loads(self.chart.json())
+        self.assertTrue(json.loads(self.chart.json()))
         for entry in self.chart:
-            assert json.loads(entry.json())
+            self.assertTrue(json.loads(entry.json()))
 
 
 class TestHistoricalHot100(TestCurrentHot100):
@@ -56,11 +57,11 @@ class TestHistoricalHot100(TestCurrentHot100):
         self.chart = billboard.ChartData('hot-100', date='2015-11-28')
 
     def test_date(self):
-        assert self.chart.date == '2015-11-28'
-        assert self.chart.previousDate == '2015-11-21'
-        assert self.chart.nextDate == '2015-12-05'
+        self.assertEqual(self.chart.date, '2015-11-28')
+        self.assertEqual(self.chart.previousDate, '2015-11-21')
+        self.assertEqual(self.chart.nextDate, '2015-12-05')
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-hot-100.txt')
         with open(reference_path) as reference:
-            assert str(self.chart) == reference.read()
+            self.assertEqual(str(self.chart), reference.read())
