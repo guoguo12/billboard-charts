@@ -67,7 +67,7 @@ class ChartEntry:
             s = u"%s" % self.artist
 
         if sys.version_info.major < 3:
-            return s.encode('utf8' or getattr(sys.stdout, 'encoding', ''))
+            return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
         else:
             return s
 
