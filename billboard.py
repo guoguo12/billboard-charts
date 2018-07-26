@@ -248,6 +248,7 @@ class ChartData:
             except:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
+
             def getPositionRowValue(rowName):
                 try:
                     selector = 'div.chart-list-item__%s' % rowName
