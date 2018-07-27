@@ -48,3 +48,13 @@ class DateTest(unittest.TestCase):
         Checks that passing an empty string as the date raises an exception.
         """
         billboard.ChartData('hot-100', date='')
+
+    @raises(ValueError)
+    def test_invalid_date(self):
+        """Checks that passing a correctly formatted but invalid date raises an exception."""
+        billboard.ChartData('hot-100', date='2018-99-99')
+
+    @raises(ValueError)
+    def test_future_date(self):
+        """Checks that passing a date after the date of a chart's last issue raises an exception."""
+        billboard.ChartData('hot-100', date='3000-10-10')
