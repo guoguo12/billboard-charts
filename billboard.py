@@ -117,6 +117,12 @@ class ChartData:
 
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
             raise ValueError('Date argument is not in YYYY-MM-DD format')
+        if date is not None:
+            try:
+                datetime.datetime(*(int(x) for x in str(date).split('-')))
+            except:
+                raise ValueError('Date argument is invalid')
+
         self.date = date
         self.previousDate = None
 
@@ -179,7 +185,10 @@ class ChartData:
         dateElement = soup.select_one('button.chart-detail-header__date-selector-button')
         if dateElement:
             dateText = dateElement.text.strip()
-            self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
+            curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
+            if self.date and curDate < datetime.datetime.strptime(str(self.date), '%Y-%m-%d'):
+                raise ValueError('Date argument is after the date of the latest issue')
+            self.date = curDate.strftime('%Y-%m-%d')
 
         prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
         nextWeek = soup.find('span', {'class': 'fa-chevron-right'})
@@ -273,3 +282,18 @@ class ChartData:
 
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
+
+def list_all_charts():
+    req = requests.get('https://www.billboard.com/charts', headers=HEADERS, timeout=25)
+    soup = BeautifulSoup(req.text, 'html.parser')
+    chartCategories = soup.find('div', {'class' : "chart-panel--main"}).findAll('div', {'class' : "chart-panel__text"})
+    chartGroups = soup.findAll('div', {'class' : "chart-panel__charts"})
+    sFull = ""
+    for category, group in zip(chartCategories, chartGroups):
+        s = category.text.strip()
+        s += '\n' + '-' * len(s) + '\n'
+        charts = group.findAll('a', {'class' : "chart-panel__link"})
+        for c in charts:
+            s += c['href'].split('/')[-1] + '\n'
+        sFull += s + '\n'
+    return sFull
