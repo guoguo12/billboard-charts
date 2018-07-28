@@ -115,9 +115,9 @@ class ChartData:
         """
         self.name = name
 
-        if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
-            raise ValueError('Date argument is not in YYYY-MM-DD format')
         if date is not None:
+            if not re.match('\d{4}-\d{2}-\d{2}', str(date)):
+                raise ValueError('Date argument is not in YYYY-MM-DD format')
             try:
                 datetime.datetime(*(int(x) for x in str(date).split('-')))
             except:
@@ -187,6 +187,8 @@ class ChartData:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
             if self.date and curDate < datetime.datetime.strptime(str(self.date), '%Y-%m-%d'):
+                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
+                # containing no chart data but displaying the date of the chart's latest issue.
                 raise ValueError('Date argument is after the date of the latest issue')
             self.date = curDate.strftime('%Y-%m-%d')
 
@@ -283,17 +285,7 @@ class ChartData:
             entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
 
-def list_all_charts():
+def charts():
     req = requests.get('https://www.billboard.com/charts', headers=HEADERS, timeout=25)
     soup = BeautifulSoup(req.text, 'html.parser')
-    chartCategories = soup.find('div', {'class' : "chart-panel--main"}).findAll('div', {'class' : "chart-panel__text"})
-    chartGroups = soup.findAll('div', {'class' : "chart-panel__charts"})
-    sFull = ""
-    for category, group in zip(chartCategories, chartGroups):
-        s = category.text.strip()
-        s += '\n' + '-' * len(s) + '\n'
-        charts = group.findAll('a', {'class' : "chart-panel__link"})
-        for c in charts:
-            s += c['href'].split('/')[-1] + '\n'
-        sFull += s + '\n'
-    return sFull
+    return [c['href'].split('/')[-1] for c in soup.findAll('a', {'class' : "chart-panel__link"})]
