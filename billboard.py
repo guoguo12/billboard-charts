@@ -59,6 +59,12 @@ class ChartEntry:
         self.isNew = isNew
 
     def __repr__(self):
+        return '{}.{}(title={!r}, artist={!r})'.format(self.__class__.__module__,
+                                                       self.__class__.__name__,
+                                                       self.title,
+                                                       self.artist)
+
+    def __str__(self):
         """Returns a string of the form 'TITLE by ARTIST'.
         """
         if self.title:
@@ -127,6 +133,11 @@ class ChartData:
             self.fetchEntries()
 
     def __repr__(self):
+        return '{}.{}({!r}, {!r})'.format(self.__class__.__module__,
+                                          self.__class__.__name__,
+                                          self.name, self.date)
+
+    def __str__(self):
         """Returns the chart as a human-readable string (typically multi-line).
         """
         if not self.date:
