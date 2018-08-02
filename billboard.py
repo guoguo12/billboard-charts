@@ -133,9 +133,9 @@ class ChartData:
             self.fetchEntries()
 
     def __repr__(self):
-        return '{}.{}({!r}, {!r})'.format(self.__class__.__module__,
-                                          self.__class__.__name__,
-                                          self.name, self.date)
+        return '{}.{}({!r}, date={!r})'.format(self.__class__.__module__,
+                                               self.__class__.__name__,
+                                               self.name, self.date)
 
     def __str__(self):
         """Returns the chart as a human-readable string (typically multi-line).
