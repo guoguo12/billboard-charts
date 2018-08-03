@@ -20,6 +20,25 @@ HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
 }
 
+# css selector constants
+_DATE_ELEMENT_SELECTOR = 'button.chart-detail-header__date-selector-button'
+_PREVIOUS_DATE_SELECTOR = 'span.fa-chevron-left'
+_NEXT_DATE_SELECTOR = 'span.fa-chevron-right'
+_TOP_TITLE_SELECTOR = 'div.chart-number-one__title'
+_TOP_ARTIST_SELECTOR = 'div.chart-number-one__artist'
+_TOP_LAST_POS_SELECTOR = 'div.chart-number-one__last-week'
+_TOP_WEEKS_SELECTOR = 'div.chart-number-one__weeks-on-chart'
+_ENTRY_LIST_SELECTOR = 'div.chart-list-item'
+_ENTRY_TITLE_ATTR = 'data-title'
+_ENTRY_ARTIST_ATTR = 'data-artist'
+_ENTRY_RANK_ATTR = 'data-rank'
+
+# constants for the getPositionRowValue helper function
+_ROW_SELECTOR_FORMAT = 'div.chart-list-item__%s'
+_PEAK_POS_FORMAT = 'weeks-at-one'
+_LAST_POS_FORMAT = 'last-week'
+_WEEKS_ON_CHART_FORMAT = 'weeks-on-chart'
+
 
 class BillboardNotFoundException(Exception):
     pass
@@ -187,27 +206,26 @@ class ChartData:
 
         soup = BeautifulSoup(req.text, 'html.parser')
 
-        dateElement = soup.select_one('button.chart-detail-header__date-selector-button')
+        dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
             self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
 
-        prevWeek = soup.find('span', {'class': 'fa-chevron-left'})
-        nextWeek = soup.find('span', {'class': 'fa-chevron-right'})
+        prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
+        nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
         if prevWeek and prevWeek.parent.get('href'):
             self.previousDate = prevWeek.parent.get('href').split('/')[-1]
         if nextWeek and nextWeek.parent.get('href'):
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
-        topElement = soup.find('div', {'class': 'chart-number-one'})
         try:
-            topTitle = topElement.select_one('div.chart-number-one__title').string.strip()
+            topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
         except:
             message = "Failed to parse top track title"
             raise BillboardParseException(message)
 
         try:
-            topArtistElement = topElement.select_one('div.chart-number-one__artist') or ''
+            topArtistElement = soup.select_one(_TOP_ARTIST_SELECTOR) or ''
             if topArtistElement == '':
                 topTitle, topArtist = '', topTitle
             elif topArtistElement.a is None:
@@ -223,12 +241,12 @@ class ChartData:
         if self.date:
             topPeakPos = 1
             try:
-                topLastPos = int(topElement.select_one('div.chart-number-one__last-week').string.strip())
+                topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
             except:
                 # if there is no div with class div.chart-number-one__last-week, that means it was the top song the prior week
                 topLastPos = 1
 
-            topWeeksElement = topElement.select_one('div.chart-number-one__weeks-on-chart')
+            topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
             topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
             topIsNew = True if topWeeks == 0 else False
         else:
@@ -238,15 +256,15 @@ class ChartData:
         topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
         self.entries.append(topEntry)
 
-        for entrySoup in soup.find_all('div', {'class': 'chart-list-item'}):
+        for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
             try:
-                title = entrySoup['data-title'].strip()
+                title = entrySoup[_ENTRY_TITLE_ATTR].strip()
             except:
                 message = "Failed to parse title"
                 raise BillboardParseException(message)
 
             try:
-                artist = entrySoup['data-artist'].strip() or ''
+                artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
@@ -255,14 +273,14 @@ class ChartData:
                 title, artist = artist, title
 
             try:
-                rank = int(entrySoup['data-rank'].strip())
+                rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
             except:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
             def getPositionRowValue(rowName):
                 try:
-                    selector = 'div.chart-list-item__%s' % rowName
+                    selector = _ROW_SELECTOR_FORMAT % rowName
                     selected = entrySoup.select_one(selector)
                     if selected is None or selected.string == '-':
                         return 0
@@ -273,10 +291,10 @@ class ChartData:
                     raise BillboardParseException(message)
 
             if self.date:
-                peakPos = getPositionRowValue('weeks-at-one')
+                peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
                 peakPos = rank if peakPos == 0 else peakPos
-                lastPos = getPositionRowValue('last-week')
-                weeks = getPositionRowValue('weeks-on-chart')
+                lastPos = getPositionRowValue(_LAST_POS_FORMAT)
+                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
                 isNew = True if weeks == 0 else False
             else:
                 peakPos = lastPos = weeks = None
