@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import datetime
-from dateutil.relativedelta import relativedelta
 import json
 import re
 import sys
@@ -256,7 +255,6 @@ class ChartData:
             dto = next_li_element
             if next_li_element:
                 currentDate = datetime.datetime.strptime(dto, '%Y')
-                currentDate =  currentDate - relativedelta(years=1)
                 self.previousDate = currentDate.year
         else:
             prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
@@ -380,7 +378,7 @@ class ChartData:
                 entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
                 self.entries.append(entry)
 
-        elif self.name and self.chart and self.date:
+        else:
             for div in _YE_ENTRY_LIST_SELECTOR:
                 try:
                     title = div.select('div.ye-chart-item__title')[0].text.strip()
@@ -428,7 +426,3 @@ class ChartData:
 
                 entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
                 self.entries.append(entry)
-
-
-        else:
-            print("You should not be here!")
