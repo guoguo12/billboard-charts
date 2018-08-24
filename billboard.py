@@ -36,17 +36,12 @@ _ENTRY_RANK_ATTR = 'data-rank'
 # come back to see if these are needed
 _YE_TOP_TITLE_SELECTOR = 'div.ye-chart-item__title'
 _YE_TOP_ARTIST_SELECTOR = 'div.ye-chart-item__artist'
-_YE_TITLE_SELECTOR = 'div.ye-chart-item__title'
-_YE_ARTIST_SELECTOR = 'ye-chart-item__artist'
-_YE_RANK_ATTR = 'ye-chart-item__rank'
 
 # constants for the getPositionRowValue helper function
 _ROW_SELECTOR_FORMAT = 'div.chart-list-item__%s'
 _PEAK_POS_FORMAT = 'weeks-at-one'
 _LAST_POS_FORMAT = 'last-week'
 _WEEKS_ON_CHART_FORMAT = 'weeks-on-chart'
-# come back and see if this is needed
-_YE_ROW_SELECTOR_FORMAT = 'div.ye-chart-item__%s'
 
 
 class BillboardNotFoundException(Exception):
@@ -77,7 +72,7 @@ class ChartEntry:
         isNew: Whether the track is new to the chart, as a boolean.
     """
 
-    def __init__(self, title, artist, peakPos=None, lastPos=None, weeks=None, rank=None, isNew=None):
+    def __init__(self, title, artist, peakPos='Not Provided', lastPos='Not Provided', weeks='Not Provided', rank='Not Provided', isNew='Not Provided'):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
@@ -175,7 +170,7 @@ class ChartData:
         if self.name and self.chart and self.date:
             s = '%s %s chart from %s' % (self.name, self.chart, self.date)
             s += '\n' + '-' * len(s)
-            # without [1:] it will put 'None. 'Shape Of You' by Ed Sheeran' at beginning of chart
+            # without [1:] it will put 'None. 'Shape Of You' by Ed Sheeran' at beginning of chart not sure why
             for m, entry in enumerate(self.entries[1:]):
                 s += '\n%s. %s' % (entry.rank, str(entry))
         elif not self.date:
@@ -229,13 +224,13 @@ class ChartData:
 
         req = requests.get(url, headers=HEADERS, timeout=self._timeout)
         if req.status_code == 404:
-            message = "Chart not found (perhaps the name is misspelled?)"
+            message = "Chart not found (perhaps the name is misspelled or date format is incorrect if year end chart?)"
             raise BillboardNotFoundException(message)
         req.raise_for_status()
 
         soup = BeautifulSoup(req.text, 'html.parser')
 
-        # not with above css selectors because needs to use soup and just keep naming convention
+        # not with above css selectors because needs to use soup and just keeping naming similar
         _YE_ENTRY_LIST_SELECTOR = soup.find_all(class_ = 'ye-chart-item')
 
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
@@ -246,7 +241,7 @@ class ChartData:
         
         _YE_DATE_SELECTOR = 'div.year-link'
 
-        # this if block is not working as intended, still testing
+        # this   if   block is not working as intended, still testing
         if self.name and self.chart:
             pageList = soup.find("ul", {"class": "dropdown__year-select-options"})
             page = pageList.find("li", {"class": None})
@@ -397,32 +392,18 @@ class ChartData:
                     title, artist = artist, title
 
                 try:
-                    # not sure why this was a integar before
+                    # not sure why this has to be an integar honestly
                     rank = div.select('div.ye-chart-item__rank')[0].text.strip()
                     int(rank)
                 except:
                     message = "Failed to parse rank"
                     raise BillboardParseException(message)
 
-
-                # not sure yet if needed, ask about it
-                def getPositionRowValue(rowName):
-                    try:
-                        selector = _YE_ROW_SELECTOR_FORMAT % rowName
-                        selected = entrySoup.select_one(selector)
-                        if selected is None or selected.string == '-':
-                            return 0
-                        else:
-                            return int(selected.string.strip())
-                    except:
-                        message = "Failed to parse row value: %s" % rowName
-                        raise BillboardParseException(message)
-            
-
-                peakPos = 'Year end charts do not provide this information.'
-                lastPos = 'Year end charts do not provide this information.'
-                weeks = 'Year end charts do not provide this information.'
-                isNew = 'Year end charts do not provide this information.'
+                # Just returns 'None' even with these so added it to __init__
+                peakPos = 'Not Provided'
+                lastPos = 'Not Provided'
+                weeks = 'Not Provided'
+                isNew = 'Not Provided'
 
                 entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
                 self.entries.append(entry)
