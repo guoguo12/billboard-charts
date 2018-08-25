@@ -10,11 +10,10 @@ import requests
 
 """billboard.py: Unofficial Python API for accessing music charts from Billboard.com."""
 
-__author__     = "Allen Guo"
-__license__    = "MIT"
+__author__ = "Allen Guo"
+__license__ = "MIT"
 __maintainer__ = "Allen Guo"
-__email__      = "guoguo12@gmail.com"
-
+__email__ = "guoguo12@gmail.com"
 
 HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
@@ -72,7 +71,8 @@ class ChartEntry:
         isNew: Whether the track is new to the chart, as a boolean.
     """
 
-    def __init__(self, title, artist, peakPos='Not Provided', lastPos='Not Provided', weeks='Not Provided', rank='Not Provided', isNew='Not Provided'):
+    def __init__(self, title, artist, peakPos='Not Provided', lastPos='Not Provided', weeks='Not Provided',
+                 rank='Not Provided', isNew='Not Provided'):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
@@ -120,7 +120,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, chart=None, date=None, fetch=True, timeout=25):
+    def __init__(self, name, chart, date=None, fetch=True, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -145,10 +145,15 @@ class ChartData:
         self.name = name
         self.chart = chart
 
-        if self.chart:
-            pass
+        if date is not None and name == 'year-end' and not re.match(r'^[0-9]{4}$', str(date)):
+            if isinstance(date, datetime.date):
+                fullDate = str(date)
+                fullDate = datetime.datetime.strptime(fullDate, '%Y-%m-%d').date()
+                date = fullDate.strftime('%Y')
+            else:
+                raise ValueError('Date argument is not in YYYY')
         else:
-            if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
+            if date is not None and name != 'year-end' and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
                 raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
         self.previousDate = None
@@ -161,13 +166,13 @@ class ChartData:
 
     def __repr__(self):
         return '{}.{}.{}({!r}, date={!r})'.format(self.__class__.__module__,
-                                               self.__class__.__name__,
-                                               self.name, self.chart, self.date)
+                                                  self.__class__.__name__,
+                                                  self.name, self.chart, self.date)
 
     def __str__(self):
         """Returns the chart as a human-readable string (typically multi-line).
         """
-        if self.name and self.chart and self.date:
+        if self.name and self.chart is not None and self.date:
             s = '%s %s chart from %s' % (self.name, self.chart, self.date)
             s += '\n' + '-' * len(s)
             # without [1:] it will put 'None. 'Shape Of You' by Ed Sheeran' at beginning of chart not sure why
@@ -205,11 +210,11 @@ class ChartData:
         """GETs the corresponding chart data from Billboard.com, then parses
         the data using BeautifulSoup.
         """
-        if self.name and self.chart and self.date:
+        if self.name and self.chart is not None and self.date:
             url = 'http://www.billboard.com/charts/%s/%s/%s' % (
                 self.name, self.date, self.chart)
         # To get last years/latest year end chart when not provided a date
-        elif self.name and self.chart and not self.date:
+        elif self.name and self.chart is not None and not self.date:
             now = datetime.datetime.now()
             lastYear = now.year - 1
             url = 'http://www.billboard.com/charts/%s/%s/%s' % (
@@ -231,16 +236,16 @@ class ChartData:
         soup = BeautifulSoup(req.text, 'html.parser')
 
         # not with above css selectors because needs to use soup and just keeping naming similar
-        _YE_ENTRY_LIST_SELECTOR = soup.find_all(class_ = 'ye-chart-item')
+        _YE_ENTRY_LIST_SELECTOR = soup.find_all(class_='ye-chart-item')
 
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
             self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
 
-        
         _YE_DATE_SELECTOR = 'div.year-link'
 
+        '''
         # this   if   block is not working as intended, still testing
         if self.name and self.chart:
             pageList = soup.find("ul", {"class": "dropdown__year-select-options"})
@@ -251,16 +256,15 @@ class ChartData:
             if next_li_element:
                 currentDate = datetime.datetime.strptime(dto, '%Y')
                 self.previousDate = currentDate.year
-        else:
-            prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
-            nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
-            if prevWeek and prevWeek.parent.get('href'):
-                self.previousDate = prevWeek.parent.get('href').split('/')[-1]
-            if nextWeek and nextWeek.parent.get('href'):
-                self.nextDate = nextWeek.parent.get('href').split('/')[-1]
+        '''
+        prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
+        nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
+        if prevWeek and prevWeek.parent.get('href'):
+            self.previousDate = prevWeek.parent.get('href').split('/')[-1]
+        if nextWeek and nextWeek.parent.get('href'):
+            self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
-
-        if self.name and self.chart and self.date:
+        if self.name and self.chart is not None and self.date:
             try:
                 topTitle = soup.select_one(_YE_TOP_TITLE_SELECTOR).string.strip()
             except:
@@ -273,8 +277,7 @@ class ChartData:
                 message = "Failed to parse top track title"
                 raise BillboardParseException(message)
 
-
-        if self.name and self.chart and self.date:
+        if self.name and self.chart is not None and self.date:
             try:
                 topArtistElement = soup.select_one(_YE_TOP_ARTIST_SELECTOR) or ''
                 if topArtistElement == '':
@@ -300,7 +303,7 @@ class ChartData:
                 raise BillboardParseException(message)
 
         topRank = 1
-        if self.date and not self.chart:
+        if self.date and self.chart is None:
             topPeakPos = 1
             try:
                 topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
@@ -311,21 +314,20 @@ class ChartData:
             topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
             topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
             topIsNew = True if topWeeks == 0 else False
-        elif self.date and self.chart:
+        elif self.date and self.chart is not None:
             pass
         else:
             topPeakPos = topLastPos = topWeeks = None
             topIsNew = False
 
-        if self.name and not self.chart:
+        if self.name and self.chart is None:
             topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
             self.entries.append(topEntry)
         else:
             topEntry = ChartEntry(topTitle, topArtist)
             self.entries.append(topEntry)
 
-
-        if self.name and not self.chart:
+        if self.name and self.chart is None:
             for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
                 try:
                     title = entrySoup[_ENTRY_TITLE_ATTR].strip()
