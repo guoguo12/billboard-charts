@@ -10,10 +10,11 @@ import requests
 
 """billboard.py: Unofficial Python API for accessing music charts from Billboard.com."""
 
-__author__ = "Allen Guo"
-__license__ = "MIT"
+__author__     = "Allen Guo"
+__license__    = "MIT"
 __maintainer__ = "Allen Guo"
-__email__ = "guoguo12@gmail.com"
+__email__      = "guoguo12@gmail.com"
+
 
 HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
@@ -31,8 +32,7 @@ _ENTRY_LIST_SELECTOR = 'div.chart-list-item'
 _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
 _ENTRY_RANK_ATTR = 'data-rank'
-
-# come back to see if these are needed
+# year end ccs selector constants
 _YE_TOP_TITLE_SELECTOR = 'div.ye-chart-item__title'
 _YE_TOP_ARTIST_SELECTOR = 'div.ye-chart-item__artist'
 
@@ -71,8 +71,7 @@ class ChartEntry:
         isNew: Whether the track is new to the chart, as a boolean.
     """
 
-    def __init__(self, title, artist, peakPos='Not Provided', lastPos='Not Provided', weeks='Not Provided',
-                 rank='Not Provided', isNew='Not Provided'):
+    def __init__(self, title, artist, peakPos, lastPos, weeks, rank, isNew):
         self.title = title
         self.artist = artist
         self.peakPos = peakPos
@@ -108,6 +107,7 @@ class ChartEntry:
                           sort_keys=True, indent=4)
 
 
+# noinspection PyBroadException
 class ChartData:
     """Represents a particular Billboard chart for a particular date.
 
@@ -120,7 +120,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, chart, date=None, fetch=True, timeout=25):
+    def __init__(self, name, date=None, fetch=True, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -143,18 +143,9 @@ class ChartData:
                 If None, no timeout is applied.
         """
         self.name = name
-        self.chart = chart
 
-        if date is not None and name == 'year-end' and not re.match(r'^[0-9]{4}$', str(date)):
-            if isinstance(date, datetime.date):
-                fullDate = str(date)
-                fullDate = datetime.datetime.strptime(fullDate, '%Y-%m-%d').date()
-                date = fullDate.strftime('%Y')
-            else:
-                raise ValueError('Date argument is not in YYYY')
-        else:
-            if date is not None and name != 'year-end' and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
-                raise ValueError('Date argument is not in YYYY-MM-DD format')
+        if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
+            raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
         self.previousDate = None
 
@@ -165,26 +156,20 @@ class ChartData:
             self.fetchEntries()
 
     def __repr__(self):
-        return '{}.{}.{}({!r}, date={!r})'.format(self.__class__.__module__,
-                                                  self.__class__.__name__,
-                                                  self.name, self.chart, self.date)
+        return '{}.{}({!r}, date={!r})'.format(self.__class__.__module__,
+                                               self.__class__.__name__,
+                                               self.name, self.date)
 
     def __str__(self):
         """Returns the chart as a human-readable string (typically multi-line).
         """
-        if self.name and self.chart is not None and self.date:
-            s = '%s %s chart from %s' % (self.name, self.chart, self.date)
-            s += '\n' + '-' * len(s)
-            # without [1:] it will put 'None. 'Shape Of You' by Ed Sheeran' at beginning of chart not sure why
-            for m, entry in enumerate(self.entries[1:]):
-                s += '\n%s. %s' % (entry.rank, str(entry))
-        elif not self.date:
+        if not self.date:
             s = '%s chart (current)' % self.name
         else:
             s = '%s chart from %s' % (self.name, self.date)
-            s += '\n' + '-' * len(s)
-            for n, entry in enumerate(self.entries):
-                s += '\n%s. %s' % (entry.rank, str(entry))
+        s += '\n' + '-' * len(s)
+        for n, entry in enumerate(self.entries):
+            s += '\n%s. %s' % (entry.rank, str(entry))
         return s
 
     def __getitem__(self, key):
@@ -210,53 +195,26 @@ class ChartData:
         """GETs the corresponding chart data from Billboard.com, then parses
         the data using BeautifulSoup.
         """
-        if self.name and self.chart is not None and self.date:
-            url = 'http://www.billboard.com/charts/%s/%s/%s' % (
-                self.name, self.date, self.chart)
-        # To get last years/latest year end chart when not provided a date
-        elif self.name and self.chart is not None and not self.date:
-            now = datetime.datetime.now()
-            lastYear = now.year - 1
-            url = 'http://www.billboard.com/charts/%s/%s/%s' % (
-                self.name, lastYear, self.chart)
-            self.date = lastYear
-        elif not self.date:
+        if not self.date:
             # Fetch latest chart
-            url = 'http://www.billboard.com/charts/%s' % (self.name)
+            url = 'http://www.billboard.com/charts/%s' % self.name
         else:
             url = 'http://www.billboard.com/charts/%s/%s' % (
                 self.name, self.date)
 
         req = requests.get(url, headers=HEADERS, timeout=self._timeout)
         if req.status_code == 404:
-            message = "Chart not found (perhaps the name is misspelled or date format is incorrect if year end chart?)"
+            message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
         req.raise_for_status()
 
         soup = BeautifulSoup(req.text, 'html.parser')
-
-        # not with above css selectors because needs to use soup and just keeping naming similar
-        _YE_ENTRY_LIST_SELECTOR = soup.find_all(class_='ye-chart-item')
 
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
             self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
 
-        _YE_DATE_SELECTOR = 'div.year-link'
-
-        '''
-        # this   if   block is not working as intended, still testing
-        if self.name and self.chart:
-            pageList = soup.find("ul", {"class": "dropdown__year-select-options"})
-            page = pageList.find("li", {"class": None})
-            next_li_element = page.find_next_sibling("li").text
-            next_li_element = str(next_li_element)
-            dto = next_li_element
-            if next_li_element:
-                currentDate = datetime.datetime.strptime(dto, '%Y')
-                self.previousDate = currentDate.year
-        '''
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
         if prevWeek and prevWeek.parent.get('href'):
@@ -264,46 +222,28 @@ class ChartData:
         if nextWeek and nextWeek.parent.get('href'):
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
-        if self.name and self.chart is not None and self.date:
-            try:
-                topTitle = soup.select_one(_YE_TOP_TITLE_SELECTOR).string.strip()
-            except:
-                message = "Failed to parse top year end track title"
-                raise BillboardParseException(message)
-        else:
-            try:
-                topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
-            except:
-                message = "Failed to parse top track title"
-                raise BillboardParseException(message)
 
-        if self.name and self.chart is not None and self.date:
-            try:
-                topArtistElement = soup.select_one(_YE_TOP_ARTIST_SELECTOR) or ''
-                if topArtistElement == '':
-                    topTitle, topArtist = '', topTitle
-                elif topArtistElement.a is None:
-                    topArtist = topArtistElement.getText().strip()
-                else:
-                    topArtist = topArtistElement.a.getText().strip()
-            except:
-                message = "Failed to parse top year end track artist"
-                raise BillboardParseException(message)
-        else:
-            try:
-                topArtistElement = soup.select_one(_TOP_ARTIST_SELECTOR) or ''
-                if topArtistElement == '':
-                    topTitle, topArtist = '', topTitle
-                elif topArtistElement.a is None:
-                    topArtist = topArtistElement.getText().strip()
-                else:
-                    topArtist = topArtistElement.a.getText().strip()
-            except:
-                message = "Failed to parse top track artist"
-                raise BillboardParseException(message)
+        try:
+            topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
+        except:
+            message = "Failed to parse top track title"
+            raise BillboardParseException(message)
+
+        try:
+            topArtistElement = soup.select_one(_TOP_ARTIST_SELECTOR) or ''
+            if topArtistElement == '':
+                topTitle, topArtist = '', topTitle
+            elif topArtistElement.a is None:
+                topArtist = topArtistElement.getText().strip()
+            else:
+                topArtist = topArtistElement.a.getText().strip()
+        except:
+            message = "Failed to parse top track artist"
+            raise BillboardParseException(message)
 
         topRank = 1
-        if self.date and self.chart is None:
+
+        if self.date:
             topPeakPos = 1
             try:
                 topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
@@ -314,98 +254,272 @@ class ChartData:
             topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
             topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
             topIsNew = True if topWeeks == 0 else False
-        elif self.date and self.chart is not None:
-            pass
         else:
             topPeakPos = topLastPos = topWeeks = None
             topIsNew = False
 
-        if self.name and self.chart is None:
-            topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
-            self.entries.append(topEntry)
+        topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
+        self.entries.append(topEntry)
+
+        for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
+            try:
+                title = entrySoup[_ENTRY_TITLE_ATTR].strip()
+            except:
+                message = "Failed to parse title"
+                raise BillboardParseException(message)
+
+            try:
+                artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
+            except:
+                message = "Failed to parse artist"
+                raise BillboardParseException(message)
+
+            if artist == '':
+                title, artist = artist, title
+
+            try:
+                rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
+            except:
+                message = "Failed to parse rank"
+                raise BillboardParseException(message)
+
+            def getPositionRowValue(rowName):
+                try:
+                    selector = _ROW_SELECTOR_FORMAT % rowName
+                    selected = entrySoup.select_one(selector)
+                    if selected is None or selected.string == '-':
+                        return 0
+                    else:
+                        return int(selected.string.strip())
+                except:
+                    message = "Failed to parse row value: %s" % rowName
+                    raise BillboardParseException(message)
+
+            if self.date:
+                peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
+                peakPos = rank if peakPos == 0 else peakPos
+                lastPos = getPositionRowValue(_LAST_POS_FORMAT)
+                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
+                isNew = True if weeks == 0 else False
+            else:
+                peakPos = lastPos = weeks = None
+                isNew = False
+
+            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
+            self.entries.append(entry)
+
+
+class YearEndChartEntry:
+    """Represents an entry (typically a single track) on a chart.
+
+    Attributes:
+        title: The title of the track.
+        artist: The name of the track artist, as formatted on Billboard.com.
+            If there are multiple artists and/
+    """
+
+    def __init__(self, title, artist, rank):
+        self.title = title
+        self.artist = artist
+        self.rank = rank
+
+    def __repr__(self):
+        return '{}.{}(title={!r}, artist={!r})'.format(self.__class__.__module__,
+                                                       self.__class__.__name__,
+                                                       self.title,
+                                                       self.artist)
+
+    def __str__(self):
+        """Returns a string of the form 'TITLE by ARTIST'.
+        """
+        if self.title:
+            s = u"'%s' by %s" % (self.title, self.artist)
         else:
-            topEntry = ChartEntry(topTitle, topArtist)
-            self.entries.append(topEntry)
+            s = u"%s" % self.artist
 
-        if self.name and self.chart is None:
-            for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
-                try:
-                    title = entrySoup[_ENTRY_TITLE_ATTR].strip()
-                except:
-                    message = "Failed to parse title"
-                    raise BillboardParseException(message)
-
-                try:
-                    artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
-                except:
-                    message = "Failed to parse artist"
-                    raise BillboardParseException(message)
-
-                if artist == '':
-                    title, artist = artist, title
-
-                try:
-                    rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
-                except:
-                    message = "Failed to parse rank"
-                    raise BillboardParseException(message)
-
-                def getPositionRowValue(rowName):
-                    try:
-                        selector = _ROW_SELECTOR_FORMAT % rowName
-                        selected = entrySoup.select_one(selector)
-                        if selected is None or selected.string == '-':
-                            return 0
-                        else:
-                            return int(selected.string.strip())
-                    except:
-                        message = "Failed to parse row value: %s" % rowName
-                        raise BillboardParseException(message)
-
-                if self.date:
-                    peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
-                    peakPos = rank if peakPos == 0 else peakPos
-                    lastPos = getPositionRowValue(_LAST_POS_FORMAT)
-                    weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
-                    isNew = True if weeks == 0 else False
-                else:
-                    peakPos = lastPos = weeks = None
-                    isNew = False
-
-                entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
-                self.entries.append(entry)
-
+        if sys.version_info.major < 3:
+            return s.encode(getattr(sys.stdout, 'encoding', '') or 'utf8')
         else:
-            for div in _YE_ENTRY_LIST_SELECTOR:
-                try:
-                    title = div.select('div.ye-chart-item__title')[0].text.strip()
-                except:
-                    message = "Failed to parse title"
-                    raise BillboardParseException(message)
+            return s
 
-                try:
-                    # ask why or '' is there
-                    artist = div.select('div.ye-chart-item__artist')[0].text.strip() or ''
-                except:
-                    message = "Failed to parse artist"
-                    raise BillboardParseException(message)
+    def json(self):
+        """Returns the entry as a JSON string.
+        This is useful for caching.
+        """
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
 
-                if artist == '':
-                    title, artist = artist, title
 
-                try:
-                    # not sure why this has to be an integar honestly
-                    rank = div.select('div.ye-chart-item__rank')[0].text.strip()
-                    int(rank)
-                except:
-                    message = "Failed to parse rank"
-                    raise BillboardParseException(message)
+class YearEnd:
+    """Represents a particular Billboard chart for a particular date.
 
-                # Just returns 'None' even with these so added it to __init__
-                peakPos = 'Not Provided'
-                lastPos = 'Not Provided'
-                weeks = 'Not Provided'
-                isNew = 'Not Provided'
+    Attributes:
+        name: The chart name, as a string.
+        date: The date of the chart.
+        previousDate: The date of the previous chart, as a string in YYYY-MM-DD
+            format, or None if this information was not available.
+        entries: A list of ChartEntry objects, ordered by position on the chart
+            (highest first).
+    """
 
-                entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
-                self.entries.append(entry)
+    def __init__(self, name, date=None, fetch=True, timeout=25):
+        """Constructs a new ChartData instance.
+
+        Args:
+            name: The chart name, e.g. 'hot-100' or 'pop-songs'.
+                You can browse the Charts section of Billboard.com to find
+                valid chart names; the URL of a chart will look like
+                "http://www.billboard.com/charts/CHART-NAME".
+            date: The chart date, as a string in YYYY-MM-DD format.
+                By default, the latest chart is fetched.
+                If the argument is not a date on which a chart was published,
+                Billboard automatically rounds dates up to the nearest date on
+                which a chart was published.
+                If this argument is invalid, no exception will be raised;
+                instead, the chart will contain no entries.
+            fetch: A boolean indicating whether to fetch the chart data from
+                Billboard.com immediately (at instantiation time).
+                If False, the chart data can be populated at a later time
+                using the fetchEntries() method.
+            timeout: The number of seconds to wait for a server response.
+                If None, no timeout is applied.
+        """
+        self.name = name
+
+        if date is not None and not re.match(r'^[0-9]{4}$', str(date)):
+            # checks if date is a datetime.date object and if it is then it strips everything but the date
+            if isinstance(date, datetime.date):
+                fullDate = str(date)
+                fullDate = datetime.datetime.strptime(fullDate, '%Y-%m-%d').date()
+                date = fullDate.strftime('%Y')
+            elif date is not None and re.match('\d{4}-\d{2}-\d{2}', str(date)):
+                # properly formats date
+                fullDate = str(date)
+                fullDate = datetime.datetime.strptime(fullDate, '%Y-%m-%d').date()
+                date = fullDate.strftime('%Y')
+            else:
+                raise ValueError('Date argument is not in YYYY')
+
+        self.date = date
+        self.previousDate = None
+
+        self._timeout = timeout
+
+        self.entries = []
+        if fetch:
+            self.fetchEntries()
+
+    def __repr__(self):
+        return '{}.{}({!r}, date={!r})'.format(self.__class__.__module__,
+                                                  self.__class__.__name__,
+                                                  self.name, self.date)
+
+    def __str__(self):
+        """Returns the chart as a human-readable string (typically multi-line).
+        """
+        if not self.date:
+            # may need to find a better way then this to get latest
+            now = datetime.datetime.now()
+            lastYear = now.year - 1
+            s = 'Year end %s chart (latest/%s)' % (self.name, lastYear)
+        else:
+            s = 'Year end %s chart from %s' % (self.name, self.date)
+        s += '\n' + '-' * len(s)
+        for m, entry in enumerate(self.entries):
+            s += '\n%s. %s' % (entry.rank, str(entry))
+        return s
+
+    def __getitem__(self, key):
+        """Returns the (key + 1)-th chart entry; i.e., chart[0] refers to the
+        top entry on the chart.
+        """
+        return self.entries[key]
+
+    def __len__(self):
+        """Returns the number of entries in the chart.
+        A length of zero may indicated a failed/bad request.
+        """
+        return len(self.entries)
+
+    def json(self):
+        """Returns the entry as a JSON string.
+        This is useful for caching.
+        """
+        return json.dumps(self, default=lambda o: o.__dict__,
+                          sort_keys=True, indent=4)
+
+    def fetchEntries(self):
+        """GETs the corresponding chart data from Billboard.com, then parses
+        the data using BeautifulSoup.
+        """
+        if not self.date:
+            now = datetime.datetime.now()
+            lastYear = now.year - 1
+            url = 'http://www.billboard.com/charts/year-end/%s/%s' % (
+                self.name, lastYear)
+        else:
+            url = 'http://www.billboard.com/charts/year-end/%s/%s' % (
+                self.date, self.name)
+
+        req = requests.get(url, headers=HEADERS, timeout=self._timeout)
+        if req.status_code == 404:
+            message = "Chart not found. Name might be misspelled or year not available by Billboard."
+            raise BillboardNotFoundException(message)
+        req.raise_for_status()
+
+        soup = BeautifulSoup(req.text, 'html.parser')
+
+        # not with above css selectors because needs to use soup and trying to  keep naming convention
+        _YE_ENTRY_LIST_SELECTOR = soup.find_all(class_='ye-chart-item')
+
+        dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
+        if dateElement:
+            dateText = dateElement.text.strip()
+            self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
+
+        """
+        # this is not working as intended, still testing to get chart.previousDate to work
+        
+        _YE_DATE_SELECTOR = 'div.year-link'
+        if self.name and self.chart:
+            pageList = soup.find("ul", {"class": "dropdown__year-select-options"})
+            page = pageList.find("li", {"class": None})
+            next_li_element = page.find_next_sibling("li").text
+            next_li_element = str(next_li_element)
+            dto = next_li_element
+            if next_li_element:
+                currentDate = datetime.datetime.strptime(dto, '%Y')
+                self.previousDate = currentDate.year
+        else:
+            prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
+            nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
+            if prevWeek and prevWeek.parent.get('href'):
+                self.previousDate = prevWeek.parent.get('href').split('/')[-1]
+            if nextWeek and nextWeek.parent.get('href'):
+                self.nextDate = nextWeek.parent.get('href').split('/')[-1]
+        """
+
+        for div in _YE_ENTRY_LIST_SELECTOR:
+            try:
+                title = div.select('div.ye-chart-item__title')[0].text.strip()
+            except:
+                message = "Failed to parse title"
+                raise BillboardParseException(message)
+
+            try:
+                artist = div.select('div.ye-chart-item__artist')[0].text.strip() or ''
+            except:
+                message = "Failed to parse artist"
+                raise BillboardParseException(message)
+
+            if artist == '':
+                title, artist = artist, title
+
+            try:
+                rank = div.select('div.ye-chart-item__rank')[0].text.strip()
+            except:
+                message = "Failed to parse rank"
+                raise BillboardParseException(message)
+
+            entry = YearEndChartEntry(title, artist, rank)
+            self.entries.append(entry)
