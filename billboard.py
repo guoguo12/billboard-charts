@@ -10,15 +10,17 @@ import requests
 
 """billboard.py: Unofficial Python API for accessing music charts from Billboard.com."""
 
-__author__     = "Allen Guo"
-__license__    = "MIT"
+__author__ = "Allen Guo"
+__license__ = "MIT"
 __maintainer__ = "Allen Guo"
-__email__      = "guoguo12@gmail.com"
+__email__ = "guoguo12@gmail.com"
 
 
 HEADERS = {
     'User-Agent': 'billboard.py (https://github.com/guoguo12/billboard-charts)'
 }
+
+_SESSION = requests.session()
 
 # css selector constants
 _DATE_ELEMENT_SELECTOR = 'button.chart-detail-header__date-selector-button'
@@ -40,11 +42,23 @@ _LAST_POS_FORMAT = 'last-week'
 _WEEKS_ON_CHART_FORMAT = 'weeks-on-chart'
 
 
-class BillboardNotFoundException(Exception):
+class BillboardException(Exception):
     pass
 
 
-class BillboardParseException(Exception):
+class BillboardParseException(BillboardException):
+    pass
+
+
+class BillboardContentException(BillboardException):
+    pass
+
+
+class BillboardEmptyResponseException(BillboardContentException):
+    pass
+
+
+class BillboardNotFoundException(BillboardContentException):
     pass
 
 
@@ -141,12 +155,10 @@ class ChartData:
         self.name = name
 
         if date is not None:
-            if not re.match('\d{4}-\d{2}-\d{2}', str(date)):
-                raise ValueError('Date argument is not in YYYY-MM-DD format')
             try:
                 datetime.datetime(*(int(x) for x in str(date).split('-')))
-            except:
-                raise ValueError('Date argument is invalid')
+            except ValueError as e:
+                raise ValueError('Date argument is invalid. ' + str(e))
 
         self.date = date
         self.previousDate = None
@@ -199,27 +211,23 @@ class ChartData:
         """
         if not self.date:
             # Fetch latest chart
-            url = 'http://www.billboard.com/charts/%s' % (self.name)
+            url = 'https://www.billboard.com/charts/%s' % (self.name)
         else:
-            url = 'http://www.billboard.com/charts/%s/%s' % (
+            url = 'https://www.billboard.com/charts/%s/%s' % (
                 self.name, self.date)
 
-        req = requests.get(url, headers=HEADERS, timeout=self._timeout)
-        if req.status_code == 404:
+        resp = _SESSION.get(url, headers=HEADERS, timeout=self._timeout)
+        if resp.status_code == 404:
             message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
-        req.raise_for_status()
+        resp.raise_for_status()
 
-        soup = BeautifulSoup(req.text, 'html.parser')
+        soup = BeautifulSoup(resp.text, 'html.parser')
 
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
-            if self.date and curDate < datetime.datetime.strptime(str(self.date), '%Y-%m-%d'):
-                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
-                # containing no chart data but displaying the date of the chart's latest issue.
-                raise ValueError('Date argument is after the date of the latest issue')
             self.date = curDate.strftime('%Y-%m-%d')
 
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
@@ -229,9 +237,13 @@ class ChartData:
         if nextWeek and nextWeek.parent.get('href'):
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
+        entries = soup.select(_ENTRY_LIST_SELECTOR)
+        if not entries:
+            message = "Billboard returned a blank page. (Has this chart been released yet?)"
+            raise BillboardEmptyResponseException(message)
         try:
             topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
-        except:
+        except AttributeError:
             message = "Failed to parse top track title"
             raise BillboardParseException(message)
 
@@ -252,8 +264,9 @@ class ChartData:
         if self.date:
             topPeakPos = 1
             try:
-                topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
-            except:
+                topLastPos = int(soup.select_one(
+                    _TOP_LAST_POS_SELECTOR).string.strip())
+            except (AttributeError, ValueError):
                 # if there is no div with class div.chart-number-one__last-week, that means it was the top song the prior week
                 topLastPos = 1
 
@@ -264,16 +277,18 @@ class ChartData:
             topPeakPos = topLastPos = topWeeks = None
             topIsNew = False
 
-        topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
+        topEntry = ChartEntry(topTitle, topArtist, topPeakPos,
+                              topLastPos, topWeeks, topRank, topIsNew)
         self.entries.append(topEntry)
 
-        for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
+        for entrySoup in entries:
             try:
                 title = entrySoup[_ENTRY_TITLE_ATTR].strip()
             except:
                 message = "Failed to parse title"
                 raise BillboardParseException(message)
 
+            # TODO: rewrite these as if statements
             try:
                 artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
             except:
@@ -285,7 +300,7 @@ class ChartData:
 
             try:
                 rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
-            except:
+            except (ValueError, AttributeError):
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
@@ -297,7 +312,7 @@ class ChartData:
                         return 0
                     else:
                         return int(selected.string.strip())
-                except:
+                except AttributeError:
                     message = "Failed to parse row value: %s" % rowName
                     raise BillboardParseException(message)
 
@@ -311,10 +326,16 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
+            entry = ChartEntry(title, artist, peakPos,
+                               lastPos, weeks, rank, isNew)
             self.entries.append(entry)
 
+
 def charts():
-    req = requests.get('https://www.billboard.com/charts', headers=HEADERS, timeout=25)
-    soup = BeautifulSoup(req.text, 'html.parser')
-    return [c['href'].split('/')[-1] for c in soup.findAll('a', {'class' : "chart-panel__link"})]
+    '''Returns a list of charts available from billboard.com'''
+    resp = _SESSION.get('https://www.billboard.com/charts',
+                        headers=HEADERS, timeout=25)
+    if not resp.ok:
+        resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, 'html.parser')
+    return [c['href'].split('/')[-1] for c in soup.select('a.chart-panel__link')]
