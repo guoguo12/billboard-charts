@@ -205,9 +205,9 @@ class ChartData:
         return json.dumps(self, default=lambda o: o.__dict__,
                           sort_keys=True, indent=4)
 
-    def fetchEntries(self):
-        """GETs the corresponding chart data from Billboard.com, then parses
-        the data using BeautifulSoup.
+    def _fetchSoup(self):
+        """GETs the corresponding chart from Billboard.com and returns it
+        as a BeautifulSoup object.
         """
         if not self.date:
             # Fetch latest chart
@@ -222,25 +222,10 @@ class ChartData:
             raise BillboardNotFoundException(message)
         resp.raise_for_status()
 
-        soup = BeautifulSoup(resp.text, 'html.parser')
+        return BeautifulSoup(resp.text, 'html.parser')
 
-        dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
-        if dateElement:
-            dateText = dateElement.text.strip()
-            curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
-            self.date = curDate.strftime('%Y-%m-%d')
-
-        prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
-        nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
-        if prevWeek and prevWeek.parent.get('href'):
-            self.previousDate = prevWeek.parent.get('href').split('/')[-1]
-        if nextWeek and nextWeek.parent.get('href'):
-            self.nextDate = nextWeek.parent.get('href').split('/')[-1]
-
-        entries = soup.select(_ENTRY_LIST_SELECTOR)
-        if not entries:
-            message = "Billboard returned a blank page. (Has this chart been released yet?)"
-            raise BillboardEmptyResponseException(message)
+    def _parseTopEntry(self, soup):
+        '''Parse and return a ChartEntry object for the #1 entry on the chart'''
         try:
             topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
         except AttributeError:
@@ -259,8 +244,6 @@ class ChartData:
             message = "Failed to parse top track artist"
             raise BillboardParseException(message)
 
-        topRank = 1
-
         if self.date:
             topPeakPos = 1
             try:
@@ -271,64 +254,91 @@ class ChartData:
                 topLastPos = 1
 
             topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
-            topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
+            topWeeks = int(topWeeksElement.string.strip()
+                           ) if topWeeksElement is not None else 0
             topIsNew = True if topWeeks == 0 else False
         else:
             topPeakPos = topLastPos = topWeeks = None
             topIsNew = False
 
-        topEntry = ChartEntry(topTitle, topArtist, topPeakPos,
-                              topLastPos, topWeeks, topRank, topIsNew)
-        self.entries.append(topEntry)
+        return ChartEntry(topTitle, topArtist, topPeakPos,
+                          topLastPos, topWeeks, 1, topIsNew)
 
-        for entrySoup in entries:
-            try:
-                title = entrySoup[_ENTRY_TITLE_ATTR].strip()
-            except:
-                message = "Failed to parse title"
-                raise BillboardParseException(message)
-
-            # TODO: rewrite these as if statements
-            try:
-                artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
-            except:
-                message = "Failed to parse artist"
-                raise BillboardParseException(message)
-
-            if artist == '':
-                title, artist = artist, title
-
-            try:
-                rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
-            except (ValueError, AttributeError):
-                message = "Failed to parse rank"
-                raise BillboardParseException(message)
-
-            def getPositionRowValue(rowName):
-                try:
-                    selector = _ROW_SELECTOR_FORMAT % rowName
-                    selected = entrySoup.select_one(selector)
-                    if selected is None or selected.string == '-':
-                        return 0
-                    else:
-                        return int(selected.string.strip())
-                except AttributeError:
-                    message = "Failed to parse row value: %s" % rowName
-                    raise BillboardParseException(message)
-
-            if self.date:
-                peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
-                peakPos = rank if peakPos == 0 else peakPos
-                lastPos = getPositionRowValue(_LAST_POS_FORMAT)
-                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
-                isNew = True if weeks == 0 else False
+    def getPositionRowValue(self, entrySoup, rowName):
+        '''Get the value of a particular position metric: last position,
+        peak position, number of weeks, etc. Raises BillBoardParseException'''
+        try:
+            selector = _ROW_SELECTOR_FORMAT % rowName
+            selected = entrySoup.select_one(selector)
+            if selected is None or selected.string == '-':
+                return 0
             else:
-                peakPos = lastPos = weeks = None
-                isNew = False
+                return int(selected.string.strip())
+        except AttributeError:
+            message = "Failed to parse row value: %s" % rowName
+            raise BillboardParseException(message)
 
-            entry = ChartEntry(title, artist, peakPos,
-                               lastPos, weeks, rank, isNew)
-            self.entries.append(entry)
+    def _parseEntryAttr(self, entrySoup, attr):
+        '''Get a specific attribute from an entrySoup and raise a specific
+        BillboardParseException if the soup does not have that attribute'''
+        try:
+            return entrySoup[attr].strip()
+        except:
+            message = "Failed to parse " + attr
+            raise BillboardParseException(message)
+
+    def _parseEntry(self, entrySoup):
+        '''Parse a ChartEntry from a single entry soup'''
+        def entryAttr(attr): return self._parseEntryAttr(entrySoup, attr)
+        title = entryAttr(_ENTRY_TITLE_ATTR)
+        artist = entryAttr(_ENTRY_ARTIST_ATTR)
+        rank = int(entryAttr(_ENTRY_RANK_ATTR))
+
+        if not artist:
+            title, artist = artist, title
+
+        if self.date:
+            peakPos = self.getPositionRowValue(entrySoup, _PEAK_POS_FORMAT)
+            lastPos = self.getPositionRowValue(entrySoup, _LAST_POS_FORMAT)
+            weeks = self.getPositionRowValue(entrySoup, _WEEKS_ON_CHART_FORMAT)
+            peakPos = rank if peakPos == 0 else peakPos
+            isNew = True if weeks == 0 else False
+        else:
+            peakPos = lastPos = weeks = None
+            isNew = False
+
+        return ChartEntry(title, artist, peakPos,
+                          lastPos, weeks, rank, isNew)
+
+    def _setDates(self, soup):
+        '''Set this ChartData's date properties given a chart's soup'''
+        dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
+        if dateElement:
+            dateText = dateElement.text.strip()
+            curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
+            self.date = curDate.strftime('%Y-%m-%d')
+        prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
+        nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
+        if prevWeek and prevWeek.parent.get('href'):
+            self.previousDate = prevWeek.parent.get('href').split('/')[-1]
+        if nextWeek and nextWeek.parent.get('href'):
+            self.nextDate = nextWeek.parent.get('href').split('/')[-1]
+
+    def fetchEntries(self):
+        '''GETs the corresponding chart data from Billboard.com, then parses
+        the data using BeautifulSoup.
+        '''
+        soup = self._fetchSoup()
+        self._setDates(soup)
+        entries = soup.select(_ENTRY_LIST_SELECTOR)
+
+        if not entries:
+            message = "Billboard returned a blank page. (Has this chart been released yet?)"
+            raise BillboardEmptyResponseException(message)
+
+        topEntry = self._parseTopEntry(soup)
+        self.entries = [topEntry] + \
+            [self._parseEntry(entry) for entry in entries]
 
 
 def charts():
