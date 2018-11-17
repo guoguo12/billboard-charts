@@ -1,13 +1,9 @@
 import json
 import os
 import unittest
-# import billboard
+import billboard
 from utils import get_test_dir
 
-
-import sys
-sys.path.insert(0, '/Users/derrick/Documents/Random Stuff/billboard-charts-master/')
-import billboard
 
 
 class TestCurrentHot100(unittest.TestCase):
@@ -49,15 +45,15 @@ class TestHistoricalHot100(TestCurrentHot100):
     """
 
     def setUp(self):
-        self.chart = billboard.YearEnd('hot-100-songs')
+        self.chart = billboard.YearEnd('hot-100-songs', date='2015')
 
     def test_date(self):
         # doesn't have quotes around 2017 since its getting current year
-        self.assertEqual(self.chart.date, 2017)
-        self.assertEqual(self.chart.previousDate, '2016')
-        self.assertEqual(self.chart.nextDate, '2018')
+        self.assertEqual(self.chart.date, '2015')
+        self.assertEqual(self.chart.previousDate, '2014')
+        self.assertEqual(self.chart.nextDate, '2016')
 
     def test_entries_correctness(self):
-        reference_path = os.path.join(get_test_dir(), '2017-year-end-hot-100-songs.txt')
+        reference_path = os.path.join(get_test_dir(), '2015-year-end-hot-100-songs.txt')
         with open(reference_path) as reference:
             self.assertEqual(str(self.chart), reference.read())

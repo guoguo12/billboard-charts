@@ -3,6 +3,10 @@ import unittest
 import billboard
 from nose.tools import raises
 
+import sys
+sys.path.insert(0, '/Users/derrick/Documents/Random Stuff/billboard-charts-master/')
+import billboard
+
 
 class DateTest(unittest.TestCase):
     def test_date_rounding(self):

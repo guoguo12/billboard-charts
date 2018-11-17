@@ -1,13 +1,9 @@
 import json
 import os
 import unittest
-# import billboard
+import billboard
 from utils import get_test_dir
 
-
-import sys
-sys.path.insert(0, '/Users/derrick/Documents/Random Stuff/billboard-charts-master/')
-import billboard
 
 # Only has 192 albums since billboard site is missing some 
 # (e.g. #36, #44, #55, #57, #78, #81, #135, #154)
