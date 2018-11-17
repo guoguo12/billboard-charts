@@ -221,10 +221,7 @@ class ChartData:
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
         if prevWeek and prevWeek.parent.get('href'):
-            print('in prev')
             self.previousDate = prevWeek.parent.get('href').split('/')[-1]
-            print('prevdate:', self.previousDate)
-            print('type:', type(self.previousDate))
         if nextWeek and nextWeek.parent.get('href'):
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
@@ -423,7 +420,7 @@ class YearEnd(ChartData):
             pass
 
 
-        self.date = date
+        self.date = str(date)
         self.previousDate = None
 
         self._timeout = timeout
@@ -482,10 +479,11 @@ class YearEnd(ChartData):
         prevYear = int(self.date)
         nextYear = int(self.date)
         
-        if prevYear:
+        # if same thing printed twice
+        if prevYear and prevYear > 2002:
             previousDate = int(prevYear) - 1
             self.previousDate = str(previousDate)
-        if nextYear != currentYear:
+        if nextYear and nextYear != currentYear:
             nextDate = int(nextYear) + 1
             self.nextDate = str(nextDate)
 
