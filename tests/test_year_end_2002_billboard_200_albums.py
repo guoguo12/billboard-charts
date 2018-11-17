@@ -54,15 +54,15 @@ class TestHistoricalDigitalAlbums(TestCurrentDigitalAlbums):
     """
 
     def setUp(self):
-        self.chart = billboard.YearEnd('top-billboard-200-albums', date='2002')
+        self.chart = billboard.YearEnd('top-billboard-200-albums', date='2004')
 
     def test_date(self):
-        self.assertEqual(self.chart.date, '2002')
-        self.assertEqual(self.chart.previousDate, '2001')
-        self.assertEqual(self.chart.nextDate, '2003')
+        self.assertEqual(self.chart.date, '2004')
+        self.assertEqual(self.chart.previousDate, '2003')
+        self.assertEqual(self.chart.nextDate, '2005')
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(),
-                                      '2002-year-end-top-billboard-200-albums.txt')
+                                      '2004-year-end-top-billboard-200-albums.txt')
         with open(reference_path) as reference:
             self.assertEqual(str(self.chart), reference.read())
