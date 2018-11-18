@@ -8,7 +8,8 @@ import sys
 from bs4 import BeautifulSoup
 import requests
 
-from year_end_first_charts import ye2002, ye2006, ye2008, ye2009, ye2010, ye2011, ye2012, ye2013, ye2014
+from year_end_first_charts import yeDoesntLoad, ye2002, ye2006, ye2008, ye2009, ye2010, ye2011, ye2012, ye2013, ye2014
+
 
 """billboard.py: Unofficial Python API for accessing music charts from Billboard.com."""
 
@@ -372,6 +373,7 @@ class YearEnd(ChartData):
         """
         self.name = name
 
+
         if date is not None and not re.match(r'^[0-9]{4}$', str(date)):
             # checks if date is a datetime.date object and if it is then it strips everything but the date
             if isinstance(date, datetime.date):
@@ -400,24 +402,22 @@ class YearEnd(ChartData):
         # If date entered is too far in the past adjust to the oldest available chart
         if self.name in ye2002 and int(date) < 2002:
             date = 2002
-        elif self.name in ye2006 and int(date) < 2006:
+        if self.name in ye2006 and int(date) < 2006:
             date = 2006
-        elif self.name in ye2008 and int(date) < 2008:
+        if self.name in ye2008 and int(date) < 2008:
             date = 2008
-        elif self.name in ye2009 and int(date) < 2009:
+        if self.name in ye2009 and int(date) < 2009:
             date = 2009
-        elif self.name in ye2010 and int(date) < 2010:
+        if self.name in ye2010 and int(date) < 2010:
             date = 2010
-        elif self.name in ye2011 and int(date) < 2011:
+        if self.name in ye2011 and int(date) < 2011:
             date = 2011
-        elif self.name in ye2012 and int(date) < 2012:
+        if self.name in ye2012 and int(date) < 2012:
             date = 2012
-        elif self.name in ye2013 and int(date) < 2013:
+        if self.name in ye2013 and int(date) < 2013:
             date = 2013
-        elif self.name in ye2014 and int(date) < 2014:
+        if self.name in ye2014 and int(date) < 2014:
             date = 2014
-        else:
-            pass
 
 
         self.date = str(date)
@@ -478,11 +478,17 @@ class YearEnd(ChartData):
 
         prevYear = int(self.date)
         nextYear = int(self.date)
-        
-        # if same thing printed twice
-        if prevYear and prevYear > 2002:
+
+        """
+        Keeps going once it reaches the first year end chart unless program that
+        calls it stops it once it does or before then. Not able to currently find or
+        create a solid break where it doesn't call the oldesnt chart over and over
+        in a similar fashion to the normal billboard charts.
+        """
+        if prevYear:
             previousDate = int(prevYear) - 1
             self.previousDate = str(previousDate)
+        # stops at current year since yearend chart isnt out yet
         if nextYear and nextYear != currentYear:
             nextDate = int(nextYear) + 1
             self.nextDate = str(nextDate)
