@@ -1,9 +1,12 @@
 """
 The beginning of year end charts, if its not here then it starts in
 in 2006 or it is in the doesn't load section.
+
+Actual firstYear dict is at bottom of this file
 """
 
-yeDoesntLoad = (
+
+yeDoesntLoad = [
 'japan-hot-100',
 'soundtracks',
 'christian-gospel-albums-artists',
@@ -15,18 +18,18 @@ yeDoesntLoad = (
 'classical-crossover-albums-artists',
 'traditional-classical-albums-artists',
 'classical-budget-midline-albums-artists'
-)
+]
 
 
-ye2002 = (
+ye2002 = [
 'top-billboard-200-albums',
 'hot-country-songs',
 'top-country-albums',
 'hot-r-and-and-b-hip-hop-songs',
 'top-r-and-b-hip-hop-albums'
-)
+]
 
-ye2006 = (
+ye2006 = [
 'top-artists',
 'top-new-artists',
 'top-artists-duo-group',
@@ -114,9 +117,9 @@ ye2006 = (
 'world-albums-artists',
 'new-age-albums',
 'new-age-albums-artists'
-)
+]
 
-ye2008 = (
+ye2008 = [
 'pop-songs',
 'pop-songs-artists',
 'adult-alternative-songs',
@@ -126,18 +129,18 @@ ye2008 = (
 'canadian-hot-100',
 'candaian-hot-100-artists',
 'top-canadian-albums'
-)
+]
 
-ye2009 = (
+ye2009 = [
 'hot-rock-songs',
 'hot-rock-songs-artists',
 'classical-albums',
 'classical-albums-artists',
 'jazz-albums',
 'jazz-albums-artists'
-)
+]
 
-ye2010 = (
+ye2010 = [
 'country-digital-songs-artists',
 'country-digital-songs',
 'rock-digital-songs',
@@ -156,21 +159,21 @@ ye2010 = (
 'gospel-digital-songs-artists',
 'dance-electronic-digital-songs',
 'dance-electronic-digital-songs-artists'
-)
+]
 
-ye2011 = (
+ye2011 = [
 'radio-songs-artists',
 'social-50-artists',
 'top-rock-artists',
 'top-latin-artists'
-)
+]
 
-ye2012 = (
+ye2012 = [
 'on-demand-songs',
 'on-demand-songs-artists'
-)
+]
 
-ye2013 = (
+ye2013 = [
 'streaming-songs',
 'streaming-songs-artists',
 'country-airplay-songs',
@@ -204,9 +207,9 @@ ye2013 = (
 'hot-dance-electronic-songs-artists',
 'dance-electronic-streaming-songs',
 'dance-electronic-streaming-songs-artists'
-)
+]
 
-ye2014 = (
+ye2014 = [
 'top-christian-artists',
 'christian-airplay-songs',
 'christian-airplay-artists',
@@ -219,4 +222,4 @@ ye2014 = (
 'gospel-streaming-songs-artists',
 'dance-electronic-albums-artists',
 'twitter-top-tracks'
-)
+]
