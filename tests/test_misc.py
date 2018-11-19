@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import billboard
 import unittest
 from nose.tools import raises
