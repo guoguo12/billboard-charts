@@ -18,6 +18,6 @@ class MiscTest(unittest.TestCase):
 
     def test_unicode(self):
         """Checks that the Billboard website does not use Unicode characters."""
-        chart = billboard.ChartData('latin-pop-songs', date='1994-10-15')
-        self.assertEqual(chart[0].title, six.text_type('El Dia Que Me Quieras'))
-        self.assertEqual(chart[0].artist, six.text_type('Luis Miguel'))
+        chart = billboard.ChartData('hot-100', date='2018-01-27')
+        self.assertEqual(chart[97].title, six.text_type(
+            'El Bano'))  # With Unicode this should be "El Baño"
