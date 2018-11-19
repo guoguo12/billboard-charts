@@ -225,7 +225,7 @@ class ChartData:
         return BeautifulSoup(resp.text, 'html.parser')
 
     def _parseTopEntry(self, soup):
-        '''Parse and return a ChartEntry object for the #1 entry on the chart'''
+        """Parses and returns a ChartEntry object for the top entry on the chart."""
         try:
             topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
         except AttributeError:
@@ -250,7 +250,8 @@ class ChartData:
                 topLastPos = int(soup.select_one(
                     _TOP_LAST_POS_SELECTOR).string.strip())
             except (AttributeError, ValueError):
-                # if there is no div with class div.chart-number-one__last-week, that means it was the top song the prior week
+                # if there is no div with class div.chart-number-one__last-week,
+                # that means it was the top song the prior week
                 topLastPos = 1
 
             topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
@@ -265,8 +266,8 @@ class ChartData:
                           topLastPos, topWeeks, 1, topIsNew)
 
     def getPositionRowValue(self, entrySoup, rowName):
-        '''Get the value of a particular position metric: last position,
-        peak position, number of weeks, etc. Raises BillBoardParseException'''
+        """Gets the value of a particular position metric: last position,
+        peak position, number of weeks, etc."""
         try:
             selector = _ROW_SELECTOR_FORMAT % rowName
             selected = entrySoup.select_one(selector)
@@ -279,8 +280,7 @@ class ChartData:
             raise BillboardParseException(message)
 
     def _parseEntryAttr(self, entrySoup, attr):
-        '''Get a specific attribute from an entrySoup and raise a specific
-        BillboardParseException if the soup does not have that attribute'''
+        """Gets a specific attribute from an entrySoup."""
         try:
             return entrySoup[attr].strip()
         except:
@@ -288,7 +288,7 @@ class ChartData:
             raise BillboardParseException(message)
 
     def _parseEntry(self, entrySoup):
-        '''Parse a ChartEntry from a single entry soup'''
+        """Parses a ChartEntry from a single entry soup."""
         def entryAttr(attr): return self._parseEntryAttr(entrySoup, attr)
         title = entryAttr(_ENTRY_TITLE_ATTR)
         artist = entryAttr(_ENTRY_ARTIST_ATTR)
@@ -307,11 +307,10 @@ class ChartData:
             peakPos = lastPos = weeks = None
             isNew = False
 
-        return ChartEntry(title, artist, peakPos,
-                          lastPos, weeks, rank, isNew)
+        return ChartEntry(title, artist, peakPos, lastPos, weeks, rank, isNew)
 
     def _setDates(self, soup):
-        '''Set this ChartData's date properties given a chart's soup'''
+        """Sets this ChartData's date properties."""
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
@@ -325,15 +324,15 @@ class ChartData:
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
     def fetchEntries(self):
-        '''GETs the corresponding chart data from Billboard.com, then parses
+        """GETs the corresponding chart data from Billboard.com, then parses
         the data using BeautifulSoup.
-        '''
+        """
         soup = self._fetchSoup()
         self._setDates(soup)
         entries = soup.select(_ENTRY_LIST_SELECTOR)
 
         if not entries:
-            message = "Billboard returned a blank page. (Has this chart been released yet?)"
+            message = "Billboard.com returned a blank page (has this chart been released yet?)"
             raise BillboardEmptyResponseException(message)
 
         topEntry = self._parseTopEntry(soup)
@@ -342,7 +341,7 @@ class ChartData:
 
 
 def charts():
-    '''Returns a list of charts available from billboard.com'''
+    """Returns a list of charts available from billboard.com"""
     resp = _SESSION.get('https://www.billboard.com/charts',
                         headers=HEADERS, timeout=25)
     if not resp.ok:
