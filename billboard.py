@@ -28,6 +28,7 @@ _TOP_TITLE_SELECTOR = 'div.chart-number-one__title'
 _TOP_ARTIST_SELECTOR = 'div.chart-number-one__artist'
 _TOP_LAST_POS_SELECTOR = 'div.chart-number-one__last-week'
 _TOP_WEEKS_SELECTOR = 'div.chart-number-one__weeks-on-chart'
+_NUMBER_ONE_NEW_SELECTOR = 'img.chart-number-one__stats-cell-new'
 _ENTRY_LIST_SELECTOR = 'div.chart-list-item'
 _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
@@ -240,15 +241,21 @@ class ChartData:
 
         if self.date:
             topPeakPos = 1
+            topIsNew = False
             try:
                 topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
             except:
-                # if there is no div with class div.chart-number-one__last-week, that means it was the top song the prior week
-                topLastPos = 1
+                # if there is no div with class div.chart-number-one__last-week,
+                # that means it was the top song the prior week, unless there is
+                # a NEW badge
+                if (soup.select_one(_NUMBER_ONE_NEW_SELECTOR) is not None):
+                    topIsNew = True
+                    topLastPos = 0
+                else:
+                    topLastPos = 1
 
             topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
             topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
-            topIsNew = True if topWeeks == 0 else False
         else:
             topPeakPos = topLastPos = topWeeks = None
             topIsNew = False
@@ -295,7 +302,8 @@ class ChartData:
                 peakPos = rank if peakPos == 0 else peakPos
                 lastPos = getPositionRowValue(_LAST_POS_FORMAT)
                 weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
-                isNew = True if weeks == 0 else False
+                weeks = weeks if weeks != 0 else 1
+                isNew = True if weeks == 1 else False
             else:
                 peakPos = lastPos = weeks = None
                 isNew = False

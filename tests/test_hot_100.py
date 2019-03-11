@@ -28,7 +28,7 @@ class TestCurrentHot100(unittest.TestCase):
             self.assertGreater(len(entry.artist), 0)
             self.assertTrue(1 <= entry.peakPos <= 100)
             self.assertTrue(0 <= entry.lastPos <= 100)
-            self.assertGreaterEqual(entry.weeks, 0)
+            self.assertGreaterEqual(entry.weeks, 1)
             # Redundant because of test_ranks
             self.assertTrue(1 <= entry.rank <= 100)
             self.assertIsInstance(entry.isNew, bool)
@@ -36,7 +36,7 @@ class TestCurrentHot100(unittest.TestCase):
     def test_entries_consistency(self):
         for entry in self.chart:
             if entry.isNew:
-                self.assertEqual(entry.lastPos, 0)
+                self.assertEqual(0, entry.lastPos)
 
     def test_json(self):
         self.assertTrue(json.loads(self.chart.json()))
@@ -65,3 +65,17 @@ class TestHistoricalHot100(TestCurrentHot100):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-hot-100.txt')
         with open(reference_path) as reference:
             self.assertEqual(str(self.chart), reference.read())
+        
+    def test_debut_number_1(self):
+        chart = billboard.ChartData('hot-100', '2018-11-17')
+        ari = chart.entries[0]
+        self.assertTrue(ari.isNew)
+        self.assertEqual(0, ari.lastPos)
+    
+    def test_debut_weeks(self):
+        chart = billboard.ChartData('hot-100', '2018-11-17')
+        metro_boomin = chart.entries[37]
+        self.assertTrue(metro_boomin.isNew)
+        self.assertEqual(0, metro_boomin.lastPos)
+        self.assertEqual(1, metro_boomin.weeks)
+
