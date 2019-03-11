@@ -30,7 +30,7 @@ class TestCurrentArtist100(unittest.TestCase):
             self.assertGreater(len(entry.artist), 0)
             self.assertTrue(1 <= entry.peakPos <= 100)
             self.assertTrue(0 <= entry.lastPos <= 100)
-            self.assertGreaterEqual(entry.weeks, 0)
+            self.assertGreaterEqual(entry.weeks, 1)
             # Redundant because of test_ranks
             self.assertTrue(1 <= entry.rank <= 100)
             self.assertIsInstance(entry.isNew, bool)
@@ -38,7 +38,7 @@ class TestCurrentArtist100(unittest.TestCase):
     def test_entries_consistency(self):
         for entry in self.chart:
             if entry.isNew:
-                self.assertEqual(entry.lastPos, 0)
+                self.assertEqual(0, entry.lastPos)
 
     def test_json(self):
         self.assertTrue(json.loads(self.chart.json()))
