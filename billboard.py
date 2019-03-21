@@ -219,50 +219,6 @@ class ChartData:
         if nextWeek and nextWeek.parent.get('href'):
             self.nextDate = nextWeek.parent.get('href').split('/')[-1]
 
-        try:
-            topTitle = soup.select_one(_TOP_TITLE_SELECTOR).string.strip()
-        except:
-            message = "Failed to parse top track title"
-            raise BillboardParseException(message)
-
-        try:
-            topArtistElement = soup.select_one(_TOP_ARTIST_SELECTOR) or ''
-            if topArtistElement == '':
-                topTitle, topArtist = '', topTitle
-            elif topArtistElement.a is None:
-                topArtist = topArtistElement.getText().strip()
-            else:
-                topArtist = topArtistElement.a.getText().strip()
-        except:
-            message = "Failed to parse top track artist"
-            raise BillboardParseException(message)
-
-        topRank = 1
-
-        if self.date:
-            topPeakPos = 1
-            topIsNew = False
-            try:
-                topLastPos = int(soup.select_one(_TOP_LAST_POS_SELECTOR).string.strip())
-            except:
-                # if there is no div with class div.chart-number-one__last-week,
-                # that means it was the top song the prior week, unless there is
-                # a NEW badge
-                if (soup.select_one(_NUMBER_ONE_NEW_SELECTOR) is not None):
-                    topIsNew = True
-                    topLastPos = 0
-                else:
-                    topLastPos = 1
-
-            topWeeksElement = soup.select_one(_TOP_WEEKS_SELECTOR)
-            topWeeks = int(topWeeksElement.string.strip()) if topWeeksElement is not None else 0
-        else:
-            topPeakPos = topLastPos = topWeeks = None
-            topIsNew = False
-
-        topEntry = ChartEntry(topTitle, topArtist, topPeakPos, topLastPos, topWeeks, topRank, topIsNew)
-        self.entries.append(topEntry)
-
         for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
             try:
                 title = entrySoup[_ENTRY_TITLE_ATTR].strip()
