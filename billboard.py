@@ -34,7 +34,6 @@ _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
 _ENTRY_RANK_ATTR = 'data-rank'
 
-_ENTRY_COVER_ATTR = 'data-brightcove-data'
 
 # constants for the getPositionRowValue helper function
 _ROW_SELECTOR_FORMAT = 'div.chart-list-item__%s'
