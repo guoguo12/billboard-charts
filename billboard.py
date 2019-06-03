@@ -34,8 +34,6 @@ _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
 _ENTRY_RANK_ATTR = 'data-rank'
 
-_ENTRY_COVER_ATTR = 'data-brightcove-data'
-
 # constants for the getPositionRowValue helper function
 _ROW_SELECTOR_FORMAT = 'div.chart-list-item__%s'
 _PEAK_POS_FORMAT = 'weeks-at-one'
@@ -59,6 +57,7 @@ class ChartEntry:
         artist: The name of the track artist, as formatted on Billboard.com.
             If there are multiple artists and/or featured artists, they will
             be included in this string.
+        image: The image related to the track, in the billboard chart
         peakPos: The track's peak position on the chart at any point in time,
             including future dates, as an int (or None if the chart does not
             include this information).
@@ -71,10 +70,10 @@ class ChartEntry:
         isNew: Whether the track is new to the chart, as a boolean.
     """
 
-    def __init__(self, title, artist, cover, peakPos, lastPos, weeks, rank, isNew):
+    def __init__(self, title, artist, image, peakPos, lastPos, weeks, rank, isNew):
         self.title = title
         self.artist = artist
-        self.cover = cover
+        self.image = image
         self.peakPos = peakPos
         self.lastPos = lastPos
         self.weeks = weeks
@@ -230,15 +229,14 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                coverSoup = entrySoup.find('img',"chart-list-item__image")
-                if coverSoup.has_attr('data-src'):
-                    cover = coverSoup['data-src']
+                imageSoup = entrySoup.find('img',"chart-list-item__image")
+                if imageSoup.has_attr('data-src'):
+                    image = imageSoup['data-src']
                 else: 
-                    cover = coverSoup['src']
-            except Exception as e:
-                print(e)
-                message = "Failed to parse cover image"
-                # raise BillboardParseException(message)
+                    image = imageSoup['src']
+            except:
+                message = "Failed to parse image image"
+                raise BillboardParseException(message)
             
 
             try:
@@ -279,5 +277,5 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(title, artist, cover, peakPos, lastPos, weeks, rank, isNew)
+            entry = ChartEntry(title, artist, image, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
