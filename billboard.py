@@ -34,6 +34,7 @@ _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
 _ENTRY_RANK_ATTR = 'data-rank'
 
+
 # constants for the getPositionRowValue helper function
 _ROW_SELECTOR_FORMAT = 'div.chart-list-item__%s'
 _PEAK_POS_FORMAT = 'weeks-at-one'
