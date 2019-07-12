@@ -21,6 +21,7 @@ HEADERS = {
 }
 
 # css selector constants
+_CHART_NAME_SELECTOR = 'h1.chart-detail-header__chart-name'
 _DATE_ELEMENT_SELECTOR = 'button.chart-detail-header__date-selector-button'
 _PREVIOUS_DATE_SELECTOR = 'span.fa-chevron-left'
 _NEXT_DATE_SELECTOR = 'span.fa-chevron-right'
@@ -110,6 +111,7 @@ class ChartData:
 
     Attributes:
         name: The chart name, as a string.
+        title: The human-readable chart name, as a string.
         date: The date of the chart.
         previousDate: The date of the previous chart, as a string in YYYY-MM-DD
             format, or None if this information was not available.
@@ -144,6 +146,7 @@ class ChartData:
         if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
             raise ValueError('Date argument is not in YYYY-MM-DD format')
         self.date = date
+        self.title = ''
         self.previousDate = None
 
         self._timeout = timeout
@@ -181,6 +184,19 @@ class ChartData:
         """
         return len(self.entries)
 
+    def _titleCase(self, title):
+        """Returns the given string in title case. This method improves
+        on the Python string.title() method by lowercasing some words."""
+        word_list = title.title().split()
+        if len(word_list) == 0:
+            return ''
+
+        exceptions = ['a', 'an', 'by', 'is', 'of', 'the']
+        final = [word_list[0]]
+        for word in word_list[1:]:
+            final.append(word.lower() if word.lower() in exceptions else word)
+        return " ".join(final)
+
     def json(self):
         """Returns the entry as a JSON string.
         This is useful for caching.
@@ -211,6 +227,13 @@ class ChartData:
         if dateElement:
             dateText = dateElement.text.strip()
             self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
+
+        chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR);
+        if chartTitleElement:
+            if chartTitleElement.img is not None:
+                self.title = chartTitleElement.img['alt'].strip()
+            else:
+                self.title = self._titleCase(chartTitleElement.text.strip())
 
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)

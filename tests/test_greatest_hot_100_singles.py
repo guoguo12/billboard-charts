@@ -15,6 +15,10 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
     def setUp(self):
         self.chart = billboard.ChartData('greatest-hot-100-singles')
 
+    def test_title(self):
+        self.assertEqual(self.chart.title,
+                         'Greatest of All Time Hot 100 Singles')
+
     def test_date(self):
         self.assertIsNone(self.chart.date)  # This chart has no dates
 

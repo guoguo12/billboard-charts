@@ -17,6 +17,9 @@ class TestCurrentDigitalAlbums(unittest.TestCase):
     def test_date(self):
         self.assertIsNotNone(self.chart.date)
 
+    def test_title(self):
+        self.assertEqual(self.chart.title, 'Digital Albums')
+
     def test_ranks(self):
         ranks = list(entry.rank for entry in self.chart)
         self.assertEqual(ranks, list(range(1, 26)))
@@ -55,6 +58,9 @@ class TestHistoricalDigitalAlbums(TestCurrentDigitalAlbums):
 
     def setUp(self):
         self.chart = billboard.ChartData('digital-albums', date='2017-03-04')
+
+    def test_title(self):
+        self.assertEqual(self.chart.title, 'Digital Albums')
 
     def test_date(self):
         self.assertEqual(self.chart.date, '2017-03-04')
