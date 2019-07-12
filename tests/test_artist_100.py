@@ -19,6 +19,9 @@ class TestCurrentArtist100(unittest.TestCase):
     def test_date(self):
         self.assertIsNotNone(self.chart.date)
 
+    def test_title(self):
+        self.assertEqual(self.chart.title, 'Artist 100')
+
     def test_ranks(self):
         ranks = list(entry.rank for entry in self.chart)
         self.assertEqual(ranks, list(range(1, 101)))
@@ -62,6 +65,9 @@ class TestHistoricalArtist100(TestCurrentArtist100):
         self.assertEqual(self.chart.date, '2014-07-26')
         self.assertEqual(self.chart.previousDate, '2014-07-19')
         self.assertEqual(self.chart.nextDate, '2014-08-02')
+
+    def test_title(self):
+        self.assertEqual(self.chart.title, 'Artist 100')
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(),
