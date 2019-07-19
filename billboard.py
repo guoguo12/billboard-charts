@@ -21,7 +21,7 @@ HEADERS = {
 }
 
 # css selector constants
-_CHART_NAME_SELECTOR = 'h1.chart-detail-header__chart-name'
+_CHART_NAME_SELECTOR = 'meta[name="twitter:title"]'
 _DATE_ELEMENT_SELECTOR = 'button.chart-detail-header__date-selector-button'
 _PREVIOUS_DATE_SELECTOR = 'span.fa-chevron-left'
 _NEXT_DATE_SELECTOR = 'span.fa-chevron-right'
@@ -184,19 +184,6 @@ class ChartData:
         """
         return len(self.entries)
 
-    def _titleCase(self, title):
-        """Returns the given string in title case. This method improves
-        on the Python string.title() method by lowercasing some words."""
-        word_list = title.title().split()
-        if len(word_list) == 0:
-            return ''
-
-        exceptions = ['a', 'an', 'by', 'is', 'of', 'the']
-        final = [word_list[0]]
-        for word in word_list[1:]:
-            final.append(word.lower() if word.lower() in exceptions else word)
-        return " ".join(final)
-
     def json(self):
         """Returns the entry as a JSON string.
         This is useful for caching.
@@ -228,12 +215,9 @@ class ChartData:
             dateText = dateElement.text.strip()
             self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
 
-        chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR);
+        chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
         if chartTitleElement:
-            if chartTitleElement.img is not None:
-                self.title = chartTitleElement.img['alt'].strip()
-            else:
-                self.title = self._titleCase(chartTitleElement.text.strip())
+            self.title = chartTitleElement.get("content", "").split('|')[0].strip()
 
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
