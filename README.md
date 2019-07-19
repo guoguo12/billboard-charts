@@ -26,6 +26,8 @@ Let's fetch the current [Hot 100](http://www.billboard.com/charts/hot-100) chart
 ```Python
 >>> import billboard
 >>> chart = billboard.ChartData('hot-100')
+>>> chart.title
+'The Hot 100'
 ```
 
 Now we can look at the chart entries, which are of type `ChartEntry` and have attributes like `artist` and `title`:
