@@ -18,7 +18,7 @@ class TestCurrentHot100(unittest.TestCase):
         self.assertIsNotNone(self.chart.date)
 
     def test_title(self):
-        self.assertEqual(self.chart.title, 'The Hot 100');
+        self.assertEqual(self.chart.title, 'The Hot 100')
 
     def test_ranks(self):
         ranks = list(entry.rank for entry in self.chart)
@@ -63,9 +63,6 @@ class TestHistoricalHot100(TestCurrentHot100):
         self.assertEqual(self.chart.date, '2015-11-28')
         self.assertEqual(self.chart.previousDate, '2015-11-21')
         self.assertEqual(self.chart.nextDate, '2015-12-05')
-
-    def test_title(self):
-        self.assertEqual(self.chart.title, 'The Hot 100');
 
     def test_entries_correctness(self):
         reference_path = os.path.join(get_test_dir(), '2015-11-28-hot-100.txt')

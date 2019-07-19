@@ -59,9 +59,6 @@ class TestHistoricalDigitalAlbums(TestCurrentDigitalAlbums):
     def setUp(self):
         self.chart = billboard.ChartData('digital-albums', date='2017-03-04')
 
-    def test_title(self):
-        self.assertEqual(self.chart.title, 'Digital Albums')
-
     def test_date(self):
         self.assertEqual(self.chart.date, '2017-03-04')
         self.assertEqual(self.chart.previousDate, '2017-02-25')
