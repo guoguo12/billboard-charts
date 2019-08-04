@@ -31,6 +31,7 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
         for entry in self.chart:
             self.assertGreater(len(entry.title), 0)
             self.assertGreater(len(entry.artist), 0)
+            self.assertGreater(len(entry.image), 0)
             self.assertIsNone(entry.peakPos)
             self.assertIsNone(entry.lastPos)
             self.assertIsNone(entry.weeks)

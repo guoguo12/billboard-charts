@@ -31,6 +31,7 @@ class TestCurrentArtist100(unittest.TestCase):
         for entry in self.chart:
             self.assertEqual(entry.title, '')  # This chart has no titles
             self.assertGreater(len(entry.artist), 0)
+            self.assertGreater(len(entry.image), 0)
             self.assertTrue(1 <= entry.peakPos <= 100)
             self.assertTrue(0 <= entry.lastPos <= 100)
             self.assertGreaterEqual(entry.weeks, 1)
