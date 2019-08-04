@@ -59,7 +59,7 @@ class ChartEntry:
         artist: The name of the track artist, as formatted on Billboard.com.
             If there are multiple artists and/or featured artists, they will
             be included in this string.
-        image: The image related to the track, in the billboard chart
+        image: The URL of the image for the track.
         peakPos: The track's peak position on the chart at any point in time,
             including future dates, as an int (or None if the chart does not
             include this information).
