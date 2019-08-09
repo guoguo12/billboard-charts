@@ -262,12 +262,13 @@ class ChartData:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
-            def getPositionRowValue(rowName):
+            def getPositionRowValue(rowName, ifNoValue=None):
                 try:
                     selector = _ROW_SELECTOR_FORMAT % rowName
                     selected = entrySoup.select_one(selector)
-                    if selected is None or selected.string == '-':
-                        return 0
+                    if selected is None or selected.string is None \
+                       or selected.string == '-':
+                        return ifNoValue
                     else:
                         return int(selected.string.strip())
                 except:
@@ -276,10 +277,8 @@ class ChartData:
 
             if self.date:
                 peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
-                peakPos = rank if peakPos == 0 else peakPos
-                lastPos = getPositionRowValue(_LAST_POS_FORMAT)
-                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT)
-                weeks = weeks if weeks != 0 else 1
+                lastPos = getPositionRowValue(_LAST_POS_FORMAT, ifNoValue=0)
+                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT, ifNoValue=1)
                 isNew = True if weeks == 1 else False
             else:
                 peakPos = lastPos = weeks = None

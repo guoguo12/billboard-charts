@@ -20,7 +20,7 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
                          'Greatest of All Time Hot 100 Singles')
 
     def test_date(self):
-        self.assertIsNone(self.chart.date)  # This chart has no dates
+        self.assertIsNotNone(self.chart.date)
 
     def test_ranks(self):
         ranks = list(entry.rank for entry in self.chart)
@@ -33,8 +33,8 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
             self.assertGreater(len(entry.artist), 0)
             self.assertGreater(len(entry.image), 0)
             self.assertIsNone(entry.peakPos)
-            self.assertIsNone(entry.lastPos)
-            self.assertIsNone(entry.weeks)
+            self.assertEqual(entry.lastPos, 0)
+            self.assertEqual(entry.weeks, 1)  # This is kind of unintuitive...
             # Redundant because of test_ranks
             self.assertTrue(1 <= entry.rank <= 100)
             self.assertIsInstance(entry.isNew, bool)
