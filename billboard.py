@@ -127,9 +127,6 @@ class ChartData:
 
         Args:
             name: The chart name, e.g. 'hot-100' or 'pop-songs'.
-                You can browse the Charts section of Billboard.com to find
-                valid chart names; the URL of a chart will look like
-                "http://www.billboard.com/charts/CHART-NAME".
             date: The chart date, as a string in YYYY-MM-DD format.
                 By default, the latest chart is fetched.
                 If the argument is not a date on which a chart was published,
@@ -251,12 +248,11 @@ class ChartData:
                 imageSoup = entrySoup.find('img',"chart-list-item__image")
                 if imageSoup.has_attr('data-src'):
                     image = imageSoup['data-src']
-                else: 
+                else:
                     image = imageSoup['src']
             except:
                 message = "Failed to parse image image"
                 raise BillboardParseException(message)
-            
 
             try:
                 artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
@@ -298,7 +294,10 @@ class ChartData:
             entry = ChartEntry(title, artist, image, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
 
+
 def charts():
+    """Gets a list of all Billboard charts from Billboard.com.
+    """
     req = requests.get('https://www.billboard.com/charts', headers=HEADERS, timeout=25)
     soup = BeautifulSoup(req.text, 'html.parser')
-    return [c['href'].split('/')[-1] for c in soup.findAll('a', {'class' : "chart-panel__link"})]
+    return [link['href'].split('/')[-1] for link in soup.findAll('a', {'class' : "chart-panel__link"})]
