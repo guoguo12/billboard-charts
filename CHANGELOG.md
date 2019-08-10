@@ -6,9 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 5.0.0 - 2018-08-01
-### Added
-- Started this changelog file.
-
-### Changed (since the last release, 4.5.0)
-- For `ChartData` and `ChartEntry`, `repr` now returns object representations instead of pretty-printed representations (use `__str__` for those). See [#42](https://github.com/guoguo12/billboard-charts/pull/42).
+## 5.2.0 - 2019-08-09
+### Added (since the last release, 5.1.1)
+- This changelog file.
+- The `charts` function for listing all charts (#40).
+- Validation for dates passed to `ChartData` (#40).
