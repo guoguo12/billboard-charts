@@ -146,8 +146,14 @@ class ChartData:
         """
         self.name = name
 
-        if date is not None and not re.match('\d{4}-\d{2}-\d{2}', str(date)):
-            raise ValueError('Date argument is not in YYYY-MM-DD format')
+        if date is not None:
+            if not re.match('\d{4}-\d{2}-\d{2}', str(date)):
+                raise ValueError('Date argument is not in YYYY-MM-DD format')
+            try:
+                datetime.datetime(*(int(x) for x in str(date).split('-')))
+            except:
+                raise ValueError('Date argument is invalid')
+
         self.date = date
         self.title = ''
         self.previousDate = None
@@ -216,7 +222,12 @@ class ChartData:
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
-            self.date = datetime.datetime.strptime(dateText, '%B %d, %Y').strftime('%Y-%m-%d')
+            curDate = datetime.datetime.strptime(dateText, '%B %d, %Y')
+            if self.date and curDate < datetime.datetime.strptime(str(self.date), '%Y-%m-%d'):
+                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
+                # containing no chart data but displaying the date of the chart's latest issue.
+                raise ValueError('Date argument is after the date of the latest issue')
+            self.date = curDate.strftime('%Y-%m-%d')
 
         chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
         if chartTitleElement:
@@ -286,3 +297,8 @@ class ChartData:
 
             entry = ChartEntry(title, artist, image, peakPos, lastPos, weeks, rank, isNew)
             self.entries.append(entry)
+
+def charts():
+    req = requests.get('https://www.billboard.com/charts', headers=HEADERS, timeout=25)
+    soup = BeautifulSoup(req.text, 'html.parser')
+    return [c['href'].split('/')[-1] for c in soup.findAll('a', {'class' : "chart-panel__link"})]
