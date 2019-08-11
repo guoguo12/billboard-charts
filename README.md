@@ -68,6 +68,8 @@ Use the `charts` function to list all chart names:
 ['hot-100', 'billboard-200', 'artist-100', 'social-50', ...
 ```
 
+Alternatively, the bottom of [this page](https://www.billboard.com/charts) shows all charts grouped by category.
+
 ### Downloading a chart
 
 Use the `ChartData` constructor to download a chart:
