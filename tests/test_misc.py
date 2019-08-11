@@ -23,10 +23,16 @@ class MiscTest(unittest.TestCase):
         chart = billboard.ChartData('hot-100', date='2018-01-27')
         self.assertEqual(chart[97].title, six.text_type(
             'El Bano'))  # With Unicode this should be "El Baño"
-    
+
     def test_difficult_title_casing(self):
         """Checks that a difficult chart title receives proper casing."""
         chart = billboard.ChartData('greatest-r-b-hip-hop-songs')
         self.assertEqual(chart.title,
                          'Greatest of All Time Hot R&B/Hip-Hop Songs')
 
+    def test_charts(self):
+        """Checks that the function for listing all charts returns reasonable
+        results."""
+        charts = billboard.charts()
+        self.assertTrue('hot-100' in charts)
+        self.assertTrue(200 <= len(charts) <= 400)
