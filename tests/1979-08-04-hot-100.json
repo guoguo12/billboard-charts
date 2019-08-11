@@ -1,0 +1,1010 @@
+{
+    "_timeout": 25,
+    "date": "1979-08-04",
+    "entries": [
+        {
+            "artist": "Donna Summer",
+            "image": "https://charts-static.billboard.com/img/1979/05/donna-summer-617-53x53.jpg",
+            "isNew": false,
+            "lastPos": 1,
+            "peakPos": 1,
+            "rank": 1,
+            "title": "Bad Girls",
+            "weeks": 11
+        },
+        {
+            "artist": "Chic",
+            "image": "https://charts-static.billboard.com/img/1840/12/chic-04e-53x53.jpg",
+            "isNew": false,
+            "lastPos": 3,
+            "peakPos": 2,
+            "rank": 2,
+            "title": "Good Times",
+            "weeks": 8
+        },
+        {
+            "artist": "Anita Ward",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 2,
+            "peakPos": 1,
+            "rank": 3,
+            "title": "Ring My Bell",
+            "weeks": 13
+        },
+        {
+            "artist": "Barbra Streisand",
+            "image": "https://charts-static.billboard.com/img/1979/06/barbra-streisand-2i4-53x53.jpg",
+            "isNew": false,
+            "lastPos": 10,
+            "peakPos": 4,
+            "rank": 4,
+            "title": "The Main Event/Fight",
+            "weeks": 8
+        },
+        {
+            "artist": "John Stewart",
+            "image": "https://charts-static.billboard.com/img/1979/05/john-stewart-zom-53x53.jpg",
+            "isNew": false,
+            "lastPos": 6,
+            "peakPos": 5,
+            "rank": 5,
+            "title": "Gold",
+            "weeks": 12
+        },
+        {
+            "artist": "The Knack",
+            "image": "https://charts-static.billboard.com/img/1840/12/the-knack-o72-53x53.jpg",
+            "isNew": false,
+            "lastPos": 18,
+            "peakPos": 6,
+            "rank": 6,
+            "title": "My Sharona",
+            "weeks": 7
+        },
+        {
+            "artist": "David Naughton",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 5,
+            "peakPos": 5,
+            "rank": 7,
+            "title": "Makin' It",
+            "weeks": 19
+        },
+        {
+            "artist": "Dr. Hook",
+            "image": "https://charts-static.billboard.com/img/1979/04/dr-hook-oph-53x53.jpg",
+            "isNew": false,
+            "lastPos": 9,
+            "peakPos": 8,
+            "rank": 8,
+            "title": "When You're In Love With A Beautiful Woman",
+            "weeks": 17
+        },
+        {
+            "artist": "Donna Summer",
+            "image": "https://charts-static.billboard.com/img/2016/12/donna-summer-53x53.jpg",
+            "isNew": false,
+            "lastPos": 4,
+            "peakPos": 1,
+            "rank": 9,
+            "title": "Hot Stuff",
+            "weeks": 16
+        },
+        {
+            "artist": "Cheap Trick",
+            "image": "https://charts-static.billboard.com/img/1979/04/cheap-trick-jcq-53x53.jpg",
+            "isNew": false,
+            "lastPos": 7,
+            "peakPos": 7,
+            "rank": 10,
+            "title": "I Want You To Want Me",
+            "weeks": 15
+        },
+        {
+            "artist": "Raydio",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 12,
+            "peakPos": 11,
+            "rank": 11,
+            "title": "You Can't Change That",
+            "weeks": 15
+        },
+        {
+            "artist": "Elton John",
+            "image": "https://charts-static.billboard.com/img/1979/06/elton-john-qls-53x53.jpg",
+            "isNew": false,
+            "lastPos": 16,
+            "peakPos": 12,
+            "rank": 12,
+            "title": "Mama Can't Buy You Love",
+            "weeks": 9
+        },
+        {
+            "artist": "KISS",
+            "image": "https://charts-static.billboard.com/img/1979/05/kiss-sus-53x53.jpg",
+            "isNew": false,
+            "lastPos": 15,
+            "peakPos": 13,
+            "rank": 13,
+            "title": "I Was Made For Lovin' You",
+            "weeks": 11
+        },
+        {
+            "artist": "McFadden & Whitehead",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 13,
+            "peakPos": 13,
+            "rank": 14,
+            "title": "Ain't No Stoppin' Us Now",
+            "weeks": 15
+        },
+        {
+            "artist": "Electric Light Orchestra",
+            "image": "https://charts-static.billboard.com/img/1979/05/electric-light-orchestra-jef-53x53.jpg",
+            "isNew": false,
+            "lastPos": 8,
+            "peakPos": 8,
+            "rank": 15,
+            "title": "Shine A Little Love",
+            "weeks": 12
+        },
+        {
+            "artist": "Robert John",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 23,
+            "peakPos": 16,
+            "rank": 16,
+            "title": "Sad Eyes",
+            "weeks": 12
+        },
+        {
+            "artist": "Maxine Nightingale",
+            "image": "https://charts-static.billboard.com/img/1979/05/maxine-nightingale-0wd-53x53.jpg",
+            "isNew": false,
+            "lastPos": 22,
+            "peakPos": 17,
+            "rank": 17,
+            "title": "Lead Me On",
+            "weeks": 11
+        },
+        {
+            "artist": "Earth, Wind & Fire with The Emotions",
+            "image": "https://charts-static.billboard.com/img/1979/05/earth-wind-fire-tue-53x53.jpg",
+            "isNew": false,
+            "lastPos": 11,
+            "peakPos": 6,
+            "rank": 18,
+            "title": "Boogie Wonderland",
+            "weeks": 13
+        },
+        {
+            "artist": "Atlanta Rhythm Section",
+            "image": "https://charts-static.billboard.com/img/1979/05/atlanta-rhythm-section-i2y-53x53.jpg",
+            "isNew": false,
+            "lastPos": 19,
+            "peakPos": 19,
+            "rank": 19,
+            "title": "Do It Or Die",
+            "weeks": 11
+        },
+        {
+            "artist": "Wings",
+            "image": "https://charts-static.billboard.com/img/1979/06/paul-mccartney-ntf-53x53.jpg",
+            "isNew": false,
+            "lastPos": 20,
+            "peakPos": 20,
+            "rank": 20,
+            "title": "Getting Closer",
+            "weeks": 8
+        },
+        {
+            "artist": "Peter Frampton",
+            "image": "https://charts-static.billboard.com/img/1979/05/peter-frampton-27a-53x53.jpg",
+            "isNew": false,
+            "lastPos": 14,
+            "peakPos": 14,
+            "rank": 21,
+            "title": "I Can't Stand It No More",
+            "weeks": 11
+        },
+        {
+            "artist": "Earth, Wind & Fire",
+            "image": "https://charts-static.billboard.com/img/1979/07/earth-wind-fire-tue-53x53.jpg",
+            "isNew": false,
+            "lastPos": 31,
+            "peakPos": 22,
+            "rank": 22,
+            "title": "After The Love Has Gone",
+            "weeks": 5
+        },
+        {
+            "artist": "Kansas",
+            "image": "https://charts-static.billboard.com/img/1979/06/kansas-t3y-53x53.jpg",
+            "isNew": false,
+            "lastPos": 24,
+            "peakPos": 23,
+            "rank": 23,
+            "title": "People Of The South Wind",
+            "weeks": 10
+        },
+        {
+            "artist": "Blondie",
+            "image": "https://charts-static.billboard.com/img/1979/06/blondie-9wz-53x53.jpg",
+            "isNew": false,
+            "lastPos": 26,
+            "peakPos": 24,
+            "rank": 24,
+            "title": "One Way Or Another",
+            "weeks": 10
+        },
+        {
+            "artist": "Joe Jackson",
+            "image": "https://charts-static.billboard.com/img/1979/06/joe-jackson-u0c-53x53.jpg",
+            "isNew": false,
+            "lastPos": 27,
+            "peakPos": 25,
+            "rank": 25,
+            "title": "Is She Really Going Out With Him?",
+            "weeks": 9
+        },
+        {
+            "artist": "The Charlie Daniels Band",
+            "image": "https://charts-static.billboard.com/img/1979/06/the-charlie-daniels-band-i64-53x53.jpg",
+            "isNew": false,
+            "lastPos": 33,
+            "peakPos": 26,
+            "rank": 26,
+            "title": "The Devil Went Down To Georgia",
+            "weeks": 7
+        },
+        {
+            "artist": "Eddie Rabbitt",
+            "image": "https://charts-static.billboard.com/img/1979/06/eddie-rabbitt-sm6-53x53.jpg",
+            "isNew": false,
+            "lastPos": 30,
+            "peakPos": 27,
+            "rank": 27,
+            "title": "Suspicions",
+            "weeks": 9
+        },
+        {
+            "artist": "Kenny Rogers",
+            "image": "https://charts-static.billboard.com/img/1979/04/kenny-rogers-vja-53x53.jpg",
+            "isNew": false,
+            "lastPos": 17,
+            "peakPos": 5,
+            "rank": 28,
+            "title": "She Believes In Me",
+            "weeks": 15
+        },
+        {
+            "artist": "Dionne Warwick",
+            "image": "https://charts-static.billboard.com/img/1979/06/dionne-warwick-6mm-53x53.jpg",
+            "isNew": false,
+            "lastPos": 35,
+            "peakPos": 29,
+            "rank": 29,
+            "title": "I'll Never Love This Way Again",
+            "weeks": 7
+        },
+        {
+            "artist": "ABBA",
+            "image": "https://charts-static.billboard.com/img/1979/05/abba-wwl-53x53.jpg",
+            "isNew": false,
+            "lastPos": 21,
+            "peakPos": 19,
+            "rank": 30,
+            "title": "Does Your Mother Know",
+            "weeks": 12
+        },
+        {
+            "artist": "Anne Murray",
+            "image": "https://charts-static.billboard.com/img/1979/05/anne-murray-zsk-53x53.jpg",
+            "isNew": false,
+            "lastPos": 25,
+            "peakPos": 25,
+            "rank": 31,
+            "title": "Shadows In The Moonlight",
+            "weeks": 11
+        },
+        {
+            "artist": "Supertramp",
+            "image": "https://charts-static.billboard.com/img/1979/07/supertramp-b14-53x53.jpg",
+            "isNew": false,
+            "lastPos": 45,
+            "peakPos": 32,
+            "rank": 32,
+            "title": "Goodbye Stranger",
+            "weeks": 5
+        },
+        {
+            "artist": "Little River Band",
+            "image": "https://charts-static.billboard.com/img/1979/07/little-river-band-45x-53x53.jpg",
+            "isNew": false,
+            "lastPos": 44,
+            "peakPos": 33,
+            "rank": 33,
+            "title": "Lonesome Loser",
+            "weeks": 3
+        },
+        {
+            "artist": "Spyro Gyra",
+            "image": "https://charts-static.billboard.com/img/1979/06/spyro-gyra-h75-53x53.jpg",
+            "isNew": false,
+            "lastPos": 36,
+            "peakPos": 34,
+            "rank": 34,
+            "title": "Morning Dance",
+            "weeks": 8
+        },
+        {
+            "artist": "The Cars",
+            "image": "https://charts-static.billboard.com/img/1979/06/the-cars-ndj-53x53.jpg",
+            "isNew": false,
+            "lastPos": 37,
+            "peakPos": 35,
+            "rank": 35,
+            "title": "Let's Go",
+            "weeks": 6
+        },
+        {
+            "artist": "Bonnie Pointer",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 39,
+            "peakPos": 36,
+            "rank": 36,
+            "title": "Heaven Must Have Sent You",
+            "weeks": 8
+        },
+        {
+            "artist": "Pink Lady",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 38,
+            "peakPos": 37,
+            "rank": 37,
+            "title": "Kiss In The Dark",
+            "weeks": 10
+        },
+        {
+            "artist": "Blackfoot",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 42,
+            "peakPos": 38,
+            "rank": 38,
+            "title": "Highway Song",
+            "weeks": 7
+        },
+        {
+            "artist": "Night",
+            "image": "https://charts-static.billboard.com/img/1979/06/night-kbn-53x53.jpg",
+            "isNew": false,
+            "lastPos": 43,
+            "peakPos": 39,
+            "rank": 39,
+            "title": "Hot Summer Nights",
+            "weeks": 7
+        },
+        {
+            "artist": "Patrick Hernandez",
+            "image": "https://charts-static.billboard.com/img/1979/05/patrick-hernandez-b65-53x53.jpg",
+            "isNew": false,
+            "lastPos": 47,
+            "peakPos": 40,
+            "rank": 40,
+            "title": "Born To Be Alive",
+            "weeks": 7
+        },
+        {
+            "artist": "Electric Light Orchestra",
+            "image": "https://charts-static.billboard.com/img/1979/08/electric-light-orchestra-jef-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 41,
+            "title": "Don't Bring Me Down",
+            "weeks": 1
+        },
+        {
+            "artist": "The Jones Girls",
+            "image": "https://charts-static.billboard.com/img/1979/05/the-jones-girls-93h-53x53.jpg",
+            "isNew": false,
+            "lastPos": 46,
+            "peakPos": 42,
+            "rank": 42,
+            "title": "You Gonna Make Me Love Somebody Else",
+            "weeks": 7
+        },
+        {
+            "artist": "GQ",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 52,
+            "peakPos": 43,
+            "rank": 43,
+            "title": "I Do Love You",
+            "weeks": 6
+        },
+        {
+            "artist": "The Marshall Tucker Band",
+            "image": "https://charts-static.billboard.com/img/1979/06/the-marshall-tucker-band-oob-53x53.jpg",
+            "isNew": false,
+            "lastPos": 50,
+            "peakPos": 44,
+            "rank": 44,
+            "title": "Last Of The Singing Cowboys",
+            "weeks": 6
+        },
+        {
+            "artist": "Rockets",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 57,
+            "peakPos": 45,
+            "rank": 45,
+            "title": "Oh Well",
+            "weeks": 5
+        },
+        {
+            "artist": "Peaches & Herb",
+            "image": "https://charts-static.billboard.com/img/1979/06/peaches-herb-ubt-53x53.jpg",
+            "isNew": false,
+            "lastPos": 51,
+            "peakPos": 46,
+            "rank": 46,
+            "title": "We've Got Love",
+            "weeks": 6
+        },
+        {
+            "artist": "Maureen McGovern",
+            "image": "https://charts-static.billboard.com/img/1979/06/maureen-mcgovern-qpj-53x53.jpg",
+            "isNew": false,
+            "lastPos": 58,
+            "peakPos": 47,
+            "rank": 47,
+            "title": "Different Worlds",
+            "weeks": 5
+        },
+        {
+            "artist": "Sister Sledge",
+            "image": "https://charts-static.billboard.com/img/1979/04/sister-sledge-pos-53x53.jpg",
+            "isNew": false,
+            "lastPos": 48,
+            "peakPos": 2,
+            "rank": 48,
+            "title": "We Are Family",
+            "weeks": 15
+        },
+        {
+            "artist": "Bram Tchaikovsky",
+            "image": "https://charts-static.billboard.com/img/1979/07/bram-tchaikovsky-hca-53x53.jpg",
+            "isNew": false,
+            "lastPos": 56,
+            "peakPos": 49,
+            "rank": 49,
+            "title": "Girl Of My Dreams",
+            "weeks": 5
+        },
+        {
+            "artist": "Robert Palmer",
+            "image": "https://charts-static.billboard.com/img/1979/07/robert-palmer-i8q-53x53.jpg",
+            "isNew": false,
+            "lastPos": 64,
+            "peakPos": 50,
+            "rank": 50,
+            "title": "Bad Case Of Loving You (Doctor, Doctor)",
+            "weeks": 3
+        },
+        {
+            "artist": "James Taylor",
+            "image": "https://charts-static.billboard.com/img/1979/05/james-taylor-u4r-53x53.jpg",
+            "isNew": false,
+            "lastPos": 28,
+            "peakPos": 28,
+            "rank": 51,
+            "title": "Up On The Roof",
+            "weeks": 10
+        },
+        {
+            "artist": "Diana Ross",
+            "image": "https://charts-static.billboard.com/img/1840/12/diana-ross-k7w-53x53.jpg",
+            "isNew": false,
+            "lastPos": 61,
+            "peakPos": 52,
+            "rank": 52,
+            "title": "The Boss",
+            "weeks": 4
+        },
+        {
+            "artist": "Triumph",
+            "image": "https://charts-static.billboard.com/img/1979/06/triumph-321-53x53.jpg",
+            "isNew": false,
+            "lastPos": 55,
+            "peakPos": 53,
+            "rank": 53,
+            "title": "Hold On",
+            "weeks": 8
+        },
+        {
+            "artist": "Tony Orlando",
+            "image": "https://charts-static.billboard.com/img/1979/07/tony-orlando-dawn-f7j-53x53.jpg",
+            "isNew": false,
+            "lastPos": 63,
+            "peakPos": 54,
+            "rank": 54,
+            "title": "Sweets For My Sweet",
+            "weeks": 5
+        },
+        {
+            "artist": "Herman Brood",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 67,
+            "peakPos": 55,
+            "rank": 55,
+            "title": "Saturdaynight",
+            "weeks": 4
+        },
+        {
+            "artist": "Wet Willie",
+            "image": "https://charts-static.billboard.com/img/1979/05/wet-willie-h75-53x53.jpg",
+            "isNew": false,
+            "lastPos": 29,
+            "peakPos": 29,
+            "rank": 56,
+            "title": "Weekend",
+            "weeks": 11
+        },
+        {
+            "artist": "Sniff 'n' the Tears",
+            "image": "https://charts-static.billboard.com/img/1979/07/sniff-n-the-tears-1bo-53x53.jpg",
+            "isNew": false,
+            "lastPos": 72,
+            "peakPos": 57,
+            "rank": 57,
+            "title": "Driver's Seat",
+            "weeks": 3
+        },
+        {
+            "artist": "Hot Chocolate",
+            "image": "https://charts-static.billboard.com/img/1979/07/hot-chocolate-kr1-53x53.jpg",
+            "isNew": false,
+            "lastPos": 65,
+            "peakPos": 58,
+            "rank": 58,
+            "title": "Going Through The Motions",
+            "weeks": 4
+        },
+        {
+            "artist": "Five Special",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 84,
+            "peakPos": 59,
+            "rank": 59,
+            "title": "Why Leave Us Alone",
+            "weeks": 2
+        },
+        {
+            "artist": "Hotel",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 70,
+            "peakPos": 60,
+            "rank": 60,
+            "title": "You've Got Another Thing Coming",
+            "weeks": 4
+        },
+        {
+            "artist": "Poco",
+            "image": "https://charts-static.billboard.com/img/1979/05/poco-eyh-53x53.jpg",
+            "isNew": false,
+            "lastPos": 32,
+            "peakPos": 20,
+            "rank": 61,
+            "title": "Heart Of The Night",
+            "weeks": 13
+        },
+        {
+            "artist": "Teddy Pendergrass",
+            "image": "https://charts-static.billboard.com/img/1979/06/teddy-pendergrass-p0b-53x53.jpg",
+            "isNew": false,
+            "lastPos": 73,
+            "peakPos": 62,
+            "rank": 62,
+            "title": "Turn Off The Lights",
+            "weeks": 3
+        },
+        {
+            "artist": "Rickie Lee Jones",
+            "image": "https://charts-static.billboard.com/img/1979/07/rickie-lee-jones-bn8-53x53.jpg",
+            "isNew": false,
+            "lastPos": 74,
+            "peakPos": 63,
+            "rank": 63,
+            "title": "Young Blood",
+            "weeks": 2
+        },
+        {
+            "artist": "Blackjack",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 75,
+            "peakPos": 64,
+            "rank": 64,
+            "title": "Love Me Tonight",
+            "weeks": 3
+        },
+        {
+            "artist": "Journey",
+            "image": "https://charts-static.billboard.com/img/1979/07/journey-9r5-53x53.jpg",
+            "isNew": false,
+            "lastPos": 76,
+            "peakPos": 65,
+            "rank": 65,
+            "title": "Lovin', Touchin', Squeezin'",
+            "weeks": 3
+        },
+        {
+            "artist": "Funky Communication Committee",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 68,
+            "peakPos": 66,
+            "rank": 66,
+            "title": "Baby I Want You",
+            "weeks": 4
+        },
+        {
+            "artist": "Dire Straits",
+            "image": "https://charts-static.billboard.com/img/1979/07/dire-straits-w73-53x53.jpg",
+            "isNew": false,
+            "lastPos": 78,
+            "peakPos": 67,
+            "rank": 67,
+            "title": "Lady Writer",
+            "weeks": 2
+        },
+        {
+            "artist": "Bonnie Boyer",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 80,
+            "peakPos": 68,
+            "rank": 68,
+            "title": "Got To Give In To Love",
+            "weeks": 2
+        },
+        {
+            "artist": "Olivia Newton-John",
+            "image": "https://charts-static.billboard.com/img/1979/07/olivia-newton-john-hxh-53x53.jpg",
+            "isNew": false,
+            "lastPos": 79,
+            "peakPos": 69,
+            "rank": 69,
+            "title": "Totally Hot",
+            "weeks": 2
+        },
+        {
+            "artist": "Lobo",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 81,
+            "peakPos": 70,
+            "rank": 70,
+            "title": "Where Were You When I Was Falling In Love",
+            "weeks": 2
+        },
+        {
+            "artist": "Oak",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 77,
+            "peakPos": 71,
+            "rank": 71,
+            "title": "This Is Love",
+            "weeks": 3
+        },
+        {
+            "artist": "Nick Lowe",
+            "image": "https://charts-static.billboard.com/img/1979/07/nick-lowe-zqx-53x53.jpg",
+            "isNew": false,
+            "lastPos": 82,
+            "peakPos": 72,
+            "rank": 72,
+            "title": "Cruel To Be Kind",
+            "weeks": 2
+        },
+        {
+            "artist": "Herb Alpert",
+            "image": "https://charts-static.billboard.com/img/1979/06/herb-alpert-hn0-53x53.jpg",
+            "isNew": false,
+            "lastPos": 83,
+            "peakPos": 73,
+            "rank": 73,
+            "title": "Rise",
+            "weeks": 2
+        },
+        {
+            "artist": "Stephanie Mills",
+            "image": "https://charts-static.billboard.com/img/1979/04/stephanie-mills-gzg-53x53.jpg",
+            "isNew": false,
+            "lastPos": 86,
+            "peakPos": 74,
+            "rank": 74,
+            "title": "What Cha Gonna Do With My Lovin'",
+            "weeks": 3
+        },
+        {
+            "artist": "Gerry Rafferty",
+            "image": "https://charts-static.billboard.com/img/1979/06/gerry-rafferty-oqp-53x53.jpg",
+            "isNew": false,
+            "lastPos": 34,
+            "peakPos": 17,
+            "rank": 75,
+            "title": "Days Gone Down (Still Got The Light In Your Eyes)",
+            "weeks": 10
+        },
+        {
+            "artist": "Rickie Lee Jones",
+            "image": "https://charts-static.billboard.com/img/1979/04/rickie-lee-jones-bn8-53x53.jpg",
+            "isNew": false,
+            "lastPos": 40,
+            "peakPos": 4,
+            "rank": 76,
+            "title": "Chuck E.'s In Love",
+            "weeks": 15
+        },
+        {
+            "artist": "Michael Jackson",
+            "image": "https://charts-static.billboard.com/img/1840/12/michael-jackson-9to-53x53.jpg",
+            "isNew": false,
+            "lastPos": 87,
+            "peakPos": 77,
+            "rank": 77,
+            "title": "Don't Stop 'til You Get Enough",
+            "weeks": 2
+        },
+        {
+            "artist": "Beckmeier Brothers",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 88,
+            "peakPos": 78,
+            "rank": 78,
+            "title": "Rock And Roll Dancin'",
+            "weeks": 2
+        },
+        {
+            "artist": "Billy Thorpe",
+            "image": "https://charts-static.billboard.com/img/1979/07/billy-thorpe-tu3-53x53.jpg",
+            "isNew": false,
+            "lastPos": 89,
+            "peakPos": 79,
+            "rank": 79,
+            "title": "Children Of The Sun",
+            "weeks": 2
+        },
+        {
+            "artist": "Flash And The Pan",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 85,
+            "peakPos": 80,
+            "rank": 80,
+            "title": "Hey, St. Peter",
+            "weeks": 2
+        },
+        {
+            "artist": "Bad Company",
+            "image": "https://charts-static.billboard.com/img/1979/08/bad-company-h37-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 81,
+            "title": "Gone, Gone, Gone",
+            "weeks": 1
+        },
+        {
+            "artist": "Cheap Trick",
+            "image": "https://charts-static.billboard.com/img/1979/08/cheap-trick-jcq-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 82,
+            "title": "Ain't That A Shame",
+            "weeks": 1
+        },
+        {
+            "artist": "Switch",
+            "image": "https://charts-static.billboard.com/img/1979/05/switch-dn4-53x53.jpg",
+            "isNew": false,
+            "lastPos": 93,
+            "peakPos": 83,
+            "rank": 83,
+            "title": "Best Beat In Town",
+            "weeks": 3
+        },
+        {
+            "artist": "Supertramp",
+            "image": "https://charts-static.billboard.com/img/1979/03/supertramp-b14-53x53.jpg",
+            "isNew": false,
+            "lastPos": 41,
+            "peakPos": 6,
+            "rank": 84,
+            "title": "The Logical Song",
+            "weeks": 20
+        },
+        {
+            "artist": "Maynard Ferguson",
+            "image": "https://charts-static.billboard.com/img/1979/08/maynard-ferguson-1kc-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 85,
+            "title": "Rocky II Disco",
+            "weeks": 1
+        },
+        {
+            "artist": "Mass Production",
+            "image": "https://charts-static.billboard.com/img/1979/06/mass-production-5m4-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 86,
+            "title": "Firecracker",
+            "weeks": 1
+        },
+        {
+            "artist": "Van Halen",
+            "image": "https://charts-static.billboard.com/img/1979/04/van-halen-oet-53x53.jpg",
+            "isNew": false,
+            "lastPos": 49,
+            "peakPos": 15,
+            "rank": 87,
+            "title": "Dance The Night Away",
+            "weeks": 15
+        },
+        {
+            "artist": "Samantha Sang",
+            "image": "https://charts-static.billboard.com/img/1979/07/samantha-sang-c88-53x53.jpg",
+            "isNew": false,
+            "lastPos": 90,
+            "peakPos": 88,
+            "rank": 88,
+            "title": "In The Midnight Hour",
+            "weeks": 2
+        },
+        {
+            "artist": "Michael Johnson",
+            "image": "https://charts-static.billboard.com/img/1979/08/michael-johnson-f2r-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 89,
+            "title": "This Night Won't Last Forever",
+            "weeks": 1
+        },
+        {
+            "artist": "Edwin Starr",
+            "image": "https://charts-static.billboard.com/img/1979/08/edwin-starr-807-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 90,
+            "title": "H.a.p.p.y. Radio",
+            "weeks": 1
+        },
+        {
+            "artist": "Jennifer Warnes",
+            "image": "https://charts-static.billboard.com/img/1979/06/jennifer-warnes-hfm-53x53.jpg",
+            "isNew": false,
+            "lastPos": 91,
+            "peakPos": 70,
+            "rank": 91,
+            "title": "I Know A Heartache When I See One",
+            "weeks": 6
+        },
+        {
+            "artist": "Peaches & Herb",
+            "image": "https://charts-static.billboard.com/img/1979/03/peaches-herb-ubt-53x53.jpg",
+            "isNew": false,
+            "lastPos": 92,
+            "peakPos": 1,
+            "rank": 92,
+            "title": "Reunited",
+            "weeks": 21
+        },
+        {
+            "artist": "Randy VanWarmer",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 53,
+            "peakPos": 4,
+            "rank": 93,
+            "title": "Just When I Needed You Most",
+            "weeks": 20
+        },
+        {
+            "artist": "The Who",
+            "image": "https://charts-static.billboard.com/img/1979/06/the-who-r2k-53x53.jpg",
+            "isNew": false,
+            "lastPos": 54,
+            "peakPos": 54,
+            "rank": 94,
+            "title": "Long Live Rock",
+            "weeks": 6
+        },
+        {
+            "artist": "Rex Smith",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 62,
+            "peakPos": 10,
+            "rank": 95,
+            "title": "You Take My Breath Away",
+            "weeks": 16
+        },
+        {
+            "artist": "The Doobie Brothers",
+            "image": "https://charts-static.billboard.com/img/1979/05/the-doobie-brothers-ru4-53x53.jpg",
+            "isNew": false,
+            "lastPos": 59,
+            "peakPos": 14,
+            "rank": 96,
+            "title": "Minute By Minute",
+            "weeks": 14
+        },
+        {
+            "artist": "Jay Ferguson",
+            "image": "https://charts-static.billboard.com/img/1979/05/jay-ferguson-xq2-53x53.jpg",
+            "isNew": false,
+            "lastPos": 60,
+            "peakPos": 31,
+            "rank": 97,
+            "title": "Shakedown Cruise",
+            "weeks": 14
+        },
+        {
+            "artist": "Bee Gees",
+            "image": "https://charts-static.billboard.com/img/1979/04/bee-gees-uc7-53x53.jpg",
+            "isNew": false,
+            "lastPos": 66,
+            "peakPos": 1,
+            "rank": 98,
+            "title": "Love You Inside Out",
+            "weeks": 16
+        },
+        {
+            "artist": "Bellamy Brothers",
+            "image": "https://charts-static.billboard.com/img/1979/03/the-bellamy-brothers-vqs-53x53.jpg",
+            "isNew": false,
+            "lastPos": 69,
+            "peakPos": 39,
+            "rank": 99,
+            "title": "If I Said You Have A Beautiful Body Would You Hold It Against Me",
+            "weeks": 11
+        },
+        {
+            "artist": "Dolly Parton",
+            "image": "https://charts-static.billboard.com/img/1979/06/dolly-parton-k5e-53x53.jpg",
+            "isNew": false,
+            "lastPos": 71,
+            "peakPos": 59,
+            "rank": 100,
+            "title": "You're The Only One",
+            "weeks": 6
+        }
+    ],
+    "name": "hot-100",
+    "nextDate": "1979-08-11",
+    "previousDate": "1979-07-28",
+    "title": "The Hot 100"
+}

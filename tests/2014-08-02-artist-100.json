@@ -1,0 +1,1010 @@
+{
+    "_timeout": 25,
+    "date": "2014-08-02",
+    "entries": [
+        {
+            "artist": "Sam Smith",
+            "image": "https://charts-static.billboard.com/img/2014/07/sam-smith-9q2-53x53.jpg",
+            "isNew": false,
+            "lastPos": 1,
+            "peakPos": 1,
+            "rank": 1,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Iggy Azalea",
+            "image": "https://charts-static.billboard.com/img/2014/05/iggy-azalea-68u-53x53.jpg",
+            "isNew": false,
+            "lastPos": 2,
+            "peakPos": 2,
+            "rank": 2,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "\"Weird Al\" Yankovic",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 3,
+            "rank": 3,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "MAGIC!",
+            "image": "https://charts-static.billboard.com/img/2014/07/magic-1-yin-53x53.jpg",
+            "isNew": false,
+            "lastPos": 3,
+            "peakPos": 3,
+            "rank": 4,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Jason Mraz",
+            "image": "https://charts-static.billboard.com/img/1840/12/jason-mraz-5w0-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 5,
+            "rank": 5,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "5 Seconds Of Summer",
+            "image": "https://charts-static.billboard.com/img/2013/11/5-seconds-of-summer-deq-53x53.jpg",
+            "isNew": false,
+            "lastPos": 25,
+            "peakPos": 6,
+            "rank": 6,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Ariana Grande",
+            "image": "https://charts-static.billboard.com/img/2011/02/ariana-grande-ypy-53x53.jpg",
+            "isNew": false,
+            "lastPos": 6,
+            "peakPos": 6,
+            "rank": 7,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Florida Georgia Line",
+            "image": "https://charts-static.billboard.com/img/2012/12/florida-georgia-line-wbf-53x53.jpg",
+            "isNew": false,
+            "lastPos": 4,
+            "peakPos": 4,
+            "rank": 8,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Katy Perry",
+            "image": "https://charts-static.billboard.com/img/2008/12/katy-perry-l8p-53x53.jpg",
+            "isNew": false,
+            "lastPos": 9,
+            "peakPos": 7,
+            "rank": 9,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Jason Derulo",
+            "image": "https://charts-static.billboard.com/img/2009/12/jason-derulo-3xq-53x53.jpg",
+            "isNew": false,
+            "lastPos": 12,
+            "peakPos": 9,
+            "rank": 10,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "OneRepublic",
+            "image": "https://charts-static.billboard.com/img/2017/08/onerepublic-53x53.jpg",
+            "isNew": false,
+            "lastPos": 10,
+            "peakPos": 10,
+            "rank": 11,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Luke Bryan",
+            "image": "https://charts-static.billboard.com/img/1840/12/luke-bryan-3d2-53x53.jpg",
+            "isNew": false,
+            "lastPos": 11,
+            "peakPos": 10,
+            "rank": 12,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Ed Sheeran",
+            "image": "https://charts-static.billboard.com/img/2011/07/ed-sheeran-3vg-53x53.jpg",
+            "isNew": false,
+            "lastPos": 7,
+            "peakPos": 5,
+            "rank": 13,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Maroon 5",
+            "image": "https://charts-static.billboard.com/img/1840/12/maroon-5-9st-53x53.jpg",
+            "isNew": false,
+            "lastPos": 13,
+            "peakPos": 13,
+            "rank": 14,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Nico & Vinz",
+            "image": "https://charts-static.billboard.com/img/2014/07/nico-vinz-0zf-53x53.jpg",
+            "isNew": false,
+            "lastPos": 16,
+            "peakPos": 12,
+            "rank": 15,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Pharrell Williams",
+            "image": "https://charts-static.billboard.com/img/2006/12/pharrell-williams-rbx-53x53.jpg",
+            "isNew": false,
+            "lastPos": 14,
+            "peakPos": 11,
+            "rank": 16,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Charli XCX",
+            "image": "https://charts-static.billboard.com/img/2013/12/charli-xcx-juq-53x53.jpg",
+            "isNew": false,
+            "lastPos": 17,
+            "peakPos": 15,
+            "rank": 17,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "John Legend",
+            "image": "https://charts-static.billboard.com/img/2006/12/john-legend-xtz-53x53.jpg",
+            "isNew": false,
+            "lastPos": 15,
+            "peakPos": 15,
+            "rank": 18,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Rise Against",
+            "image": "https://charts-static.billboard.com/img/2008/12/rise-against-26z-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 19,
+            "rank": 19,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Trey Songz",
+            "image": "https://charts-static.billboard.com/img/2017/06/trey-songz-53x53.jpg",
+            "isNew": false,
+            "lastPos": 8,
+            "peakPos": 1,
+            "rank": 20,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Kidz Bop Kids",
+            "image": "https://charts-static.billboard.com/img/2006/12/kidz-bop-kids-hda-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 21,
+            "rank": 21,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Sia",
+            "image": "https://charts-static.billboard.com/img/2012/12/sia-5kn-53x53.jpg",
+            "isNew": false,
+            "lastPos": 5,
+            "peakPos": 5,
+            "rank": 22,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Drake",
+            "image": "https://charts-static.billboard.com/img/1840/12/drake-zwl-53x53.jpg",
+            "isNew": false,
+            "lastPos": 33,
+            "peakPos": 23,
+            "rank": 23,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Lorde",
+            "image": "https://charts-static.billboard.com/img/2013/10/lorde-pxl-53x53.jpg",
+            "isNew": false,
+            "lastPos": 21,
+            "peakPos": 21,
+            "rank": 24,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Eminem",
+            "image": "https://charts-static.billboard.com/img/2017/02/eminem-53x53.jpg",
+            "isNew": false,
+            "lastPos": 23,
+            "peakPos": 20,
+            "rank": 25,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Bruno Mars",
+            "image": "https://charts-static.billboard.com/img/2010/12/bruno-mars-va7-53x53.jpg",
+            "isNew": false,
+            "lastPos": 27,
+            "peakPos": 26,
+            "rank": 26,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Blake Shelton",
+            "image": "https://charts-static.billboard.com/img/2017/02/blake-shelton-53x53.jpg",
+            "isNew": false,
+            "lastPos": 39,
+            "peakPos": 27,
+            "rank": 27,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Calvin Harris",
+            "image": "https://charts-static.billboard.com/img/2012/12/calvin-harris-s9n-53x53.jpg",
+            "isNew": false,
+            "lastPos": 18,
+            "peakPos": 18,
+            "rank": 28,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Beyonce",
+            "image": "https://charts-static.billboard.com/img/2006/12/beyonce-000-artist-chart-cci-53x53.jpg",
+            "isNew": false,
+            "lastPos": 28,
+            "peakPos": 26,
+            "rank": 29,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Justin Timberlake",
+            "image": "https://charts-static.billboard.com/img/2017/01/justin-timberlake-53x53.jpg",
+            "isNew": false,
+            "lastPos": 20,
+            "peakPos": 20,
+            "rank": 30,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Imagine Dragons",
+            "image": "https://charts-static.billboard.com/img/1840/12/imagine-dragons-hy6-53x53.jpg",
+            "isNew": false,
+            "lastPos": 24,
+            "peakPos": 22,
+            "rank": 31,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Coldplay",
+            "image": "https://charts-static.billboard.com/img/2017/08/coldplay-53x53.jpg",
+            "isNew": false,
+            "lastPos": 26,
+            "peakPos": 26,
+            "rank": 32,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Miranda Lambert",
+            "image": "https://charts-static.billboard.com/img/2016/12/miranda-lambert-53x53.jpg",
+            "isNew": false,
+            "lastPos": 19,
+            "peakPos": 18,
+            "rank": 33,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Lana Del Rey",
+            "image": "https://charts-static.billboard.com/img/2012/01/lana-del-rey-x3j-53x53.jpg",
+            "isNew": false,
+            "lastPos": 22,
+            "peakPos": 16,
+            "rank": 34,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Shakira",
+            "image": "https://charts-static.billboard.com/img/2017/06/shakira-53x53.jpg",
+            "isNew": false,
+            "lastPos": 36,
+            "peakPos": 35,
+            "rank": 35,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Disclosure",
+            "image": "https://charts-static.billboard.com/img/2013/12/disclosure-g9t-53x53.jpg",
+            "isNew": false,
+            "lastPos": 40,
+            "peakPos": 36,
+            "rank": 36,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Michael Jackson",
+            "image": "https://charts-static.billboard.com/img/1840/12/michael-jackson-9to-53x53.jpg",
+            "isNew": false,
+            "lastPos": 30,
+            "peakPos": 30,
+            "rank": 37,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Brantley Gilbert",
+            "image": "https://charts-static.billboard.com/img/2017/07/brantley-gilbert-53x53.jpg",
+            "isNew": false,
+            "lastPos": 29,
+            "peakPos": 28,
+            "rank": 38,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "One Direction",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 32,
+            "peakPos": 32,
+            "rank": 39,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Justin Bieber",
+            "image": "https://charts-static.billboard.com/img/2009/12/justin-bieber-3jm-53x53.jpg",
+            "isNew": false,
+            "lastPos": 34,
+            "peakPos": 34,
+            "rank": 40,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Chris Brown",
+            "image": "https://charts-static.billboard.com/img/2006/12/chris-brown-cte-53x53.jpg",
+            "isNew": false,
+            "lastPos": 41,
+            "peakPos": 37,
+            "rank": 41,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "KONGOS",
+            "image": "https://charts-static.billboard.com/img/2014/07/kongos-um1-53x53.jpg",
+            "isNew": false,
+            "lastPos": 50,
+            "peakPos": 42,
+            "rank": 42,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Dierks Bentley",
+            "image": "https://charts-static.billboard.com/img/1840/12/dierks-bentley-8zd-53x53.jpg",
+            "isNew": false,
+            "lastPos": 37,
+            "peakPos": 37,
+            "rank": 43,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Lady Antebellum",
+            "image": "https://charts-static.billboard.com/img/2017/07/lady-antebellum-53x53.jpg",
+            "isNew": false,
+            "lastPos": 42,
+            "peakPos": 42,
+            "rank": 44,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Becky G",
+            "image": "https://charts-static.billboard.com/img/2014/07/becky-g-owi-53x53.jpg",
+            "isNew": false,
+            "lastPos": 54,
+            "peakPos": 45,
+            "rank": 45,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Wiz Khalifa",
+            "image": "https://charts-static.billboard.com/img/2010/12/wiz-khalifa-b1e-53x53.jpg",
+            "isNew": false,
+            "lastPos": 58,
+            "peakPos": 46,
+            "rank": 46,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Enrique Iglesias",
+            "image": "https://charts-static.billboard.com/img/2017/03/enrique-iglesias-53x53.jpg",
+            "isNew": false,
+            "lastPos": 55,
+            "peakPos": 47,
+            "rank": 47,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Kenny Chesney",
+            "image": "https://charts-static.billboard.com/img/2017/06/kenny-chesney-53x53.jpg",
+            "isNew": false,
+            "lastPos": 44,
+            "peakPos": 44,
+            "rank": 48,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Paramore",
+            "image": "https://charts-static.billboard.com/img/2008/12/paramore-teo-53x53.jpg",
+            "isNew": false,
+            "lastPos": 38,
+            "peakPos": 35,
+            "rank": 49,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Jake Owen",
+            "image": "https://charts-static.billboard.com/img/2006/12/jake-owen-17q-53x53.jpg",
+            "isNew": false,
+            "lastPos": 47,
+            "peakPos": 41,
+            "rank": 50,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Bleachers",
+            "image": "https://charts-static.billboard.com/img/2014/08/bleachers-nw9-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 51,
+            "rank": 51,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Demi Lovato",
+            "image": "https://charts-static.billboard.com/img/2009/12/demi-lovato-rh9-53x53.jpg",
+            "isNew": false,
+            "lastPos": 49,
+            "peakPos": 44,
+            "rank": 52,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Bastille",
+            "image": "https://charts-static.billboard.com/img/2013/12/bastille-p0b-53x53.jpg",
+            "isNew": false,
+            "lastPos": 48,
+            "peakPos": 45,
+            "rank": 53,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "MKTO",
+            "image": "https://charts-static.billboard.com/img/2014/07/mkto-0le-53x53.jpg",
+            "isNew": false,
+            "lastPos": 46,
+            "peakPos": 43,
+            "rank": 54,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "ScHoolboy Q",
+            "image": "https://charts-static.billboard.com/img/2014/07/schoolboy-q-s5u-53x53.jpg",
+            "isNew": false,
+            "lastPos": 53,
+            "peakPos": 52,
+            "rank": 55,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Pitbull",
+            "image": "https://charts-static.billboard.com/img/2017/06/pitbull-53x53.jpg",
+            "isNew": false,
+            "lastPos": 52,
+            "peakPos": 48,
+            "rank": 56,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Nicki Minaj",
+            "image": "https://charts-static.billboard.com/img/2010/12/nicki-minaj-thi-53x53.jpg",
+            "isNew": false,
+            "lastPos": 43,
+            "peakPos": 42,
+            "rank": 57,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Lee Brice",
+            "image": "https://charts-static.billboard.com/img/2010/12/lee-brice-vbm-53x53.jpg",
+            "isNew": false,
+            "lastPos": 61,
+            "peakPos": 58,
+            "rank": 58,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Avicii",
+            "image": "https://charts-static.billboard.com/img/1840/12/avicii-32y-53x53.jpg",
+            "isNew": false,
+            "lastPos": 62,
+            "peakPos": 50,
+            "rank": 59,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Miley Cyrus",
+            "image": "https://charts-static.billboard.com/img/2017/06/miley-cyrus-53x53.jpg",
+            "isNew": false,
+            "lastPos": 35,
+            "peakPos": 25,
+            "rank": 60,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "American Authors",
+            "image": "https://charts-static.billboard.com/img/2014/07/american-authors-o02-53x53.jpg",
+            "isNew": false,
+            "lastPos": 79,
+            "peakPos": 61,
+            "rank": 61,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Eric Church",
+            "image": "https://charts-static.billboard.com/img/2017/04/eric-church-53x53.jpg",
+            "isNew": false,
+            "lastPos": 57,
+            "peakPos": 56,
+            "rank": 62,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Linkin Park",
+            "image": "https://charts-static.billboard.com/img/2017/08/linkin-park-53x53.jpg",
+            "isNew": false,
+            "lastPos": 63,
+            "peakPos": 49,
+            "rank": 63,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Usher",
+            "image": "https://charts-static.billboard.com/img/2004/12/usher-oqp-53x53.jpg",
+            "isNew": false,
+            "lastPos": 65,
+            "peakPos": 64,
+            "rank": 64,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Joe Nichols",
+            "image": "https://charts-static.billboard.com/img/2006/12/joe-nichols-yxj-53x53.jpg",
+            "isNew": false,
+            "lastPos": 66,
+            "peakPos": 65,
+            "rank": 65,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Romeo Santos",
+            "image": "https://charts-static.billboard.com/img/2011/12/romeo-santos-rhp-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 66,
+            "rank": 66,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Selena Gomez",
+            "image": "https://charts-static.billboard.com/img/2017/07/selena-gomez-53x53.jpg",
+            "isNew": false,
+            "lastPos": 92,
+            "peakPos": 67,
+            "rank": 67,
+            "title": "",
+            "weeks": 2
+        },
+        {
+            "artist": "Lil Wayne",
+            "image": "https://charts-static.billboard.com/img/2017/08/lil-wayne-53x53.jpg",
+            "isNew": false,
+            "lastPos": 59,
+            "peakPos": 55,
+            "rank": 68,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Rihanna",
+            "image": "https://charts-static.billboard.com/img/2017/07/rihanna-53x53.jpg",
+            "isNew": false,
+            "lastPos": 68,
+            "peakPos": 68,
+            "rank": 69,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Sara Bareilles",
+            "image": "https://charts-static.billboard.com/img/1840/12/sara-bareilles-7da-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 70,
+            "rank": 70,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Zac Brown Band",
+            "image": "https://charts-static.billboard.com/img/2017/06/zac-brown-band-53x53.jpg",
+            "isNew": false,
+            "lastPos": 60,
+            "peakPos": 59,
+            "rank": 71,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Jason Aldean",
+            "image": "https://charts-static.billboard.com/img/2017/05/jason-aldean-53x53.jpg",
+            "isNew": false,
+            "lastPos": 64,
+            "peakPos": 64,
+            "rank": 72,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Kid Ink",
+            "image": "https://charts-static.billboard.com/img/2014/07/kid-ink-9ar-53x53.jpg",
+            "isNew": false,
+            "lastPos": 70,
+            "peakPos": 70,
+            "rank": 73,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Colbie Caillat",
+            "image": "https://charts-static.billboard.com/img/1840/12/colbie-caillat-p3m-53x53.jpg",
+            "isNew": false,
+            "lastPos": 94,
+            "peakPos": 74,
+            "rank": 74,
+            "title": "",
+            "weeks": 2
+        },
+        {
+            "artist": "Chris Young",
+            "image": "https://charts-static.billboard.com/img/2017/06/chris-young-53x53.jpg",
+            "isNew": false,
+            "lastPos": 76,
+            "peakPos": 75,
+            "rank": 75,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Marsha Ambrosius",
+            "image": "https://charts-static.billboard.com/img/2011/12/marsha-ambrosius-b44-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 76,
+            "rank": 76,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "YG",
+            "image": "https://charts-static.billboard.com/img/2014/07/yg-fg4-53x53.jpg",
+            "isNew": false,
+            "lastPos": 73,
+            "peakPos": 73,
+            "rank": 77,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Meghan Trainor",
+            "image": "https://charts-static.billboard.com/img/2014/08/meghan-trainor-vgn-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 78,
+            "rank": 78,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Arctic Monkeys",
+            "image": "https://charts-static.billboard.com/img/2006/12/arctic-monkeys-a3g-53x53.jpg",
+            "isNew": false,
+            "lastPos": 69,
+            "peakPos": 69,
+            "rank": 79,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Childish Gambino",
+            "image": "https://charts-static.billboard.com/img/2011/05/childish-gambino-f0k-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 80,
+            "rank": 80,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Adele",
+            "image": "https://charts-static.billboard.com/img/2009/12/adele-hdy-53x53.jpg",
+            "isNew": false,
+            "lastPos": 72,
+            "peakPos": 72,
+            "rank": 81,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "P!nk",
+            "image": "https://charts-static.billboard.com/img/2017/04/pnk-53x53.jpg",
+            "isNew": false,
+            "lastPos": 82,
+            "peakPos": 82,
+            "rank": 82,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Tiesto",
+            "image": "https://charts-static.billboard.com/img/2006/12/tiesto-nm9-53x53.jpg",
+            "isNew": false,
+            "lastPos": 80,
+            "peakPos": 80,
+            "rank": 83,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Snoop Dogg",
+            "image": "https://charts-static.billboard.com/img/2017/07/snoop-dogg-53x53.jpg",
+            "isNew": false,
+            "lastPos": 67,
+            "peakPos": 62,
+            "rank": 84,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Ingrid Michaelson",
+            "image": "https://charts-static.billboard.com/img/2008/12/ingrid-michaelson-k7e-53x53.jpg",
+            "isNew": false,
+            "lastPos": 84,
+            "peakPos": 84,
+            "rank": 85,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Tove Lo",
+            "image": "https://charts-static.billboard.com/img/2014/08/tove-lo-vxl-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 86,
+            "rank": 86,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Cole Swindell",
+            "image": "https://charts-static.billboard.com/img/2014/07/cole-swindell-lq3-53x53.jpg",
+            "isNew": false,
+            "lastPos": 86,
+            "peakPos": 86,
+            "rank": 87,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Morrissey",
+            "image": "https://charts-static.billboard.com/img/2014/08/morrissey-1io-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 88,
+            "rank": 88,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Clean Bandit",
+            "image": "https://charts-static.billboard.com/img/2014/01/clean-bandit-ywv-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 89,
+            "rank": 89,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Rixton",
+            "image": "https://charts-static.billboard.com/img/2014/07/rixton-z8y-53x53.jpg",
+            "isNew": false,
+            "lastPos": 83,
+            "peakPos": 77,
+            "rank": 90,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Crosby, Stills, Nash & Young",
+            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "isNew": false,
+            "lastPos": 45,
+            "peakPos": 45,
+            "rank": 91,
+            "title": "",
+            "weeks": 2
+        },
+        {
+            "artist": "Lil Jon",
+            "image": "https://charts-static.billboard.com/img/2006/12/lil-jon-cje-53x53.jpg",
+            "isNew": false,
+            "lastPos": 87,
+            "peakPos": 76,
+            "rank": 92,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Suicide Silence",
+            "image": "https://charts-static.billboard.com/img/2012/11/suicide-silence-wm8-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 93,
+            "rank": 93,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "AJR",
+            "image": "https://charts-static.billboard.com/img/2014/05/ajr-k86-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 94,
+            "rank": 94,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Ellie Goulding",
+            "image": "https://charts-static.billboard.com/img/2012/12/ellie-goulding-1mr-53x53.jpg",
+            "isNew": false,
+            "lastPos": 81,
+            "peakPos": 81,
+            "rank": 95,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Led Zeppelin",
+            "image": "https://charts-static.billboard.com/img/2016/12/led-zeppelin-53x53.jpg",
+            "isNew": false,
+            "lastPos": 77,
+            "peakPos": 63,
+            "rank": 96,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "T.I.",
+            "image": "https://charts-static.billboard.com/img/2017/07/ti-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 97,
+            "rank": 97,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "Carrie Underwood",
+            "image": "https://charts-static.billboard.com/img/1840/12/carrie-underwood-obd-53x53.jpg",
+            "isNew": false,
+            "lastPos": 97,
+            "peakPos": 89,
+            "rank": 98,
+            "title": "",
+            "weeks": 3
+        },
+        {
+            "artist": "Sam Hunt",
+            "image": "https://charts-static.billboard.com/img/2014/08/sam-hunt-2mf-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 99,
+            "rank": 99,
+            "title": "",
+            "weeks": 1
+        },
+        {
+            "artist": "The Black Keys",
+            "image": "https://charts-static.billboard.com/img/2010/12/the-black-keys-3bo-53x53.jpg",
+            "isNew": false,
+            "lastPos": 91,
+            "peakPos": 88,
+            "rank": 100,
+            "title": "",
+            "weeks": 3
+        }
+    ],
+    "name": "artist-100",
+    "nextDate": "2014-08-09",
+    "previousDate": "2014-07-26",
+    "title": "Artist 100"
+}

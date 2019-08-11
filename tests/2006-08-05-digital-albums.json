@@ -1,0 +1,260 @@
+{
+    "_timeout": 25,
+    "date": "2006-08-05",
+    "entries": [
+        {
+            "artist": "Thom Yorke",
+            "image": "https://charts-static.billboard.com/img/2006/07/thom-yorke-2gw-the-eraser-7gn-53x53.jpg",
+            "isNew": false,
+            "lastPos": 1,
+            "peakPos": 1,
+            "rank": 1,
+            "title": "The Eraser",
+            "weeks": 2
+        },
+        {
+            "artist": "The Fray",
+            "image": "https://charts-static.billboard.com/img/2005/10/the-fray-2ey-how-to-save-a-life-02n-53x53.jpg",
+            "isNew": false,
+            "lastPos": 5,
+            "peakPos": 2,
+            "rank": 2,
+            "title": "How To Save A Life",
+            "weeks": 24
+        },
+        {
+            "artist": "Gnarls Barkley",
+            "image": "https://charts-static.billboard.com/img/2006/05/gnarls-barkley-bom-st-elsewhere-i6v-53x53.jpg",
+            "isNew": false,
+            "lastPos": 3,
+            "peakPos": 1,
+            "rank": 3,
+            "title": "St. Elsewhere",
+            "weeks": 12
+        },
+        {
+            "artist": "Los Lonely Boys",
+            "image": "https://charts-static.billboard.com/img/2006/08/los-lonely-boys-tt0-sacred-9mr-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 4,
+            "title": "Sacred",
+            "weeks": 1
+        },
+        {
+            "artist": "Muse",
+            "image": "https://charts-static.billboard.com/img/2006/07/muse-wup-black-holes-and-revelations-sng-53x53.jpg",
+            "isNew": false,
+            "lastPos": 2,
+            "peakPos": 2,
+            "rank": 5,
+            "title": "Black Holes And Revelations",
+            "weeks": 2
+        },
+        {
+            "artist": "The Fray",
+            "image": "https://charts-static.billboard.com/img/2006/08/the-fray-2ey-live-at-the-electric-factory-bootleg-no-1-itunes-exclusive-zji-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 6,
+            "title": "Live At The Electric Factory: Bootleg No. 1 (iTunes Exclusive)",
+            "weeks": 1
+        },
+        {
+            "artist": "Corinne Bailey Rae",
+            "image": "https://charts-static.billboard.com/img/2006/07/corinne-bailey-rae-6k0-53x53.jpg",
+            "isNew": false,
+            "lastPos": 8,
+            "peakPos": 5,
+            "rank": 7,
+            "title": "Corinne Bailey Rae",
+            "weeks": 4
+        },
+        {
+            "artist": "Cheyenne Kimball",
+            "image": "https://charts-static.billboard.com/img/2006/07/cheyenne-kimball-60z-the-day-has-come-d0p-53x53.jpg",
+            "isNew": false,
+            "lastPos": 12,
+            "peakPos": 8,
+            "rank": 8,
+            "title": "The Day Has Come",
+            "weeks": 2
+        },
+        {
+            "artist": "Soundtrack",
+            "image": "https://charts-static.billboard.com/img/2006/07/soundtrack-000-pirates-of-the-caribbean-dead-mans-chest-q6h-53x53.jpg",
+            "isNew": false,
+            "lastPos": 4,
+            "peakPos": 4,
+            "rank": 9,
+            "title": "Pirates Of The Caribbean: Dead Man's Chest",
+            "weeks": 3
+        },
+        {
+            "artist": "The Red Jumpsuit Apparatus",
+            "image": "https://charts-static.billboard.com/img/2006/08/the-red-jumpsuit-apparatus-1si-dont-you-fake-it-mdz-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": null,
+            "rank": 10,
+            "title": "Don't You Fake It",
+            "weeks": 1
+        },
+        {
+            "artist": "Panic! At The Disco",
+            "image": "https://charts-static.billboard.com/img/2005/10/panic-at-the-disco-yl6-a-fever-you-cant-sweat-out-1q0-53x53.jpg",
+            "isNew": false,
+            "lastPos": 16,
+            "peakPos": 4,
+            "rank": 11,
+            "title": "A Fever You Can't Sweat Out",
+            "weeks": 30
+        },
+        {
+            "artist": "Sufjan Stevens",
+            "image": "https://charts-static.billboard.com/img/2006/07/sufjan-stevens-mrw-the-avalanche-outtakes-and-extras-from-the-illinois-album-n75-53x53.jpg",
+            "isNew": false,
+            "lastPos": 6,
+            "peakPos": 6,
+            "rank": 12,
+            "title": "The Avalanche: Outtakes And Extras From The Illinois Album!",
+            "weeks": 2
+        },
+        {
+            "artist": "Keane",
+            "image": "https://charts-static.billboard.com/img/2006/07/keane-flj-under-the-iron-sea-b7z-53x53.jpg",
+            "isNew": false,
+            "lastPos": 13,
+            "peakPos": 1,
+            "rank": 13,
+            "title": "Under The Iron Sea",
+            "weeks": 5
+        },
+        {
+            "artist": "Dixie Chicks",
+            "image": "https://charts-static.billboard.com/img/2006/06/dixie-chicks-1tn-taking-the-long-way-7ds-53x53.jpg",
+            "isNew": false,
+            "lastPos": 17,
+            "peakPos": 1,
+            "rank": 14,
+            "title": "Taking The Long Way",
+            "weeks": 9
+        },
+        {
+            "artist": "Dashboard Confessional",
+            "image": "https://charts-static.billboard.com/img/2006/07/dashboard-confessional-rt4-53x53.jpg",
+            "isNew": false,
+            "lastPos": 10,
+            "peakPos": 1,
+            "rank": 15,
+            "title": "Dusk And Summer",
+            "weeks": 4
+        },
+        {
+            "artist": "Various Artists",
+            "image": "https://charts-static.billboard.com/img/2006/07/various-artists-000-now-22-805-53x53.jpg",
+            "isNew": false,
+            "lastPos": 14,
+            "peakPos": 14,
+            "rank": 16,
+            "title": "NOW 22",
+            "weeks": 2
+        },
+        {
+            "artist": "KT Tunstall",
+            "image": "https://charts-static.billboard.com/img/2006/02/kt-tunstall-hm5-eye-to-the-telescope-phw-53x53.jpg",
+            "isNew": false,
+            "lastPos": 20,
+            "peakPos": 4,
+            "rank": 17,
+            "title": "Eye To The Telescope",
+            "weeks": 23
+        },
+        {
+            "artist": "Nelly Furtado",
+            "image": "https://charts-static.billboard.com/img/2006/07/nelly-furtado-ezw-loose-kjp-53x53.jpg",
+            "isNew": false,
+            "lastPos": 15,
+            "peakPos": 2,
+            "rank": 18,
+            "title": "Loose",
+            "weeks": 5
+        },
+        {
+            "artist": "Dane Cook",
+            "image": "https://charts-static.billboard.com/img/2003/08/dane-cook-l75-harmful-if-swallowed-pkc-53x53.jpg",
+            "isNew": false,
+            "lastPos": 21,
+            "peakPos": 10,
+            "rank": 19,
+            "title": "Harmful If Swallowed",
+            "weeks": 28
+        },
+        {
+            "artist": "Dane Cook",
+            "image": "https://charts-static.billboard.com/img/2005/08/dane-cook-l75-retaliation-6na-53x53.jpg",
+            "isNew": false,
+            "lastPos": 24,
+            "peakPos": 15,
+            "rank": 20,
+            "title": "Retaliation",
+            "weeks": 21
+        },
+        {
+            "artist": "Red Hot Chili Peppers",
+            "image": "https://charts-static.billboard.com/img/2006/05/red-hot-chili-peppers-c0t-stadium-arcadium-e59-53x53.jpg",
+            "isNew": false,
+            "lastPos": 22,
+            "peakPos": 1,
+            "rank": 21,
+            "title": "Stadium Arcadium",
+            "weeks": 11
+        },
+        {
+            "artist": "Snow Patrol",
+            "image": "https://charts-static.billboard.com/img/2006/05/snow-patrol-t2t-eyes-open-fg0-53x53.jpg",
+            "isNew": false,
+            "lastPos": 0,
+            "peakPos": 5,
+            "rank": 22,
+            "title": "Eyes Open",
+            "weeks": 9
+        },
+        {
+            "artist": "Rascal Flatts",
+            "image": "https://charts-static.billboard.com/img/2006/04/rascal-flatts-o8u-me-and-my-gang-nvs-53x53.jpg",
+            "isNew": false,
+            "lastPos": 0,
+            "peakPos": 1,
+            "rank": 23,
+            "title": "Me And My Gang",
+            "weeks": 15
+        },
+        {
+            "artist": "Johnny Cash",
+            "image": "https://charts-static.billboard.com/img/2006/07/johnny-cash-q0u-american-v-a-hundred-highways-58z-53x53.jpg",
+            "isNew": false,
+            "lastPos": 9,
+            "peakPos": 2,
+            "rank": 24,
+            "title": "American V: A Hundred Highways",
+            "weeks": 3
+        },
+        {
+            "artist": "The Crystal Method",
+            "image": "https://charts-static.billboard.com/img/2006/07/the-crystal-method-01u-53x53.jpg",
+            "isNew": false,
+            "lastPos": 11,
+            "peakPos": 7,
+            "rank": 25,
+            "title": "Drive: Nike+ Original Run (iTunes Exclusive)",
+            "weeks": 3
+        }
+    ],
+    "name": "digital-albums",
+    "nextDate": "2006-08-12",
+    "previousDate": "2006-07-29",
+    "title": "Digital Albums"
+}
