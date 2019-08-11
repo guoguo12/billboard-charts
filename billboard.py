@@ -251,7 +251,7 @@ class ChartData:
                 else:
                     image = imageSoup['src']
             except:
-                message = "Failed to parse image image"
+                message = "Failed to parse image"
                 raise BillboardParseException(message)
 
             try:
