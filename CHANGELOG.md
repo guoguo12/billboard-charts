@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 5.2.1 - 2019-08-11
+### Fixed
+- Fix bug in which `lastPos` was set to the position two weeks prior instead of last week's position.
+
 ## 5.2.0 - 2019-08-09
 ### Added (since the last release, 5.1.1)
 - This changelog file.
