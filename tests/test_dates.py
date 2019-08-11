@@ -5,7 +5,7 @@ from nose.tools import raises
 
 
 class DateTest(unittest.TestCase):
-    def test_date_rounding(self):
+    def testDateRounding(self):
         """Checks that the Billboard website is rounding dates correctly: it should
         round up to the nearest date on which a chart was published.
         """
@@ -15,7 +15,7 @@ class DateTest(unittest.TestCase):
         chart = billboard.ChartData('hot-100', date='1996-07-30')
         self.assertEqual(chart.date, '1996-08-03')
 
-    def test_previous_next(self):
+    def testPreviousNext(self):
         """Checks that the date, previousDate, and nextDate attributes are parsed
         from the HTML, not computed. Specifically, we shouldn't assume charts are
         always published seven days apart, since (as this example demonstrates)
@@ -29,7 +29,7 @@ class DateTest(unittest.TestCase):
         self.assertEqual(chart.date, '1961-12-25')
         self.assertEqual(chart.nextDate, '1962-01-06')
 
-    def test_datetime_date(self):
+    def testDatetimeDate(self):
         """Checks that ChartData correctly handles datetime objects as the
         date parameter.
         """
@@ -38,23 +38,23 @@ class DateTest(unittest.TestCase):
         self.assertEqual(chart.date, '2016-07-09')
 
     @raises(ValueError)
-    def test_unsupported_date_format(self):
+    def testUnsupportedDateFormat(self):
         """Checks that using an unsupported date format raises an exception."""
         billboard.ChartData('hot-100', date='07-30-1996')
 
     @raises(ValueError)
-    def test_empty_string_date(self):
+    def testEmptyStringDate(self):
         """
         Checks that passing an empty string as the date raises an exception.
         """
         billboard.ChartData('hot-100', date='')
 
     @raises(ValueError)
-    def test_invalid_date(self):
+    def testInvalidDate(self):
         """Checks that passing a correctly formatted but invalid date raises an exception."""
         billboard.ChartData('hot-100', date='2018-99-99')
 
     @raises(ValueError)
-    def test_future_date(self):
+    def testFutureDate(self):
         """Checks that passing a date after the date of a chart's last issue raises an exception."""
         billboard.ChartData('hot-100', date='3000-10-10')
