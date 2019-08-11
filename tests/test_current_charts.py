@@ -7,7 +7,6 @@ import billboard
 
 @six.add_metaclass(abc.ABCMeta)
 class Base:
-
     @classmethod
     @abc.abstractmethod
     def setUpClass(cls):
@@ -48,20 +47,18 @@ class Base:
 
 
 class TestCurrentHot100(Base, unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData('hot-100')
-        cls.expectedTitle = 'The Hot 100'
+        cls.chart = billboard.ChartData("hot-100")
+        cls.expectedTitle = "The Hot 100"
         cls.expectedNumEntries = 100
 
 
 class TestCurrentDigitalAlbums(Base, unittest.TestCase):
-
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData('digital-albums')
-        cls.expectedTitle = 'Digital Albums'
+        cls.chart = billboard.ChartData("digital-albums")
+        cls.expectedTitle = "Digital Albums"
         cls.expectedNumEntries = 25
 
 
@@ -72,12 +69,14 @@ class TestCurrentGreatestHot100Singles(Base, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData('greatest-hot-100-singles')
-        cls.expectedTitle = 'Greatest of All Time Hot 100 Singles'
+        cls.chart = billboard.ChartData("greatest-hot-100-singles")
+        cls.expectedTitle = "Greatest of All Time Hot 100 Singles"
         cls.expectedNumEntries = 100
 
     def testEntriesValidity(self):
-        super(TestCurrentGreatestHot100Singles, self).testEntriesValidity(skipPeakPosCheck=True)
+        super(TestCurrentGreatestHot100Singles, self).testEntriesValidity(
+            skipPeakPosCheck=True
+        )
         for entry in self.chart:
             self.assertIsNone(entry.peakPos)
             self.assertEqual(entry.lastPos, 0)
@@ -90,11 +89,11 @@ class TestCurrentArtist100(Base, unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData('artist-100')
-        cls.expectedTitle = 'Artist 100'
+        cls.chart = billboard.ChartData("artist-100")
+        cls.expectedTitle = "Artist 100"
         cls.expectedNumEntries = 100
 
     def testEntriesValidity(self):
         super(TestCurrentArtist100, self).testEntriesValidity(skipTitleCheck=True)
         for entry in self.chart:
-            self.assertEqual(entry.title, '')  # This chart has no titles
+            self.assertEqual(entry.title, "")  # This chart has no titles

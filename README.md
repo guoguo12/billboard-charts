@@ -124,12 +124,8 @@ Contributing
 
 Pull requests are welcome! Please adhere to the following style guidelines:
 
-* In general, follow [PEP 8](https://www.python.org/dev/peps/pep-0008/). You may ignore the following rules if following them would decrease readability:
-    * E127 ("continuation line over-indented for visual indent")
-    * E221 ("multiple spaces before operator")
-    * E501 ("line too long")
-* We use `mixedCase` for variable names.
-* All-uppercase words remain all-uppercase when they appear at the end of variable names (e.g. `downloadHTML` not `downloadHtml`).
+* We use [Black](https://github.com/psf/black) for formatting.
+* Variable names should be in `mixedCase`.
 
 ### Running tests
 
