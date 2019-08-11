@@ -36,8 +36,6 @@ class TestCurrentArtist100(unittest.TestCase):
             self.assertTrue(1 <= entry.peakPos <= 100)
             self.assertTrue(0 <= entry.lastPos <= 100)
             self.assertGreaterEqual(entry.weeks, 1)
-            # Redundant because of test_ranks
-            self.assertTrue(1 <= entry.rank <= 100)
             self.assertIsInstance(entry.isNew, bool)
 
     def test_entries_consistency(self):

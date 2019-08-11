@@ -36,8 +36,6 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
             self.assertIsNone(entry.peakPos)
             self.assertEqual(entry.lastPos, 0)
             self.assertEqual(entry.weeks, 1)  # This is kind of unintuitive...
-            # Redundant because of test_ranks
-            self.assertTrue(1 <= entry.rank <= 100)
             self.assertIsInstance(entry.isNew, bool)
 
     def test_json(self):
