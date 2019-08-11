@@ -130,21 +130,19 @@ Pull requests are welcome! Please adhere to the following style guidelines:
 
 ### Running tests
 
-Install [tox](https://tox.readthedocs.org/en/latest/) and [nose](https://nose.readthedocs.org/en/latest/).
+We use [Travis CI](https://travis-ci.org/guoguo12/billboard-charts) to automatically run our test suite on all PRs.
 
-To run all of the tests, run
+To run the test suite locally, install [nose](https://nose.readthedocs.org/en/latest/) and run
 
 ```
 nosetests
 ```
 
-Assuming you have both Python 2.7 and 3.4 installed on your machine, you can also run
+To run the test suite locally on both Python 2.7 and 3.4, install [tox](https://tox.readthedocs.org/en/latest/) and run
 
 ```
 tox
 ```
-
-to run tests on both versions; see `tox.ini` for configuration details.
 
 Made with billboard.py
 ------------
