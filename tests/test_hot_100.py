@@ -11,8 +11,9 @@ class TestCurrentHot100(unittest.TestCase):
     whether the data is actually correct.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('hot-100')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('hot-100')
 
     def test_date(self):
         self.assertIsNotNone(self.chart.date)
@@ -57,8 +58,9 @@ class TestHistoricalHot100(TestCurrentHot100):
     excludes attributes like peakPos and weeks, which can change over time.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('hot-100', date='2015-11-28')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('hot-100', date='2015-11-28')
 
     def test_date(self):
         self.assertEqual(self.chart.date, '2015-11-28')

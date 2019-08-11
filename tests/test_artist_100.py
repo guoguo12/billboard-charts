@@ -13,8 +13,9 @@ class TestCurrentArtist100(unittest.TestCase):
     The Artist 100 chart is special in that it does not provide titles.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('artist-100')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('artist-100')
 
     def test_date(self):
         self.assertIsNotNone(self.chart.date)
@@ -59,8 +60,9 @@ class TestHistoricalArtist100(TestCurrentArtist100):
     excludes attributes like peakPos and weeks, which can change over time.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('artist-100', date='2014-07-26')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('artist-100', date='2014-07-26')
 
     def test_date(self):
         self.assertEqual(self.chart.date, '2014-07-26')

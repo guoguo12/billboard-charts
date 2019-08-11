@@ -12,8 +12,9 @@ class TestCurrentGreatestHot100Singles(unittest.TestCase):
     charts (i.e., there is no historical data).
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('greatest-hot-100-singles')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('greatest-hot-100-singles')
 
     def test_title(self):
         self.assertEqual(self.chart.title,

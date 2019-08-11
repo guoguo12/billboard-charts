@@ -11,8 +11,9 @@ class TestCurrentDigitalAlbums(unittest.TestCase):
     test whether the data is actually correct.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('digital-albums')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('digital-albums')
 
     def test_date(self):
         self.assertIsNotNone(self.chart.date)
@@ -57,8 +58,9 @@ class TestHistoricalDigitalAlbums(TestCurrentDigitalAlbums):
     excludes attributes like peakPos and weeks, which can change over time.
     """
 
-    def setUp(self):
-        self.chart = billboard.ChartData('digital-albums', date='2017-03-04')
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData('digital-albums', date='2017-03-04')
 
     def test_date(self):
         self.assertEqual(self.chart.date, '2017-03-04')
