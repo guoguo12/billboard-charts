@@ -125,6 +125,7 @@ Contributing
 Pull requests are welcome! Please adhere to the following style guidelines:
 
 * We use [Black](https://github.com/psf/black) for formatting.
+  * If you have [pre-commit](https://pre-commit.com/) installed, run `pre-commit install` to install a pre-commit hook that runs Black.
 * Variable names should be in `mixedCase`.
 
 ### Running tests
