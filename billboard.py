@@ -28,6 +28,7 @@ _NEXT_DATE_SELECTOR = 'span.fa-chevron-right'
 _ENTRY_LIST_SELECTOR = 'div.chart-list-item'
 _ENTRY_TITLE_ATTR = 'data-title'
 _ENTRY_ARTIST_ATTR = 'data-artist'
+_ENTRY_IMAGE_SELECTOR = 'img.chart-list-item__image'
 _ENTRY_RANK_ATTR = 'data-rank'
 
 
@@ -240,16 +241,6 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                imageSoup = entrySoup.find('img',"chart-list-item__image")
-                if imageSoup.has_attr('data-src'):
-                    image = imageSoup['data-src']
-                else:
-                    image = imageSoup['src']
-            except:
-                message = "Failed to parse image"
-                raise BillboardParseException(message)
-
-            try:
                 artist = entrySoup[_ENTRY_ARTIST_ATTR].strip() or ''
             except:
                 message = "Failed to parse artist"
@@ -257,6 +248,16 @@ class ChartData:
 
             if artist == '':
                 title, artist = artist, title
+
+            try:
+                imageSoup = entrySoup.select_one(_ENTRY_IMAGE_SELECTOR)
+                if imageSoup.has_attr('data-src'):
+                    image = imageSoup['data-src']
+                else:
+                    image = imageSoup['src']
+            except:
+                message = "Failed to parse image"
+                raise BillboardParseException(message)
 
             try:
                 rank = int(entrySoup[_ENTRY_RANK_ATTR].strip())
