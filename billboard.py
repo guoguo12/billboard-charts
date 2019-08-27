@@ -16,8 +16,6 @@ __maintainer__ = "Allen Guo"
 __email__ = "guoguo12@gmail.com"
 
 
-HEADERS = {"User-Agent": "billboard.py (https://github.com/guoguo12/billboard-charts)"}
-
 # css selector constants
 _CHART_NAME_SELECTOR = 'meta[name="twitter:title"]'
 _DATE_ELEMENT_SELECTOR = "button.chart-detail-header__date-selector-button"
@@ -198,7 +196,7 @@ class ChartData:
         else:
             url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
-        req = requests.get(url, headers=HEADERS, timeout=self._timeout)
+        req = requests.get(url, timeout=self._timeout)
         if req.status_code == 404:
             message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
@@ -298,7 +296,7 @@ class ChartData:
 def charts():
     """Gets a list of all Billboard charts from Billboard.com.
     """
-    req = requests.get("https://www.billboard.com/charts", headers=HEADERS, timeout=25)
+    req = requests.get("https://www.billboard.com/charts", timeout=25)
     soup = BeautifulSoup(req.text, "html.parser")
     return [
         link["href"].split("/")[-1]
