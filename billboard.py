@@ -186,7 +186,7 @@ class ChartData:
         """
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-    def fetchEntries(self):
+    def fetchEntries(self, headers={}):
         """GETs the corresponding chart data from Billboard.com, then parses
         the data using BeautifulSoup.
         """
@@ -196,7 +196,7 @@ class ChartData:
         else:
             url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
-        req = requests.get(url, timeout=self._timeout)
+        req = requests.get(url, timeout=self._timeout, headers=headers)
         if req.status_code == 404:
             message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
