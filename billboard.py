@@ -263,17 +263,17 @@ class ChartData:
                 try:
                     selector = _ROW_SELECTOR_FORMAT % rowName
                     selected = entrySoup.select(selector)
-                    # We get the last element of selected because there are two
-                    # elements matching _LAST_POS_FORMAT and we want the second
-                    # one (the first is the position two weeks previous)
+                    # We get the first element of selected because there are two
+                    # elements matching _LAST_POS_FORMAT and we want the first
+                    # one (the second is the position two weeks previous)
                     if (
                         not selected
-                        or selected[-1].string is None
-                        or selected[-1].string == "-"
+                        or selected[0].string is None
+                        or selected[0].string == "-"
                     ):
                         return ifNoValue
                     else:
-                        return int(selected[-1].string.strip())
+                        return int(selected[0].string.strip())
                 except:
                     message = "Failed to parse row value: %s" % rowName
                     raise BillboardParseException(message)
