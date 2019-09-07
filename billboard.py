@@ -112,7 +112,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, timeout=25):
+    def __init__(self, name, date=None, fetch=True, timeout=25, headers={}):
         """Constructs a new ChartData instance.
 
         Args:
@@ -146,6 +146,7 @@ class ChartData:
         self.previousDate = None
 
         self._timeout = timeout
+        self._headers = headers
 
         self.entries = []
         if fetch:
@@ -196,7 +197,7 @@ class ChartData:
         else:
             url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
-        req = requests.get(url, timeout=self._timeout)
+        req = requests.get(url, timeout=self._timeout, headers=self._headers)
         if req.status_code == 404:
             message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
