@@ -297,6 +297,7 @@ def charts():
     """Gets a list of all Billboard charts from Billboard.com.
     """
     req = requests.get("https://www.billboard.com/charts", timeout=25)
+    req.raise_for_status()
     soup = BeautifulSoup(req.text, "html.parser")
     return [
         link["href"].split("/")[-1]
