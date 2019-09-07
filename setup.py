@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name="billboard.py",
-    version="5.2.2",  # Don't forget to update CHANGELOG.md!
+    version="5.2.3",  # Don't forget to update CHANGELOG.md!
     description="Python API for downloading Billboard charts",
     author="Allen Guo",
     author_email="guoguo12@gmail.com",

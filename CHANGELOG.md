@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 5.2.3 - 2019-09-06
+### Fixed
+- Fix `lastPos` again in response to UI change.
+- Raise when HTTP request for `charts()` fails.
+
 ## 5.2.2 - 2019-08-27
 ### Fixed
 - Stop sending HTTP header that was causing all requests to fail with HTTP 403.
