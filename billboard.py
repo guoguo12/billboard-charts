@@ -186,24 +186,7 @@ class ChartData:
         """
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-    def fetchEntries(self):
-        """GETs the corresponding chart data from Billboard.com, then parses
-        the data using BeautifulSoup.
-        """
-        if not self.date:
-            # Fetch latest chart
-            url = "http://www.billboard.com/charts/%s" % (self.name)
-        else:
-            url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
-
-        req = requests.get(url, timeout=self._timeout)
-        if req.status_code == 404:
-            message = "Chart not found (perhaps the name is misspelled?)"
-            raise BillboardNotFoundException(message)
-        req.raise_for_status()
-
-        soup = BeautifulSoup(req.text, "html.parser")
-
+    def _parseOldStylePage(self, soup):
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
             dateText = dateElement.text.strip()
@@ -215,10 +198,6 @@ class ChartData:
                 # containing no chart data but displaying the date of the chart's latest issue.
                 raise ValueError("Date argument is after the date of the latest issue")
             self.date = curDate.strftime("%Y-%m-%d")
-
-        chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
-        if chartTitleElement:
-            self.title = chartTitleElement.get("content", "").split("|")[0].strip()
 
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
@@ -291,6 +270,111 @@ class ChartData:
                 title, artist, image, peakPos, lastPos, weeks, rank, isNew
             )
             self.entries.append(entry)
+
+    def _parseNewStylePage(self, soup):
+        dateElement = soup.select_one("button.date-selector__button.button--link")
+        if dateElement:
+            dateText = dateElement.text.strip()
+            curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
+            if self.date and curDate < datetime.datetime.strptime(
+                str(self.date), "%Y-%m-%d"
+            ):
+                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
+                # containing no chart data but displaying the date of the chart's latest issue.
+                raise ValueError("Date argument is after the date of the latest issue")
+            self.date = curDate.strftime("%Y-%m-%d")
+
+        self.previousDate = soup.select_one("#charts")["data-previous-chart-date"]
+        self.nextDate = soup.select_one("#charts")["data-chart-next-date"]
+
+        for entrySoup in soup.select("li.chart-list__element"):
+
+            def getEntryAttr(selector):
+                return entrySoup.select_one(selector).text.strip()
+
+            try:
+                title = getEntryAttr("span.chart-element__information__song")
+            except:
+                message = "Failed to parse title"
+                raise BillboardParseException(message)
+
+            try:
+                artist = getEntryAttr("span.chart-element__information__artist") or ""
+            except:
+                message = "Failed to parse artist"
+                raise BillboardParseException(message)
+
+            if artist == "":
+                title, artist = artist, title
+
+            # TODO: Parse the image
+            image = None
+
+            try:
+                rank = int(getEntryAttr("span.chart-element__rank__number"))
+            except:
+                message = "Failed to parse rank"
+                raise BillboardParseException(message)
+
+            def getMeta(attribute, ifNoValue=None):
+                try:
+                    selected = entrySoup.select_one(
+                        "span.chart-element__meta.text--%s" % attribute
+                    )
+                    if (
+                        not selected
+                        or selected.string is None
+                        or selected.string == "-"
+                    ):
+                        return ifNoValue
+                    else:
+                        return int(selected.string.strip())
+                except:
+                    message = "Failed to parse metadata value: %s" % attribute
+                    raise BillboardParseException(message)
+
+            if self.date:
+                peakPos = getMeta("peak")
+                lastPos = getMeta("last", ifNoValue=0)
+                weeks = getMeta("week", ifNoValue=1)
+                isNew = True if weeks == 1 else False
+            else:
+                peakPos = lastPos = weeks = None
+                isNew = False
+
+            entry = ChartEntry(
+                title, artist, image, peakPos, lastPos, weeks, rank, isNew
+            )
+            self.entries.append(entry)
+
+    def _parsePage(self, soup):
+        chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
+        if chartTitleElement:
+            self.title = chartTitleElement.get("content", "").split("|")[0].strip()
+
+        if soup.select("table"):
+            self._parseOldStylePage(soup)
+        else:
+            self._parseNewStylePage(soup)
+
+    def fetchEntries(self):
+        """GETs the corresponding chart data from Billboard.com, then parses
+        the data using BeautifulSoup.
+        """
+        if not self.date:
+            # Fetch latest chart
+            url = "http://www.billboard.com/charts/%s" % (self.name)
+        else:
+            url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
+
+        req = requests.get(url, timeout=self._timeout)
+        if req.status_code == 404:
+            message = "Chart not found (perhaps the name is misspelled?)"
+            raise BillboardNotFoundException(message)
+        req.raise_for_status()
+
+        soup = BeautifulSoup(req.text, "html.parser")
+        self._parsePage(soup)
 
 
 def charts():

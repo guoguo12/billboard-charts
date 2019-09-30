@@ -4,7 +4,7 @@
     "entries": [
         {
             "artist": "Donna Summer",
-            "image": "https://charts-static.billboard.com/img/1979/05/donna-summer-617-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 1,
             "peakPos": 1,
@@ -14,7 +14,7 @@
         },
         {
             "artist": "Chic",
-            "image": "https://charts-static.billboard.com/img/1840/12/chic-04e-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 3,
             "peakPos": 2,
@@ -24,7 +24,7 @@
         },
         {
             "artist": "Anita Ward",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 2,
             "peakPos": 1,
@@ -34,7 +34,7 @@
         },
         {
             "artist": "Barbra Streisand",
-            "image": "https://charts-static.billboard.com/img/1979/06/barbra-streisand-2i4-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 10,
             "peakPos": 4,
@@ -44,7 +44,7 @@
         },
         {
             "artist": "John Stewart",
-            "image": "https://charts-static.billboard.com/img/1979/05/john-stewart-zom-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 6,
             "peakPos": 5,
@@ -54,7 +54,7 @@
         },
         {
             "artist": "The Knack",
-            "image": "https://charts-static.billboard.com/img/1840/12/the-knack-o72-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 18,
             "peakPos": 6,
@@ -64,7 +64,7 @@
         },
         {
             "artist": "David Naughton",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 5,
             "peakPos": 5,
@@ -74,7 +74,7 @@
         },
         {
             "artist": "Dr. Hook",
-            "image": "https://charts-static.billboard.com/img/1979/04/dr-hook-oph-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 9,
             "peakPos": 8,
@@ -84,7 +84,7 @@
         },
         {
             "artist": "Donna Summer",
-            "image": "https://charts-static.billboard.com/img/2016/12/donna-summer-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 4,
             "peakPos": 1,
@@ -94,7 +94,7 @@
         },
         {
             "artist": "Cheap Trick",
-            "image": "https://charts-static.billboard.com/img/1979/04/cheap-trick-jcq-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 7,
             "peakPos": 7,
@@ -104,7 +104,7 @@
         },
         {
             "artist": "Raydio",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 12,
             "peakPos": 11,
@@ -114,7 +114,7 @@
         },
         {
             "artist": "Elton John",
-            "image": "https://charts-static.billboard.com/img/1979/06/elton-john-qls-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 16,
             "peakPos": 12,
@@ -124,7 +124,7 @@
         },
         {
             "artist": "KISS",
-            "image": "https://charts-static.billboard.com/img/1979/05/kiss-sus-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 15,
             "peakPos": 13,
@@ -134,7 +134,7 @@
         },
         {
             "artist": "McFadden & Whitehead",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 13,
             "peakPos": 13,
@@ -144,7 +144,7 @@
         },
         {
             "artist": "Electric Light Orchestra",
-            "image": "https://charts-static.billboard.com/img/1979/05/electric-light-orchestra-jef-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 8,
             "peakPos": 8,
@@ -154,7 +154,7 @@
         },
         {
             "artist": "Robert John",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 23,
             "peakPos": 16,
@@ -164,7 +164,7 @@
         },
         {
             "artist": "Maxine Nightingale",
-            "image": "https://charts-static.billboard.com/img/1979/05/maxine-nightingale-0wd-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 22,
             "peakPos": 17,
@@ -174,7 +174,7 @@
         },
         {
             "artist": "Earth, Wind & Fire with The Emotions",
-            "image": "https://charts-static.billboard.com/img/1979/05/earth-wind-fire-tue-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 11,
             "peakPos": 6,
@@ -184,7 +184,7 @@
         },
         {
             "artist": "Atlanta Rhythm Section",
-            "image": "https://charts-static.billboard.com/img/1979/05/atlanta-rhythm-section-i2y-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 19,
             "peakPos": 19,
@@ -194,7 +194,7 @@
         },
         {
             "artist": "Wings",
-            "image": "https://charts-static.billboard.com/img/1979/06/paul-mccartney-ntf-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 20,
             "peakPos": 20,
@@ -204,7 +204,7 @@
         },
         {
             "artist": "Peter Frampton",
-            "image": "https://charts-static.billboard.com/img/1979/05/peter-frampton-27a-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 14,
             "peakPos": 14,
@@ -214,7 +214,7 @@
         },
         {
             "artist": "Earth, Wind & Fire",
-            "image": "https://charts-static.billboard.com/img/1979/07/earth-wind-fire-tue-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 31,
             "peakPos": 22,
@@ -224,7 +224,7 @@
         },
         {
             "artist": "Kansas",
-            "image": "https://charts-static.billboard.com/img/1979/06/kansas-t3y-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 24,
             "peakPos": 23,
@@ -234,7 +234,7 @@
         },
         {
             "artist": "Blondie",
-            "image": "https://charts-static.billboard.com/img/1979/06/blondie-9wz-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 26,
             "peakPos": 24,
@@ -244,7 +244,7 @@
         },
         {
             "artist": "Joe Jackson",
-            "image": "https://charts-static.billboard.com/img/1979/06/joe-jackson-u0c-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 27,
             "peakPos": 25,
@@ -254,7 +254,7 @@
         },
         {
             "artist": "The Charlie Daniels Band",
-            "image": "https://charts-static.billboard.com/img/1979/06/the-charlie-daniels-band-i64-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 33,
             "peakPos": 26,
@@ -264,7 +264,7 @@
         },
         {
             "artist": "Eddie Rabbitt",
-            "image": "https://charts-static.billboard.com/img/1979/06/eddie-rabbitt-sm6-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 30,
             "peakPos": 27,
@@ -274,7 +274,7 @@
         },
         {
             "artist": "Kenny Rogers",
-            "image": "https://charts-static.billboard.com/img/1979/04/kenny-rogers-vja-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 17,
             "peakPos": 5,
@@ -284,7 +284,7 @@
         },
         {
             "artist": "Dionne Warwick",
-            "image": "https://charts-static.billboard.com/img/1979/06/dionne-warwick-6mm-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 35,
             "peakPos": 29,
@@ -294,7 +294,7 @@
         },
         {
             "artist": "ABBA",
-            "image": "https://charts-static.billboard.com/img/1979/05/abba-wwl-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 21,
             "peakPos": 19,
@@ -304,7 +304,7 @@
         },
         {
             "artist": "Anne Murray",
-            "image": "https://charts-static.billboard.com/img/1979/05/anne-murray-zsk-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 25,
             "peakPos": 25,
@@ -314,7 +314,7 @@
         },
         {
             "artist": "Supertramp",
-            "image": "https://charts-static.billboard.com/img/1979/07/supertramp-b14-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 45,
             "peakPos": 32,
@@ -324,7 +324,7 @@
         },
         {
             "artist": "Little River Band",
-            "image": "https://charts-static.billboard.com/img/1979/07/little-river-band-45x-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 44,
             "peakPos": 33,
@@ -334,7 +334,7 @@
         },
         {
             "artist": "Spyro Gyra",
-            "image": "https://charts-static.billboard.com/img/1979/06/spyro-gyra-h75-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 36,
             "peakPos": 34,
@@ -344,7 +344,7 @@
         },
         {
             "artist": "The Cars",
-            "image": "https://charts-static.billboard.com/img/1979/06/the-cars-ndj-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 37,
             "peakPos": 35,
@@ -354,7 +354,7 @@
         },
         {
             "artist": "Bonnie Pointer",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 39,
             "peakPos": 36,
@@ -364,7 +364,7 @@
         },
         {
             "artist": "Pink Lady",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 38,
             "peakPos": 37,
@@ -374,7 +374,7 @@
         },
         {
             "artist": "Blackfoot",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 42,
             "peakPos": 38,
@@ -384,7 +384,7 @@
         },
         {
             "artist": "Night",
-            "image": "https://charts-static.billboard.com/img/1979/06/night-kbn-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 43,
             "peakPos": 39,
@@ -394,7 +394,7 @@
         },
         {
             "artist": "Patrick Hernandez",
-            "image": "https://charts-static.billboard.com/img/1979/05/patrick-hernandez-b65-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 47,
             "peakPos": 40,
@@ -404,17 +404,17 @@
         },
         {
             "artist": "Electric Light Orchestra",
-            "image": "https://charts-static.billboard.com/img/1979/08/electric-light-orchestra-jef-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 41,
             "rank": 41,
             "title": "Don't Bring Me Down",
             "weeks": 1
         },
         {
             "artist": "The Jones Girls",
-            "image": "https://charts-static.billboard.com/img/1979/05/the-jones-girls-93h-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 46,
             "peakPos": 42,
@@ -424,7 +424,7 @@
         },
         {
             "artist": "GQ",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 52,
             "peakPos": 43,
@@ -434,7 +434,7 @@
         },
         {
             "artist": "The Marshall Tucker Band",
-            "image": "https://charts-static.billboard.com/img/1979/06/the-marshall-tucker-band-oob-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 50,
             "peakPos": 44,
@@ -444,7 +444,7 @@
         },
         {
             "artist": "Rockets",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 57,
             "peakPos": 45,
@@ -454,7 +454,7 @@
         },
         {
             "artist": "Peaches & Herb",
-            "image": "https://charts-static.billboard.com/img/1979/06/peaches-herb-ubt-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 51,
             "peakPos": 46,
@@ -464,7 +464,7 @@
         },
         {
             "artist": "Maureen McGovern",
-            "image": "https://charts-static.billboard.com/img/1979/06/maureen-mcgovern-qpj-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 58,
             "peakPos": 47,
@@ -474,7 +474,7 @@
         },
         {
             "artist": "Sister Sledge",
-            "image": "https://charts-static.billboard.com/img/1979/04/sister-sledge-pos-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 48,
             "peakPos": 2,
@@ -484,7 +484,7 @@
         },
         {
             "artist": "Bram Tchaikovsky",
-            "image": "https://charts-static.billboard.com/img/1979/07/bram-tchaikovsky-hca-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 56,
             "peakPos": 49,
@@ -494,7 +494,7 @@
         },
         {
             "artist": "Robert Palmer",
-            "image": "https://charts-static.billboard.com/img/1979/07/robert-palmer-i8q-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 64,
             "peakPos": 50,
@@ -504,7 +504,7 @@
         },
         {
             "artist": "James Taylor",
-            "image": "https://charts-static.billboard.com/img/1979/05/james-taylor-u4r-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 28,
             "peakPos": 28,
@@ -514,7 +514,7 @@
         },
         {
             "artist": "Diana Ross",
-            "image": "https://charts-static.billboard.com/img/1840/12/diana-ross-k7w-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 61,
             "peakPos": 52,
@@ -524,7 +524,7 @@
         },
         {
             "artist": "Triumph",
-            "image": "https://charts-static.billboard.com/img/1979/06/triumph-321-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 55,
             "peakPos": 53,
@@ -534,7 +534,7 @@
         },
         {
             "artist": "Tony Orlando",
-            "image": "https://charts-static.billboard.com/img/1979/07/tony-orlando-dawn-f7j-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 63,
             "peakPos": 54,
@@ -544,7 +544,7 @@
         },
         {
             "artist": "Herman Brood",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 67,
             "peakPos": 55,
@@ -554,7 +554,7 @@
         },
         {
             "artist": "Wet Willie",
-            "image": "https://charts-static.billboard.com/img/1979/05/wet-willie-h75-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 29,
             "peakPos": 29,
@@ -564,7 +564,7 @@
         },
         {
             "artist": "Sniff 'n' the Tears",
-            "image": "https://charts-static.billboard.com/img/1979/07/sniff-n-the-tears-1bo-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 72,
             "peakPos": 57,
@@ -574,7 +574,7 @@
         },
         {
             "artist": "Hot Chocolate",
-            "image": "https://charts-static.billboard.com/img/1979/07/hot-chocolate-kr1-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 65,
             "peakPos": 58,
@@ -584,7 +584,7 @@
         },
         {
             "artist": "Five Special",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 84,
             "peakPos": 59,
@@ -594,7 +594,7 @@
         },
         {
             "artist": "Hotel",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 70,
             "peakPos": 60,
@@ -604,7 +604,7 @@
         },
         {
             "artist": "Poco",
-            "image": "https://charts-static.billboard.com/img/1979/05/poco-eyh-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 32,
             "peakPos": 20,
@@ -614,7 +614,7 @@
         },
         {
             "artist": "Teddy Pendergrass",
-            "image": "https://charts-static.billboard.com/img/1979/06/teddy-pendergrass-p0b-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 73,
             "peakPos": 62,
@@ -624,7 +624,7 @@
         },
         {
             "artist": "Rickie Lee Jones",
-            "image": "https://charts-static.billboard.com/img/1979/07/rickie-lee-jones-bn8-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 74,
             "peakPos": 63,
@@ -634,7 +634,7 @@
         },
         {
             "artist": "Blackjack",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 75,
             "peakPos": 64,
@@ -644,7 +644,7 @@
         },
         {
             "artist": "Journey",
-            "image": "https://charts-static.billboard.com/img/1979/07/journey-9r5-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 76,
             "peakPos": 65,
@@ -654,7 +654,7 @@
         },
         {
             "artist": "Funky Communication Committee",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 68,
             "peakPos": 66,
@@ -664,7 +664,7 @@
         },
         {
             "artist": "Dire Straits",
-            "image": "https://charts-static.billboard.com/img/1979/07/dire-straits-w73-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 78,
             "peakPos": 67,
@@ -674,7 +674,7 @@
         },
         {
             "artist": "Bonnie Boyer",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 80,
             "peakPos": 68,
@@ -684,7 +684,7 @@
         },
         {
             "artist": "Olivia Newton-John",
-            "image": "https://charts-static.billboard.com/img/1979/07/olivia-newton-john-hxh-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 79,
             "peakPos": 69,
@@ -694,7 +694,7 @@
         },
         {
             "artist": "Lobo",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 81,
             "peakPos": 70,
@@ -704,7 +704,7 @@
         },
         {
             "artist": "Oak",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 77,
             "peakPos": 71,
@@ -714,7 +714,7 @@
         },
         {
             "artist": "Nick Lowe",
-            "image": "https://charts-static.billboard.com/img/1979/07/nick-lowe-zqx-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 82,
             "peakPos": 72,
@@ -724,7 +724,7 @@
         },
         {
             "artist": "Herb Alpert",
-            "image": "https://charts-static.billboard.com/img/1979/06/herb-alpert-hn0-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 83,
             "peakPos": 73,
@@ -734,7 +734,7 @@
         },
         {
             "artist": "Stephanie Mills",
-            "image": "https://charts-static.billboard.com/img/1979/04/stephanie-mills-gzg-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 86,
             "peakPos": 74,
@@ -744,7 +744,7 @@
         },
         {
             "artist": "Gerry Rafferty",
-            "image": "https://charts-static.billboard.com/img/1979/06/gerry-rafferty-oqp-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 34,
             "peakPos": 17,
@@ -754,7 +754,7 @@
         },
         {
             "artist": "Rickie Lee Jones",
-            "image": "https://charts-static.billboard.com/img/1979/04/rickie-lee-jones-bn8-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 40,
             "peakPos": 4,
@@ -764,7 +764,7 @@
         },
         {
             "artist": "Michael Jackson",
-            "image": "https://charts-static.billboard.com/img/1840/12/michael-jackson-9to-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 87,
             "peakPos": 77,
@@ -774,7 +774,7 @@
         },
         {
             "artist": "Beckmeier Brothers",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 88,
             "peakPos": 78,
@@ -784,7 +784,7 @@
         },
         {
             "artist": "Billy Thorpe",
-            "image": "https://charts-static.billboard.com/img/1979/07/billy-thorpe-tu3-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 89,
             "peakPos": 79,
@@ -794,7 +794,7 @@
         },
         {
             "artist": "Flash And The Pan",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 85,
             "peakPos": 80,
@@ -804,27 +804,27 @@
         },
         {
             "artist": "Bad Company",
-            "image": "https://charts-static.billboard.com/img/1979/08/bad-company-h37-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 81,
             "rank": 81,
             "title": "Gone, Gone, Gone",
             "weeks": 1
         },
         {
             "artist": "Cheap Trick",
-            "image": "https://charts-static.billboard.com/img/1979/08/cheap-trick-jcq-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 82,
             "rank": 82,
             "title": "Ain't That A Shame",
             "weeks": 1
         },
         {
             "artist": "Switch",
-            "image": "https://charts-static.billboard.com/img/1979/05/switch-dn4-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 93,
             "peakPos": 83,
@@ -834,7 +834,7 @@
         },
         {
             "artist": "Supertramp",
-            "image": "https://charts-static.billboard.com/img/1979/03/supertramp-b14-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 41,
             "peakPos": 6,
@@ -844,27 +844,27 @@
         },
         {
             "artist": "Maynard Ferguson",
-            "image": "https://charts-static.billboard.com/img/1979/08/maynard-ferguson-1kc-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 85,
             "rank": 85,
             "title": "Rocky II Disco",
             "weeks": 1
         },
         {
             "artist": "Mass Production",
-            "image": "https://charts-static.billboard.com/img/1979/06/mass-production-5m4-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 86,
             "rank": 86,
             "title": "Firecracker",
             "weeks": 1
         },
         {
             "artist": "Van Halen",
-            "image": "https://charts-static.billboard.com/img/1979/04/van-halen-oet-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 49,
             "peakPos": 15,
@@ -874,7 +874,7 @@
         },
         {
             "artist": "Samantha Sang",
-            "image": "https://charts-static.billboard.com/img/1979/07/samantha-sang-c88-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 90,
             "peakPos": 88,
@@ -884,27 +884,27 @@
         },
         {
             "artist": "Michael Johnson",
-            "image": "https://charts-static.billboard.com/img/1979/08/michael-johnson-f2r-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 89,
             "rank": 89,
             "title": "This Night Won't Last Forever",
             "weeks": 1
         },
         {
             "artist": "Edwin Starr",
-            "image": "https://charts-static.billboard.com/img/1979/08/edwin-starr-807-53x53.jpg",
+            "image": null,
             "isNew": true,
             "lastPos": 0,
-            "peakPos": null,
+            "peakPos": 90,
             "rank": 90,
             "title": "H.a.p.p.y. Radio",
             "weeks": 1
         },
         {
             "artist": "Jennifer Warnes",
-            "image": "https://charts-static.billboard.com/img/1979/06/jennifer-warnes-hfm-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 91,
             "peakPos": 70,
@@ -914,7 +914,7 @@
         },
         {
             "artist": "Peaches & Herb",
-            "image": "https://charts-static.billboard.com/img/1979/03/peaches-herb-ubt-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 92,
             "peakPos": 1,
@@ -924,7 +924,7 @@
         },
         {
             "artist": "Randy VanWarmer",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 53,
             "peakPos": 4,
@@ -934,7 +934,7 @@
         },
         {
             "artist": "The Who",
-            "image": "https://charts-static.billboard.com/img/1979/06/the-who-r2k-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 54,
             "peakPos": 54,
@@ -944,7 +944,7 @@
         },
         {
             "artist": "Rex Smith",
-            "image": "https://assets.billboard.com/assets/1565202395/images/charts/bb-placeholder-new.jpg?063e1b0e17a876ab4494",
+            "image": null,
             "isNew": false,
             "lastPos": 62,
             "peakPos": 10,
@@ -954,7 +954,7 @@
         },
         {
             "artist": "The Doobie Brothers",
-            "image": "https://charts-static.billboard.com/img/1979/05/the-doobie-brothers-ru4-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 59,
             "peakPos": 14,
@@ -964,7 +964,7 @@
         },
         {
             "artist": "Jay Ferguson",
-            "image": "https://charts-static.billboard.com/img/1979/05/jay-ferguson-xq2-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 60,
             "peakPos": 31,
@@ -974,7 +974,7 @@
         },
         {
             "artist": "Bee Gees",
-            "image": "https://charts-static.billboard.com/img/1979/04/bee-gees-uc7-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 66,
             "peakPos": 1,
@@ -984,7 +984,7 @@
         },
         {
             "artist": "Bellamy Brothers",
-            "image": "https://charts-static.billboard.com/img/1979/03/the-bellamy-brothers-vqs-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 69,
             "peakPos": 39,
@@ -994,7 +994,7 @@
         },
         {
             "artist": "Dolly Parton",
-            "image": "https://charts-static.billboard.com/img/1979/06/dolly-parton-k5e-53x53.jpg",
+            "image": null,
             "isNew": false,
             "lastPos": 71,
             "peakPos": 59,
