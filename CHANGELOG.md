@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 5.2.4 - 2019-09-29
+### Fixed
+- Fix for new UI used for some charts.
+
 ## 5.2.3 - 2019-09-06
 ### Fixed
 - Fix `lastPos` again in response to UI change.
