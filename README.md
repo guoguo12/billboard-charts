@@ -159,6 +159,7 @@ Projects and articles that use billboard.py:
 * ["Splunking the Billboard Hot 100 with Help from the Spotify API"](https://www.function1.com/2017/09/splunking-the-billboard-hot-100-with-help-from-the-spotify-api) by Karthik Subramanian
 * ["Predicting Movement on 70s & 80s Billboard R&B Charts"](https://afriedman412.github.io/Predicting-Movement-On-70s-&-80s-Billboard-R&B-Charts/) by Andy Friedman
 * ["Billboard Trends"](https://tom-johnson.net/2018/08/12/billboard-trends/) by Tom Johnson
+* ["Billboard Charts Alexa Skill"](https://www.amazon.com/Cameron-Ezell-Billboard-Charts/dp/B07K5SX95L) by Cameron Ezell
 
 Have an addition? Make a pull request!
 
