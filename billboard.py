@@ -191,12 +191,6 @@ class ChartData:
         if dateElement:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
-            if self.date and curDate < datetime.datetime.strptime(
-                str(self.date), "%Y-%m-%d"
-            ):
-                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
-                # containing no chart data but displaying the date of the chart's latest issue.
-                raise ValueError("Date argument is after the date of the latest issue")
             self.date = curDate.strftime("%Y-%m-%d")
 
         prevWeek = soup.select_one(_PREVIOUS_DATE_SELECTOR)
@@ -276,12 +270,6 @@ class ChartData:
         if dateElement:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
-            if self.date and curDate < datetime.datetime.strptime(
-                str(self.date), "%Y-%m-%d"
-            ):
-                # For dates that come after the date of a given chart's latest issue, Billboard.com returns a valid webpage
-                # containing no chart data but displaying the date of the chart's latest issue.
-                raise ValueError("Date argument is after the date of the latest issue")
             self.date = curDate.strftime("%Y-%m-%d")
 
         self.previousDate = soup.select_one("#charts")["data-previous-chart-date"]
