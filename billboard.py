@@ -112,7 +112,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, timeout=25):
+    def __init__(self, name, date=None, fetch=True, max_retries=3, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -128,6 +128,8 @@ class ChartData:
                 Billboard.com immediately (at instantiation time).
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
+            max_retries: The max number of times to retry when requesting data
+                (default: 3).
             timeout: The number of seconds to wait for a server response.
                 If None, no timeout is applied.
         """
@@ -145,6 +147,7 @@ class ChartData:
         self.title = ""
         self.previousDate = None
 
+        self._max_retries = max_retries
         self._timeout = timeout
 
         self.entries = []
@@ -355,7 +358,8 @@ class ChartData:
         else:
             url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
-        req = requests.get(url, timeout=self._timeout)
+        session = _get_session_with_retries(max_retries=self._max_retries)
+        req = session.get(url, timeout=self._timeout)
         if req.status_code == 404:
             message = "Chart not found (perhaps the name is misspelled?)"
             raise BillboardNotFoundException(message)
@@ -368,10 +372,17 @@ class ChartData:
 def charts():
     """Gets a list of all Billboard charts from Billboard.com.
     """
-    req = requests.get("https://www.billboard.com/charts", timeout=25)
+    session = _get_session_with_retries(max_retries=3)
+    req = session.get("https://www.billboard.com/charts", timeout=25)
     req.raise_for_status()
     soup = BeautifulSoup(req.text, "html.parser")
     return [
         link["href"].split("/")[-1]
         for link in soup.findAll("a", {"class": "chart-panel__link"})
     ]
+
+
+def _get_session_with_retries(max_retries):
+    session = requests.Session()
+    session.mount("", requests.adapters.HTTPAdapter(max_retries=max_retries))
+    return session
