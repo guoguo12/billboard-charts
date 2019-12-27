@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 5.4.0 - 2019-12-27
+### Added
+- Connection retry logic (`max_retries`).
+
 ## 5.3.0 - 2019-09-29
 ### Added
 - Partial support for new Billboard.com UI used for some (but not all) charts.
