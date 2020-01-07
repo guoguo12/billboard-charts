@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 5.4.0 &ndash; 2019-12-27
 ### Added
+- Respect Retry-After headers when retrying (#65).
+### Changed
+- Switch to HTTPS for chart requests.
+
+## 5.4.0 &ndash; 2019-12-27
+### Added
 - Connection retry logic (`max_retries`).
 
 ## 5.3.0 &ndash; 2019-09-29
