@@ -12,7 +12,7 @@ class DateTest(unittest.TestCase):
         chart = billboard.ChartData("hot-100", date="1000-10-10")
         self.assertEqual(chart.date, "1958-08-04")  # The first Hot 100 chart
 
-        chart = billboard.ChartData("hot-100", date="1996-07-30")
+        chart = billboard.ChartData("hot-100", date="1996-07-31")
         self.assertEqual(chart.date, "1996-08-03")
 
     def testPreviousNext(self):
