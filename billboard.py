@@ -354,9 +354,9 @@ class ChartData:
         """
         if not self.date:
             # Fetch latest chart
-            url = "http://www.billboard.com/charts/%s" % (self.name)
+            url = "https://www.billboard.com/charts/%s" % (self.name)
         else:
-            url = "http://www.billboard.com/charts/%s/%s" % (self.name, self.date)
+            url = "https://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
         session = _get_session_with_retries(max_retries=self._max_retries)
         req = session.get(url, timeout=self._timeout)
@@ -384,5 +384,8 @@ def charts():
 
 def _get_session_with_retries(max_retries):
     session = requests.Session()
-    session.mount("", requests.adapters.HTTPAdapter(max_retries=max_retries))
+    session.mount(
+        "https://www.billboard.com",
+        requests.adapters.HTTPAdapter(max_retries=max_retries),
+    )
     return session
