@@ -35,4 +35,4 @@ class MiscTest(unittest.TestCase):
         results."""
         charts = billboard.charts()
         self.assertTrue("hot-100" in charts)
-        self.assertTrue(200 <= len(charts) <= 400)
+        self.assertTrue(100 <= len(charts) <= 400)
