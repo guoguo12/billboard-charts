@@ -55,12 +55,12 @@ class TestCurrentHot100(Base, unittest.TestCase):
         cls.expectedNumEntries = 100
 
 
-class TestCurrentDigitalAlbums(Base, unittest.TestCase):
+class TestCurrentTraditionalJazzAlbums(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData("digital-albums")
-        cls.expectedTitle = "Digital Albums"
-        cls.expectedNumEntries = 25
+        cls.chart = billboard.ChartData("traditional-jazz-albums")
+        cls.expectedTitle = "Traditional Jazz Albums"
+        cls.expectedNumEntries = 15
 
 
 class TestCurrentGreatestHot100Singles(Base, unittest.TestCase):

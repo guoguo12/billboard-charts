@@ -1,0 +1,161 @@
+{
+    "_max_retries": 3,
+    "_timeout": 25,
+    "date": "2006-08-05",
+    "entries": [
+        {
+            "artist": "Michael Buble",
+            "image": "https://charts-static.billboard.com/img/2005/02/michael-buble-000-its-time-36m-53x53.jpg",
+            "isNew": false,
+            "lastPos": 1,
+            "peakPos": 1,
+            "rank": 1,
+            "title": "It's Time",
+            "weeks": 76
+        },
+        {
+            "artist": "Elvis Costello & Allen Toussaint",
+            "image": "https://charts-static.billboard.com/img/2006/06/elvis-costello-q1t-the-river-in-reverse-ran-53x53.jpg",
+            "isNew": false,
+            "lastPos": 2,
+            "peakPos": 2,
+            "rank": 2,
+            "title": "The River In Reverse",
+            "weeks": 7
+        },
+        {
+            "artist": "Katie Melua",
+            "image": "https://charts-static.billboard.com/img/2006/06/katie-melua-vfb-piece-by-piece-czi-53x53.jpg",
+            "isNew": false,
+            "lastPos": 3,
+            "peakPos": 3,
+            "rank": 3,
+            "title": "Piece By Piece",
+            "weeks": 7
+        },
+        {
+            "artist": "Nat King Cole",
+            "image": "https://charts-static.billboard.com/img/2006/05/nat-king-cole-wkp-53x53.jpg",
+            "isNew": false,
+            "lastPos": 4,
+            "peakPos": 2,
+            "rank": 4,
+            "title": "The Very Best Of Nat King Cole",
+            "weeks": 12
+        },
+        {
+            "artist": "Diana Ross",
+            "image": "https://charts-static.billboard.com/img/2006/06/diana-ross-l90-blue-i2l-53x53.jpg",
+            "isNew": false,
+            "lastPos": 5,
+            "peakPos": 2,
+            "rank": 5,
+            "title": "Blue",
+            "weeks": 6
+        },
+        {
+            "artist": "Chris Botti",
+            "image": "https://charts-static.billboard.com/img/2005/11/chris-botti-4k2-to-love-again-the-duets-27t-53x53.jpg",
+            "isNew": false,
+            "lastPos": 6,
+            "peakPos": 1,
+            "rank": 6,
+            "title": "To Love Again: The Duets",
+            "weeks": 40
+        },
+        {
+            "artist": "Michael Buble",
+            "image": "https://assets.billboard.com/assets/1577822495/images/charts/bb-placeholder-new.jpg?47d7aa059edd01dc0954",
+            "isNew": false,
+            "lastPos": 8,
+            "peakPos": 2,
+            "rank": 7,
+            "title": "Caught In The Act",
+            "weeks": 35
+        },
+        {
+            "artist": "Thelonious Monk With John Coltrane",
+            "image": "https://charts-static.billboard.com/img/2006/07/thelonious-monk-0r8-the-complete-1957-riverside-recordings-72a-53x53.jpg",
+            "isNew": false,
+            "lastPos": 7,
+            "peakPos": 5,
+            "rank": 8,
+            "title": "The Complete 1957 Riverside Recordings",
+            "weeks": 4
+        },
+        {
+            "artist": "Chris Botti",
+            "image": "https://charts-static.billboard.com/img/2004/10/chris-botti-4k2-when-i-fall-in-love-jj5-53x53.jpg",
+            "isNew": false,
+            "lastPos": 9,
+            "peakPos": 1,
+            "rank": 9,
+            "title": "When I Fall In Love",
+            "weeks": 95
+        },
+        {
+            "artist": "John Pizzarelli With The Clayton-Hamilton Jazz Orchestra",
+            "image": "https://charts-static.billboard.com/img/2006/08/john-pizzarelli-with-the-clayton-hamilton-jazz-orchestra-000-dear-mr-sinatra-f29-53x53.jpg",
+            "isNew": true,
+            "lastPos": 0,
+            "peakPos": 10,
+            "rank": 10,
+            "title": "Dear Mr. Sinatra",
+            "weeks": 1
+        },
+        {
+            "artist": "Madeleine Peyroux",
+            "image": "https://charts-static.billboard.com/img/2004/10/madeleine-peyroux-92p-careless-love-ilu-53x53.jpg",
+            "isNew": false,
+            "lastPos": 10,
+            "peakPos": 2,
+            "rank": 11,
+            "title": "Careless Love",
+            "weeks": 97
+        },
+        {
+            "artist": "Sophie Milman",
+            "image": "https://charts-static.billboard.com/img/2006/04/sophie-milman-kax-sophie-milman-eos-53x53.jpg",
+            "isNew": false,
+            "lastPos": 0,
+            "peakPos": 12,
+            "rank": 12,
+            "title": "Sophie Milman",
+            "weeks": 4
+        },
+        {
+            "artist": "Thelonious Monk Quartet With John Coltrane",
+            "image": "https://charts-static.billboard.com/img/2005/10/thelonious-monk-quartet-dio-at-carnegie-hall-wb9-53x53.jpg",
+            "isNew": false,
+            "lastPos": 12,
+            "peakPos": 2,
+            "rank": 13,
+            "title": "At Carnegie Hall",
+            "weeks": 43
+        },
+        {
+            "artist": "Cassandra Wilson",
+            "image": "https://charts-static.billboard.com/img/2006/04/cassandra-wilson-iut-thunderbird-076-53x53.jpg",
+            "isNew": false,
+            "lastPos": 11,
+            "peakPos": 2,
+            "rank": 14,
+            "title": "thunderbird",
+            "weeks": 16
+        },
+        {
+            "artist": "Various Artists",
+            "image": "https://charts-static.billboard.com/img/2006/05/various-artists-000-legends-of-jazz-with-ramsey-lewis-showcase-eed-53x53.jpg",
+            "isNew": false,
+            "lastPos": 17,
+            "peakPos": 7,
+            "rank": 15,
+            "title": "Legends Of Jazz With Ramsey Lewis: Showcase",
+            "weeks": 13
+        }
+    ],
+    "name": "traditional-jazz-albums",
+    "nextDate": "2006-08-12",
+    "previousDate": "2006-07-29",
+    "title": "Traditional Jazz Albums"
+}

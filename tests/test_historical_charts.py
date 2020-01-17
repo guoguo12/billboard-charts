@@ -45,11 +45,11 @@ class TestHistoricalHot100(Base, unittest.TestCase):
         cls.referenceFile = "1979-08-04-hot-100.json"
 
 
-class TestHistoricalDigitalAlbums(Base, unittest.TestCase):
+class TestHistoricalTraditionalJazzAlbums(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData("digital-albums", date="2006-08-05")
-        cls.referenceFile = "2006-08-05-digital-albums.json"
+        cls.chart = billboard.ChartData("traditional-jazz-albums", date="2006-08-05")
+        cls.referenceFile = "2006-08-05-traditional-jazz-albums.json"
 
 
 class TestHistoricalArtist100(Base, unittest.TestCase):
