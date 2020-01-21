@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
-## 5.4.0 &ndash; 2019-12-27
+## 6.0.1 &ndash; 2020-01-21
+### Fixed
+- Fix `peakPos` description.
+
+## 6.0.0 &ndash; 2020-01-06
 ### Added
 - Respect Retry-After headers when retrying (#65).
 ### Changed
