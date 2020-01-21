@@ -110,7 +110,7 @@ A chart entry (typically a single track) is of type `ChartEntry`. A `ChartEntry`
 * `title` &ndash; The title of the track.
 * `artist` &ndash; The name of the artist, as formatted on Billboard.com.
 * `image` &ndash; The URL of the image for the track.
-* `peakPos` &ndash; The track's peak position on the chart at any point in time, including future dates, as an int (or `None` if the chart does not include this information).
+* `peakPos` &ndash; The track's peak position on the chart as of the chart date, as an int (or `None` if the chart does not include this information).
 * `lastPos` &ndash; The track's position on the previous week's chart, as an int (or `None` if the chart does not include this information). This value is 0 if the track was not on the previous week's chart.
 * `weeks` &ndash; The number of weeks the track has been or was on the chart, including future dates (up until the present time).
 * `rank` &ndash; The track's current position on the chart.

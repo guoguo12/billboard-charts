@@ -52,9 +52,8 @@ class ChartEntry:
             If there are multiple artists and/or featured artists, they will
             be included in this string.
         image: The URL of the image for the track.
-        peakPos: The track's peak position on the chart at any point in time,
-            including future dates, as an int (or None if the chart does not
-            include this information).
+        peakPos: The track's peak position on the chart as of the chart date,
+            as an int (or None if the chart does not include this information).
         lastPos: The track's position on the previous week's chart, as an int
             (or None if the chart does not include this information).
             This value is 0 if the track was not on the previous week's chart.
