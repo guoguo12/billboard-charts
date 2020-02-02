@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.0.2 &ndash; 2020-02-01
+### Fixed
+- Fix parsing of entry stats for certain old-style charts.
+
 ## 6.0.1 &ndash; 2020-01-21
 ### Fixed
 - Fix `peakPos` description.
