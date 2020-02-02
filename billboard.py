@@ -242,13 +242,14 @@ class ChartData:
                             heading = ministat.select_one(_MINISTATS_CELL_HEADING)
                             headingText = heading.string.strip().lower()
                             if headingText == fieldName:
-                                value = ministat.text.split("\xa0")[0].strip()
+                                value = ministat.text.split(u"\xa0")[0].strip()
                                 if value is None or value == "-":
                                     return ifNoValue
                                 else:
                                     return int(value)
                         return ifNoValue
-                    except:
+                    except Exception as e:
+                        print(e)
                         message = "Failed to parse ministats cell value: %s" % fieldName
                         raise BillboardParseException(message)
 
