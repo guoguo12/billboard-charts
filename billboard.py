@@ -28,11 +28,9 @@ _ENTRY_IMAGE_SELECTOR = "img.chart-list-item__image"
 _ENTRY_RANK_ATTR = "data-rank"
 
 
-# constants for the getPositionRowValue helper function
-_ROW_SELECTOR_FORMAT = "div.chart-list-item__%s"
-_PEAK_POS_FORMAT = "weeks-at-one"
-_LAST_POS_FORMAT = "last-week"
-_WEEKS_ON_CHART_FORMAT = "weeks-on-chart"
+# constants for the getMinistatsCellValue helper function
+_MINISTATS_CELL = "div.chart-list-item__ministats-cell"
+_MINISTATS_CELL_HEADING = "span.chart-list-item__ministats-cell-heading"
 
 
 class BillboardNotFoundException(Exception):
@@ -234,29 +232,29 @@ class ChartData:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
-            def getPositionRowValue(rowName, ifNoValue=None):
-                try:
-                    selector = _ROW_SELECTOR_FORMAT % rowName
-                    selected = entrySoup.select(selector)
-                    # We get the first element of selected because there are two
-                    # elements matching _LAST_POS_FORMAT and we want the first
-                    # one (the second is the position two weeks previous)
-                    if (
-                        not selected
-                        or selected[0].string is None
-                        or selected[0].string == "-"
-                    ):
-                        return ifNoValue
-                    else:
-                        return int(selected[0].string.strip())
-                except:
-                    message = "Failed to parse row value: %s" % rowName
-                    raise BillboardParseException(message)
-
             if self.date:
-                peakPos = getPositionRowValue(_PEAK_POS_FORMAT)
-                lastPos = getPositionRowValue(_LAST_POS_FORMAT, ifNoValue=0)
-                weeks = getPositionRowValue(_WEEKS_ON_CHART_FORMAT, ifNoValue=1)
+
+                # "Ministats" is the name in the Billboard.com source code for
+                # the stats under each chart entry
+                def getMinistatsCellValue(fieldName, ifNoValue=None):
+                    try:
+                        for ministat in entrySoup.select(_MINISTATS_CELL):
+                            heading = ministat.select_one(_MINISTATS_CELL_HEADING)
+                            headingText = heading.string.strip().lower()
+                            if headingText == fieldName:
+                                value = ministat.text.split("\xa0")[0].strip()
+                                if value is None or value == "-":
+                                    return ifNoValue
+                                else:
+                                    return int(value)
+                        return ifNoValue
+                    except:
+                        message = "Failed to parse ministats cell value: %s" % fieldName
+                        raise BillboardParseException(message)
+
+                peakPos = getMinistatsCellValue("peak")
+                lastPos = getMinistatsCellValue("last", ifNoValue=0)
+                weeks = getMinistatsCellValue("weeks", ifNoValue=1)
                 isNew = True if weeks == 1 else False
             else:
                 peakPos = lastPos = weeks = None

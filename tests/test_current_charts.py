@@ -80,7 +80,7 @@ class TestCurrentGreatestHot100Singles(Base, unittest.TestCase):
         )
         for entry in self.chart:
             self.assertIsNone(entry.peakPos)
-            self.assertEqual(entry.lastPos, 0)
+            self.assertEqual(entry.lastPos, entry.rank)
             self.assertEqual(entry.weeks, 1)  # This is kind of unintuitive...
 
 
