@@ -71,7 +71,7 @@ class TestCurrentGreatestHot100Singles(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.chart = billboard.ChartData("greatest-hot-100-singles")
-        cls.expectedTitle = "Greatest of All Time Hot 100 Singles"
+        cls.expectedTitle = "Greatest of All Time Hot 100 Songs"
         cls.expectedNumEntries = 100
 
     def testEntriesValidity(self):
