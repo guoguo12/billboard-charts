@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.0.3 &ndash; 2020-02-26
+### Fixed
+- Fix parsing of chart titles.
+
 ## 6.0.2 &ndash; 2020-02-01
 ### Fixed
 - Fix parsing of entry stats for certain old-style charts.
