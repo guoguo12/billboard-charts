@@ -54,7 +54,9 @@ class DateTest(unittest.TestCase):
         """Checks that passing a correctly formatted but invalid date raises an exception."""
         billboard.ChartData("hot-100", date="2018-99-99")
 
-    @raises(billboard.BillboardNotFoundException)
     def testFutureDate(self):
-        """Checks that passing a date after the date of a chart's last issue raises an exception."""
-        billboard.ChartData("hot-100", date="3000-10-10")
+        """Checks that passing a date after the date of a chart's last issue returns a blank chart."""
+        chart = billboard.ChartData(
+            "hot-100", date=str(datetime.date.today() + datetime.timedelta(days=30))
+        )
+        self.assertEqual(len(chart), 0)
