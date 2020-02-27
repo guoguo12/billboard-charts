@@ -22,7 +22,7 @@ class Base:
         ranks = list(entry.rank for entry in self.chart)
         self.assertEqual(ranks, list(range(1, self.expectedNumEntries + 1)))
 
-    def testEntriesValidity(self, skipTitleCheck=False, skipPeakPosCheck=False):
+    def testEntriesValidity(self, skipTitleCheck=False):
         self.assertEqual(len(self.chart), self.expectedNumEntries)
         for entry in self.chart:
             if not skipTitleCheck:
@@ -30,8 +30,7 @@ class Base:
             self.assertGreater(len(entry.artist), 0)
             # TODO: Add this check back after we can parse images
             # self.assertGreater(len(entry.image), 0)
-            if not skipPeakPosCheck:
-                self.assertTrue(1 <= entry.peakPos <= self.expectedNumEntries)
+            self.assertTrue(1 <= entry.peakPos <= self.expectedNumEntries)
             self.assertTrue(0 <= entry.lastPos <= self.expectedNumEntries)
             self.assertGreaterEqual(entry.weeks, 1)
             self.assertIsInstance(entry.isNew, bool)
@@ -74,14 +73,15 @@ class TestCurrentGreatestHot100Singles(Base, unittest.TestCase):
         cls.expectedTitle = "Greatest of All Time Hot 100 Songs"
         cls.expectedNumEntries = 100
 
+    def testDate(self):
+        # The date is in fact None
+        pass
+
     def testEntriesValidity(self):
-        super(TestCurrentGreatestHot100Singles, self).testEntriesValidity(
-            skipPeakPosCheck=True
-        )
         for entry in self.chart:
-            self.assertEqual(entry.peakPos, entry.rank)
-            self.assertEqual(entry.lastPos, 0)
-            self.assertEqual(entry.weeks, 1)  # This is kind of unintuitive...
+            self.assertIsNone(entry.peakPos)
+            self.assertIsNone(entry.lastPos)
+            self.assertIsNone(entry.weeks)
 
 
 class TestCurrentArtist100(Base, unittest.TestCase):
