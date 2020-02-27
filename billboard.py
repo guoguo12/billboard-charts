@@ -17,7 +17,7 @@ __email__ = "guoguo12@gmail.com"
 
 
 # css selector constants
-_CHART_NAME_SELECTOR = 'meta[name="twitter:title"]'
+_CHART_NAME_SELECTOR = 'meta[name="title"]'
 _DATE_ELEMENT_SELECTOR = "button.chart-detail-header__date-selector-button"
 _PREVIOUS_DATE_SELECTOR = "span.fa-chevron-left"
 _NEXT_DATE_SELECTOR = "span.fa-chevron-right"
@@ -339,7 +339,11 @@ class ChartData:
     def _parsePage(self, soup):
         chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
         if chartTitleElement:
-            self.title = chartTitleElement.get("content", "").split("|")[0].strip()
+            self.title = re.sub(
+                " Chart$",
+                "",
+                chartTitleElement.get("content", "").split("|")[0].strip(),
+            )
 
         if soup.select("table"):
             self._parseOldStylePage(soup)
