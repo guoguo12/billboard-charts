@@ -83,7 +83,7 @@ The arguments are:
 * `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`.
 * `date` &ndash; The chart date as a string, in YYYY-MM-DD format. By default, the latest chart is fetched.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
-* `max_retries` &ndash; The max number of times to retry when requesting data (default: 3).
+* `max_retries` &ndash; The max number of times to retry when requesting data (default: 5).
 * `timeout` &ndash; The number of seconds to wait for a server response. If `None`, no timeout is applied.
 
 ### Walking through chart dates

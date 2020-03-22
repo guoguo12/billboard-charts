@@ -109,7 +109,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, max_retries=3, timeout=25):
+    def __init__(self, name, date=None, fetch=True, max_retries=5, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -126,7 +126,7 @@ class ChartData:
                 If False, the chart data can be populated at a later time
                 using the fetchEntries() method.
             max_retries: The max number of times to retry when requesting data
-                (default: 3).
+                (default: 5).
             timeout: The number of seconds to wait for a server response.
                 If None, no timeout is applied.
         """
@@ -374,7 +374,7 @@ class ChartData:
 def charts():
     """Gets a list of all Billboard charts from Billboard.com.
     """
-    session = _get_session_with_retries(max_retries=3)
+    session = _get_session_with_retries(max_retries=5)
     req = session.get("https://www.billboard.com/charts", timeout=25)
     req.raise_for_status()
     soup = BeautifulSoup(req.text, "html.parser")
