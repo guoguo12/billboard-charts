@@ -8,10 +8,10 @@ class DateTest(unittest.TestCase):
     def testDateRounding(self):
         """Checks that the Billboard website is rounding dates correctly: it should
         round up to the nearest date on which a chart was published.
-        """
-        chart = billboard.ChartData("hot-100", date="1958-01-01", max_retries=10)
-        self.assertEqual(chart.date, "1958-08-04")  # The first Hot 100 chart
 
+        We used to check that requesting the Hot 100 chart for 1958-01-01 would
+        return the first Hot 100 chart (1958-08-04), but the test was flaky.
+        """
         chart = billboard.ChartData("hot-100", date="2019-12-31")
         self.assertEqual(chart.date, "2020-01-04")
 
