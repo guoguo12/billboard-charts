@@ -1,5 +1,5 @@
 {
-    "_max_retries": 3,
+    "_max_retries": 5,
     "_timeout": 25,
     "date": "2006-08-05",
     "entries": [
@@ -65,7 +65,7 @@
         },
         {
             "artist": "Michael Buble",
-            "image": "https://assets.billboard.com/assets/1577822495/images/charts/bb-placeholder-new.jpg?47d7aa059edd01dc0954",
+            "image": "https://www.billboard.com/assets/1585328969/images/charts/bb-placeholder-new.jpg?4118ff5c23d0f1304dc5",
             "isNew": false,
             "lastPos": 8,
             "peakPos": 2,
@@ -152,6 +152,106 @@
             "rank": 15,
             "title": "Legends Of Jazz With Ramsey Lewis: Showcase",
             "weeks": 13
+        },
+        {
+            "artist": "Dr. John",
+            "image": "https://charts-static.billboard.com/img/2006/06/dr-john-a6p-mercernary-ano-53x53.jpg",
+            "isNew": false,
+            "lastPos": 13,
+            "peakPos": 5,
+            "rank": 16,
+            "title": "Mercernary",
+            "weeks": 9
+        },
+        {
+            "artist": "Frank Catalano",
+            "image": "https://charts-static.billboard.com/img/2006/05/frank-catalano-d7s-mighty-burner-pug-53x53.jpg",
+            "isNew": false,
+            "lastPos": 16,
+            "peakPos": 11,
+            "rank": 17,
+            "title": "Mighty Burner",
+            "weeks": 12
+        },
+        {
+            "artist": "Louis Armstrong",
+            "image": "https://charts-static.billboard.com/img/2006/02/louis-armstrong-6ue-the-definitive-collection-23l-53x53.jpg",
+            "isNew": false,
+            "lastPos": 18,
+            "peakPos": 8,
+            "rank": 18,
+            "title": "The Definitive Collection",
+            "weeks": 26
+        },
+        {
+            "artist": "Dianne Reeves",
+            "image": "https://charts-static.billboard.com/img/2005/10/dianne-reeves-hdg-good-night-and-good-luck-soundtrack-8c7-53x53.jpg",
+            "isNew": false,
+            "lastPos": 15,
+            "peakPos": 4,
+            "rank": 19,
+            "title": "Good Night, And Good Luck. (Soundtrack)",
+            "weeks": 41
+        },
+        {
+            "artist": "Brad Mehldau Trio",
+            "image": "https://charts-static.billboard.com/img/2006/07/brad-mehldau-urs-house-on-hill-t6f-53x53.jpg",
+            "isNew": false,
+            "lastPos": 14,
+            "peakPos": 14,
+            "rank": 20,
+            "title": "House On Hill",
+            "weeks": 4
+        },
+        {
+            "artist": "Gordon Goodwin's Big Phat Band",
+            "image": "https://charts-static.billboard.com/img/2006/07/gordon-goodwins-big-phat-band-428-the-phat-pack-ugd-53x53.jpg",
+            "isNew": false,
+            "lastPos": 19,
+            "peakPos": 12,
+            "rank": 21,
+            "title": "The Phat Pack",
+            "weeks": 6
+        },
+        {
+            "artist": "DeJohnette/Goldings/Scofield",
+            "image": "https://charts-static.billboard.com/img/2006/06/dejohnette-goldings-scofield-000-trio-beyond-saudades-03p-53x53.jpg",
+            "isNew": false,
+            "lastPos": 20,
+            "peakPos": 15,
+            "rank": 22,
+            "title": "Trio Beyond: Saudades",
+            "weeks": 4
+        },
+        {
+            "artist": "Various Artists",
+            "image": "https://charts-static.billboard.com/img/2005/12/various-artists-000-our-new-orleans-2005-a-benefit-album-wnw-53x53.jpg",
+            "isNew": false,
+            "lastPos": 23,
+            "peakPos": 5,
+            "rank": 23,
+            "title": "Our New Orleans 2005: A Benefit Album",
+            "weeks": 33
+        },
+        {
+            "artist": "Yellowjackets",
+            "image": "https://charts-static.billboard.com/img/2006/06/yellowjackets-t0s-twenty-five-71u-53x53.jpg",
+            "isNew": false,
+            "lastPos": 21,
+            "peakPos": 14,
+            "rank": 24,
+            "title": "Twenty Five",
+            "weeks": 9
+        },
+        {
+            "artist": "Regina Carter",
+            "image": "https://charts-static.billboard.com/img/2006/07/regina-carter-kjt-ill-be-seeing-you-frs-53x53.jpg",
+            "isNew": false,
+            "lastPos": 22,
+            "peakPos": 18,
+            "rank": 25,
+            "title": "I'll Be Seeing You",
+            "weeks": 6
         }
     ],
     "name": "traditional-jazz-albums",
