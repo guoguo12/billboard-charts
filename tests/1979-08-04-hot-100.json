@@ -1,4 +1,5 @@
 {
+    "_max_retries": 5,
     "_timeout": 25,
     "date": "1979-08-04",
     "entries": [
