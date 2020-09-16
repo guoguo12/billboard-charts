@@ -273,7 +273,7 @@ class ChartData:
             curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
             self.date = curDate.strftime("%Y-%m-%d")
 
-        self.previousDate = soup.select_one("#charts")["data-previous-chart-date"]
+        self.previousDate = soup.select_one("#charts")["data-chart-prev-date"]
         self.nextDate = soup.select_one("#charts")["data-chart-next-date"]
 
         for entrySoup in soup.select("li.chart-list__element"):
