@@ -279,7 +279,10 @@ class ChartData:
         for entrySoup in soup.select("li.chart-list__element"):
 
             def getEntryAttr(selector):
-                return entrySoup.select_one(selector).text.strip()
+                element = entrySoup.select_one(selector)
+                if element:
+                    return element.text.strip()
+                return None
 
             try:
                 title = getEntryAttr("span.chart-element__information__song")
