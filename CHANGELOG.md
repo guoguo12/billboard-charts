@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.1.1 &ndash; 2020-09-15
+### Fixed
+- Fix parsing of `previousDate`.
+
 ## 6.1.0 &ndash; 2020-03-21
 ### Changed
 - Increased the default `max_retries` from 3 to 5.
