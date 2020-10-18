@@ -373,7 +373,7 @@ class ChartData:
         # Parse the chart's year from its URL
         try:
             href = soup.select_one("link").get("href")
-            self.year = str(re.search(r"/(1|2\d{3})/", href).group(1))
+            self.year = str(re.search(r"/((1|2)\d{3})/", href).group(1))
         except AttributeError:
             message = "Could not find a year in the URL."
             raise BillboardNotFoundException(message)
@@ -382,12 +382,12 @@ class ChartData:
         years = soup.select_one("ul.dropdown__year-select-options")
         year_links = [li.get("href") for li in years.find_all("a")]
         idx = [i for i, yl in enumerate(year_links) if self.year in yl]
-        if not idx:
-            message = f"'{self.year}' was not found in the page's year list."
-            raise BillboardNotFoundException(message)
-        idx = idx[0]
-        self.previousYear = year_links[min(idx + 1, len(year_links) - 1)]
-        self.nextYear = year_links[max(idx - 1, 0)]
+        if idx:
+            idx = idx[0]
+            self.previousYear = year_links[min(idx + 1, len(year_links) - 1)]
+            self.nextYear = year_links[max(idx - 1, 0)]
+        else:
+            self.previousYear = self.nextYear = None
 
         # Access each element from the chart
         def getEntryAttr(selector, image=False):
