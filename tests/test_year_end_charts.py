@@ -18,6 +18,10 @@ class Base:
     def testTitle(self):
         self.assertEqual(self.chart.title, self.expectedTitle)
 
+    def testRanks(self):
+        ranks = list(entry.rank for entry in self.chart)
+        self.assertEqual(ranks, sorted(ranks))
+
     def testEntriesValidity(self, skipTitleCheck=False):
         self.assertEqual(len(self.chart), self.expectedNumEntries)
         for entry in self.chart:
@@ -53,3 +57,24 @@ class TestHotCountrySongs2010(Base, unittest.TestCase):
         cls.chart = billboard.ChartData("hot-country-songs", year="2010")
         cls.expectedTitle = "Hot Country Songs - Year-End"
         cls.expectedNumEntries = 60
+
+
+class TestHotCountrySongs1970(Base, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData("hot-country-songs", year="1970")
+        cls.expectedTitle = "Hot Country Songs - Year-End"
+        cls.expectedNumEntries = 34
+
+
+class TestJazzAlbumsImprints2006(Base, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData("jazz-imprints", year="2006")
+        cls.expectedTitle = "Jazz Albums Imprints - Year-End"
+        cls.expectedNumEntries = 9
+
+    def testEntriesValidity(self):
+        super(TestJazzAlbumsImprints2006, self).testEntriesValidity(skipTitleCheck=True)
+        for entry in self.chart:
+            self.assertEqual(entry.title, "")  # This chart has no titles
