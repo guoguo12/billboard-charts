@@ -182,6 +182,10 @@ class ChartData:
             self.fetchEntries()
 
     def __repr__(self):
+        if self.year:
+            return "{}.{}({!r}, year={!r})".format(
+                self.__class__.__module__, self.__class__.__name__, self.name, self.year
+            )
         return "{}.{}({!r}, date={!r})".format(
             self.__class__.__module__, self.__class__.__name__, self.name, self.date
         )
