@@ -77,8 +77,7 @@ class ChartEntry:
         )
 
     def __str__(self):
-        """Returns a string of the form 'TITLE by ARTIST'.
-        """
+        """Returns a string of the form 'TITLE by ARTIST'."""
         if self.title:
             s = u"'%s' by %s" % (self.title, self.artist)
         else:
@@ -107,6 +106,7 @@ class YearEndChartEntry(ChartEntry):
         image: The URL of the image for the track.
         rank: The track's position on the chart, as an int.
     """
+
     def __init__(self, title, artist, image, rank):
         self.title = title
         self.artist = artist
@@ -127,7 +127,9 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, year=None, fetch=True, max_retries=5, timeout=25):
+    def __init__(
+        self, name, date=None, year=None, fetch=True, max_retries=5, timeout=25
+    ):
         """Constructs a new ChartData instance.
 
         Args:
@@ -191,8 +193,7 @@ class ChartData:
         )
 
     def __str__(self):
-        """Returns the chart as a human-readable string (typically multi-line).
-        """
+        """Returns the chart as a human-readable string (typically multi-line)."""
         if not self.date:
             s = "%s chart (current)" % self.name
         else:
@@ -415,9 +416,7 @@ class ChartData:
             image = getEntryAttr("div.ye-chart-item__image", image=True)
             rank = int(getEntryAttr("div.ye-chart-item__rank"))
 
-            entry = YearEndChartEntry(
-                title, artist, image, rank
-            )
+            entry = YearEndChartEntry(title, artist, image, rank)
             self.entries.append(entry)
 
     def _parsePage(self, soup):
@@ -445,7 +444,10 @@ class ChartData:
                 # Fetch latest chart
                 url = "https://www.billboard.com/charts/%s" % (self.name)
             else:
-                url = "https://www.billboard.com/charts/year-end/%s/%s" % (self.year, self.name)
+                url = "https://www.billboard.com/charts/year-end/%s/%s" % (
+                    self.year,
+                    self.name,
+                )
         else:
             url = "https://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 
