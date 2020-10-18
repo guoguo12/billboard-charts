@@ -105,13 +105,15 @@ class YearEndChartEntry(ChartEntry):
             be included in this string.
         image: The URL of the image for the track.
         rank: The track's position on the chart, as an int.
+        year: The chart's year, as a str.
     """
 
-    def __init__(self, title, artist, image, rank):
+    def __init__(self, title, artist, image, rank, year):
         self.title = title
         self.artist = artist
         self.image = image
         self.rank = rank
+        self.year = year
 
 
 class ChartData:
@@ -174,7 +176,6 @@ class ChartData:
         self.date = date
         self.year = year
         self.title = ""
-        self.previousDate = None
 
         self._max_retries = max_retries
         self._timeout = timeout
@@ -416,7 +417,7 @@ class ChartData:
             image = getEntryAttr("div.ye-chart-item__image", image=True)
             rank = int(getEntryAttr("div.ye-chart-item__rank"))
 
-            entry = YearEndChartEntry(title, artist, image, rank)
+            entry = YearEndChartEntry(title, artist, image, rank, self.year)
             self.entries.append(entry)
 
     def _parsePage(self, soup):
