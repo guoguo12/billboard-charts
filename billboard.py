@@ -96,6 +96,24 @@ class ChartEntry:
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
 
+class YearEndChartEntry(ChartEntry):
+    """Represents an entry (typically a single track) on a year-end chart.
+
+    Attributes:
+        title: The title of the track.
+        artist: The name of the track artist, as formatted on Billboard.com.
+            If there are multiple artists and/or featured artists, they will
+            be included in this string.
+        image: The URL of the image for the track.
+        rank: The track's position on the chart, as an int.
+    """
+    def __init__(self, title, artist, image, rank):
+        self.title = title
+        self.artist = artist
+        self.image = image
+        self.rank = rank
+
+
 class ChartData:
     """Represents a particular Billboard chart for a particular date.
 
@@ -109,7 +127,7 @@ class ChartData:
             (highest first).
     """
 
-    def __init__(self, name, date=None, fetch=True, max_retries=5, timeout=25):
+    def __init__(self, name, date=None, year=None, fetch=True, max_retries=5, timeout=25):
         """Constructs a new ChartData instance.
 
         Args:
@@ -121,6 +139,9 @@ class ChartData:
                 which a chart was published.
                 If this argument is invalid, no exception will be raised;
                 instead, the chart will contain no entries.
+            year: The chart year, if requesting a year-end chart. Must
+                be a string in YYYY format. Cannot supply both `date`
+                and `year`.
             fetch: A boolean indicating whether to fetch the chart data from
                 Billboard.com immediately (at instantiation time).
                 If False, the chart data can be populated at a later time
@@ -132,6 +153,10 @@ class ChartData:
         """
         self.name = name
 
+        # Check if the user supplied both a date and a year (they can't)
+        if sum(map(bool, [date, year])) >= 2:
+            raise ValueError("Can't supply both `date` and `year`.")
+
         if date is not None:
             if not re.match("\d{4}-\d{2}-\d{2}", str(date)):
                 raise ValueError("Date argument is not in YYYY-MM-DD format")
@@ -140,7 +165,12 @@ class ChartData:
             except:
                 raise ValueError("Date argument is invalid")
 
+        if year is not None:
+            if not re.match("\d{4}", str(year)):
+                raise ValueError("Year argument is not in YYYY format")
+
         self.date = date
+        self.year = year
         self.title = ""
         self.previousDate = None
 
@@ -339,6 +369,53 @@ class ChartData:
             )
             self.entries.append(entry)
 
+    def _parseYearEndPage(self, soup):
+        # Parse the chart's year from its URL
+        try:
+            href = soup.select_one("link").get("href")
+            self.year = str(re.search(r"/(1|2\d{3})/", href).group(1))
+        except AttributeError:
+            message = "Could not find a year in the URL."
+            raise BillboardNotFoundException(message)
+
+        # Determine the next and previous year-end chart
+        years = soup.select_one("ul.dropdown__year-select-options")
+        year_links = [li.get("href") for li in years.find_all("a")]
+        idx = [i for i, yl in enumerate(year_links) if self.year in yl]
+        if not idx:
+            message = f"'{self.year}' was not found in the page's year list."
+            raise BillboardNotFoundException(message)
+        idx = idx[0]
+        self.previousYear = year_links[min(idx + 1, len(year_links) - 1)]
+        self.nextYear = year_links[max(idx - 1, 0)]
+
+        # Access each element from the chart
+        def getEntryAttr(selector, image=False):
+            try:
+                element = entrySoup.select_one(selector)
+                if element:
+                    if image:
+                        return element.find("img").get("src")
+                    return element.text.strip()
+                return None
+            except Exception:
+                name = selector.split("__", 1)[-1]
+                message = "Failed to parse %s" % name
+                raise BillboardParseException(message)
+
+        for entrySoup in soup.select("article.ye-chart-item"):
+            title = getEntryAttr("div.ye-chart-item__title")
+            artist = getEntryAttr("div.ye-chart-item__artist")
+            if artist == "":
+                title, artist = artist, title
+            image = getEntryAttr("div.ye-chart-item__image", image=True)
+            rank = int(getEntryAttr("div.ye-chart-item__rank"))
+
+            entry = YearEndChartEntry(
+                title, artist, image, rank
+            )
+            self.entries.append(entry)
+
     def _parsePage(self, soup):
         chartTitleElement = soup.select_one(_CHART_NAME_SELECTOR)
         if chartTitleElement:
@@ -350,6 +427,8 @@ class ChartData:
 
         if soup.select("table"):
             self._parseOldStylePage(soup)
+        elif self.year:
+            self._parseYearEndPage(soup)
         else:
             self._parseNewStylePage(soup)
 
@@ -358,8 +437,11 @@ class ChartData:
         the data using BeautifulSoup.
         """
         if not self.date:
-            # Fetch latest chart
-            url = "https://www.billboard.com/charts/%s" % (self.name)
+            if not self.year:
+                # Fetch latest chart
+                url = "https://www.billboard.com/charts/%s" % (self.name)
+            else:
+                url = "https://www.billboard.com/charts/year-end/%s/%s" % (self.year, self.name)
         else:
             url = "https://www.billboard.com/charts/%s/%s" % (self.name, self.date)
 

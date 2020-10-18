@@ -1,6 +1,5 @@
 import abc
 import json
-import os
 import six
 import unittest
 import billboard
@@ -30,3 +29,27 @@ class Base:
         self.assertTrue(json.loads(self.chart.json()))
         for entry in self.chart:
             self.assertTrue(json.loads(entry.json()))
+
+
+class TestHot100Songs(Base, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData("hot-100-songs", year="2019")
+        cls.expectedTitle = "Hot 100 Songs - Year-End"
+        cls.expectedNumEntries = 100
+
+
+class TestHotCountrySongs2019(Base, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData("hot-country-songs", year="2019")
+        cls.expectedTitle = "Hot Country Songs - Year-End"
+        cls.expectedNumEntries = 100
+
+
+class TestHotCountrySongs2010(Base, unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.chart = billboard.ChartData("hot-country-songs", year="2010")
+        cls.expectedTitle = "Hot Country Songs - Year-End"
+        cls.expectedNumEntries = 60
