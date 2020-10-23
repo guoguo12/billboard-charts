@@ -113,7 +113,7 @@ class YearEndChartEntry(ChartEntry):
         self.artist = artist
         self.image = image
         self.rank = rank
-        self.year = int(year)
+        self.year = year
 
 
 class ChartData:
@@ -175,7 +175,7 @@ class ChartData:
                 raise ValueError("Year argument is not in YYYY format")
 
         self.date = date
-        self.year = int(year)
+        self.year = year
         self.title = ""
 
         self._max_retries = max_retries
@@ -382,7 +382,7 @@ class ChartData:
         # Parse the chart's year from its URL
         def get_year_from_url(url):
             pattern = re.compile(r"/((1|2)\d{3})/")
-            return int(re.search(pattern, url).group(1))
+            return str(re.search(pattern, url).group(1))
 
         try:
             href = soup.select_one("link").get("href")
@@ -394,11 +394,11 @@ class ChartData:
         # Determine the next and previous year-end chart
         year_links = soup.select_one("ul.dropdown__year-select-options")
         year_links = [li.get("href") for li in year_links.find_all("a")]
-        years = list(map(get_year_from_url, year_links))
-        max_year = max(years)
+        max_year = int(max(map(get_year_from_url, year_links)))
         min_year = 1940
-        self.previousYear = self.year - 1 if self.year > min_year else None
-        self.nextYear = self.year + 1 if self.year < max_year else None
+        current_year = int(self.year)
+        self.previousYear = str(current_year - 1) if current_year > min_year else None
+        self.nextYear = str(current_year + 1) if current_year < max_year else None
 
         # Access each element from the chart
         def getEntryAttr(selector, image=False):
