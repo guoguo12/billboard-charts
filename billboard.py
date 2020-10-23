@@ -105,7 +105,7 @@ class YearEndChartEntry(ChartEntry):
             be included in this string.
         image: The URL of the image for the track.
         rank: The track's position on the chart, as an int.
-        year: The chart's year, as a str.
+        year: The chart's year, as an int.
     """
 
     def __init__(self, title, artist, image, rank, year):
@@ -113,7 +113,7 @@ class YearEndChartEntry(ChartEntry):
         self.artist = artist
         self.image = image
         self.rank = rank
-        self.year = year
+        self.year = int(year)
 
 
 class ChartData:
@@ -175,7 +175,7 @@ class ChartData:
                 raise ValueError("Year argument is not in YYYY format")
 
         self.date = date
-        self.year = year
+        self.year = int(year)
         self.title = ""
 
         self._max_retries = max_retries
@@ -380,23 +380,25 @@ class ChartData:
 
     def _parseYearEndPage(self, soup):
         # Parse the chart's year from its URL
+        def get_year_from_url(url):
+            pattern = re.compile(r"/((1|2)\d{3})/")
+            return int(re.search(pattern, url).group(1))
+
         try:
             href = soup.select_one("link").get("href")
-            self.year = str(re.search(r"/((1|2)\d{3})/", href).group(1))
+            self.year = get_year_from_url(href)
         except AttributeError:
             message = "Could not find a year in the URL."
             raise BillboardNotFoundException(message)
 
         # Determine the next and previous year-end chart
-        years = soup.select_one("ul.dropdown__year-select-options")
-        year_links = [li.get("href") for li in years.find_all("a")]
-        idx = [i for i, yl in enumerate(year_links) if self.year in yl]
-        if idx:
-            idx = idx[0]
-            self.previousYear = year_links[min(idx + 1, len(year_links) - 1)]
-            self.nextYear = year_links[max(idx - 1, 0)]
-        else:
-            self.previousYear = self.nextYear = None
+        year_links = soup.select_one("ul.dropdown__year-select-options")
+        year_links = [li.get("href") for li in year_links.find_all("a")]
+        years = list(map(get_year_from_url, year_links))
+        max_year = max(years)
+        min_year = 1940
+        self.previousYear = self.year - 1 if self.year > min_year else None
+        self.nextYear = self.year + 1 if self.year < max_year else None
 
         # Access each element from the chart
         def getEntryAttr(selector, image=False):

@@ -15,6 +15,12 @@ class Base:
     def testYear(self):
         self.assertIsNotNone(self.chart.year)
 
+    def testNextYear(self):
+        self.assertEqual(self.chart.nextYear, self.chart.year + 1)
+
+    def testPreviousYear(self):
+        self.assertEqual(self.chart.previousYear, self.chart.year - 1)
+
     def testTitle(self):
         self.assertEqual(self.chart.title, self.expectedTitle)
 
@@ -35,12 +41,15 @@ class Base:
             self.assertTrue(json.loads(entry.json()))
 
 
-class TestHot100Songs(Base, unittest.TestCase):
+class TestHot100Songs2019(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.chart = billboard.ChartData("hot-100-songs", year="2019")
         cls.expectedTitle = "Hot 100 Songs - Year-End"
         cls.expectedNumEntries = 100
+
+    def testNextYear(self):
+        self.assertEqual(self.chart.nextYear, None)
 
 
 class TestHotCountrySongs1970(Base, unittest.TestCase):
