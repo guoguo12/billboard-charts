@@ -142,7 +142,8 @@ class ChartData:
                 Billboard automatically rounds dates up to the nearest date on
                 which a chart was published.
                 If this argument is invalid, no exception will be raised;
-                instead, the chart will contain no entries.
+                instead, the chart will contain no entries. Cannot supply
+                both `date` and `year`.
             year: The chart year, if requesting a year-end chart. Must
                 be a string in YYYY format. Cannot supply both `date`
                 and `year`.
@@ -195,7 +196,9 @@ class ChartData:
 
     def __str__(self):
         """Returns the chart as a human-readable string (typically multi-line)."""
-        if not self.date:
+        if self.year:
+            s = "%s chart (%s)" % (self.name, self.year)
+        elif not self.date:
             s = "%s chart (current)" % self.name
         else:
             s = "%s chart from %s" % (self.name, self.date)
@@ -429,10 +432,10 @@ class ChartData:
                 chartTitleElement.get("content", "").split("|")[0].strip(),
             )
 
-        if soup.select("table"):
-            self._parseOldStylePage(soup)
-        elif self.year:
+        if self.year:
             self._parseYearEndPage(soup)
+        elif soup.select("table"):
+            self._parseOldStylePage(soup)
         else:
             self._parseNewStylePage(soup)
 
