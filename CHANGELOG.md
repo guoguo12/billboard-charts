@@ -11,10 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add support for year-end charts (#69, #33)
 - Add tests for year-end charts
 
-## 6.1.3 &ndash; 2020-10-17
-### Added
-- Add test_year_end_charts.py
-
 ## 6.1.2 &ndash; 2020-09-15
 ### Fixed
 - Fix parsing of `artist` for entries that are missing artists (#71).
