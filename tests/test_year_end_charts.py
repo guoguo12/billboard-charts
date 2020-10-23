@@ -16,10 +16,12 @@ class Base:
         self.assertIsNotNone(self.chart.year)
 
     def testNextYear(self):
-        self.assertEqual(self.chart.nextYear, self.chart.year + 1)
+        next_year = str(int(self.chart.year) + 1)
+        self.assertEqual(self.chart.nextYear, next_year)
 
     def testPreviousYear(self):
-        self.assertEqual(self.chart.previousYear, self.chart.year - 1)
+        previous_year = str(int(self.chart.year) - 1)
+        self.assertEqual(self.chart.previousYear, previous_year)
 
     def testTitle(self):
         self.assertEqual(self.chart.title, self.expectedTitle)
