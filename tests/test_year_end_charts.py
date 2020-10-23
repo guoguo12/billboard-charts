@@ -43,22 +43,6 @@ class TestHot100Songs(Base, unittest.TestCase):
         cls.expectedNumEntries = 100
 
 
-class TestHotCountrySongs2019(Base, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.chart = billboard.ChartData("hot-country-songs", year="2019")
-        cls.expectedTitle = "Hot Country Songs - Year-End"
-        cls.expectedNumEntries = 100
-
-
-class TestHotCountrySongs2010(Base, unittest.TestCase):
-    @classmethod
-    def setUpClass(cls):
-        cls.chart = billboard.ChartData("hot-country-songs", year="2010")
-        cls.expectedTitle = "Hot Country Songs - Year-End"
-        cls.expectedNumEntries = 60
-
-
 class TestHotCountrySongs1970(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
