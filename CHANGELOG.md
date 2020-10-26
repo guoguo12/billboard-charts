@@ -6,10 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.2.1 &ndash; 2020-10-25
+### Added
+- Add a warning for unsupported years.
+- Add a test for the unsupported year warning.
+
 ## 6.2.0 &ndash; 2020-10-18
 ### Added
-- Add support for year-end charts (#69, #33)
-- Add tests for year-end charts
+- Add support for year-end charts (#69, #33).
+- Add tests for year-end charts.
 
 ## 6.1.2 &ndash; 2020-09-15
 ### Fixed
