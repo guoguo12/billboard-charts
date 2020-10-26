@@ -4,6 +4,7 @@ import datetime
 import json
 import re
 import sys
+import warnings
 
 from bs4 import BeautifulSoup
 import requests
@@ -40,6 +41,8 @@ class BillboardNotFoundException(Exception):
 class BillboardParseException(Exception):
     pass
 
+class UnsupportedYearWarning(UserWarning):
+    pass
 
 class ChartEntry:
     """Represents an entry (typically a single track) on a chart.
@@ -382,11 +385,11 @@ class ChartData:
         # Parse the chart's year from its URL
         def get_year_from_url(url):
             pattern = re.compile(r"/((1|2)\d{3})/")
-            return str(re.search(pattern, url).group(1))
+            return int(re.search(pattern, url).group(1))
 
         try:
             href = soup.select_one("link").get("href")
-            self.year = get_year_from_url(href)
+            self.year = str(get_year_from_url(href))
         except AttributeError:
             message = "Could not find a year in the URL."
             raise BillboardNotFoundException(message)
@@ -394,9 +397,16 @@ class ChartData:
         # Determine the next and previous year-end chart
         year_links = soup.select_one("ul.dropdown__year-select-options")
         year_links = [li.get("href") for li in year_links.find_all("a")]
-        max_year = int(max(map(get_year_from_url, year_links)))
-        min_year = 1940
+        years = list(map(get_year_from_url, year_links))
+        min_year, max_year = min(years), max(years)
         current_year = int(self.year)
+        if current_year not in years:
+            msg = """
+            %s is not a supported year-end chart from Billboard.
+            Results may be incomplete, inconsistent, or missing entirely.
+            The min and max supported years for the '%s' chart are %d and %d, respectively.
+            """ % (current_year, self.name, min_year, max_year)
+            warnings.warn(msg, UnsupportedYearWarning)
         self.previousYear = str(current_year - 1) if current_year > min_year else None
         self.nextYear = str(current_year + 1) if current_year < max_year else None
 
