@@ -41,8 +41,10 @@ class BillboardNotFoundException(Exception):
 class BillboardParseException(Exception):
     pass
 
+
 class UnsupportedYearWarning(UserWarning):
     pass
+
 
 class ChartEntry:
     """Represents an entry (typically a single track) on a chart.
@@ -166,7 +168,7 @@ class ChartData:
             raise ValueError("Can't supply both `date` and `year`.")
 
         if date is not None:
-            if not re.match("\d{4}-\d{2}-\d{2}", str(date)):
+            if not re.match(r"\d{4}-\d{2}-\d{2}", str(date)):
                 raise ValueError("Date argument is not in YYYY-MM-DD format")
             try:
                 datetime.datetime(*(int(x) for x in str(date).split("-")))
@@ -174,7 +176,7 @@ class ChartData:
                 raise ValueError("Date argument is invalid")
 
         if year is not None:
-            if not re.match("\d{4}", str(year)):
+            if not re.match(r"\d{4}", str(year)):
                 raise ValueError("Year argument is not in YYYY format")
 
         self.date = date
@@ -382,7 +384,6 @@ class ChartData:
             self.entries.append(entry)
 
     def _parseYearEndPage(self, soup):
-        # Parse the chart's year from its URL
         def get_year_from_url(url):
             pattern = re.compile(r"/((1|2)\d{3})/")
             return int(re.search(pattern, url).group(1))
@@ -397,18 +398,27 @@ class ChartData:
         # Determine the next and previous year-end chart
         year_links = soup.select_one("ul.dropdown__year-select-options")
         year_links = [li.get("href") for li in year_links.find_all("a")]
-        years = list(map(get_year_from_url, year_links))
-        min_year, max_year = min(years), max(years)
+        years = sorted(map(get_year_from_url, year_links))
         current_year = int(self.year)
-        if current_year not in years:
+        min_year, max_year = min(years), max(years)
+        if current_year in years:
+            self.previousYear = str(current_year - 1) if current_year > min_year else None
+            self.nextYear = str(current_year + 1) if current_year < max_year else None
+        else:
+            # Warn the user about having requested an unsupported year.
             msg = """
             %s is not a supported year-end chart from Billboard.
             Results may be incomplete, inconsistent, or missing entirely.
             The min and max supported years for the '%s' chart are %d and %d, respectively.
             """ % (current_year, self.name, min_year, max_year)
-            warnings.warn(msg, UnsupportedYearWarning)
-        self.previousYear = str(current_year - 1) if current_year > min_year else None
-        self.nextYear = str(current_year + 1) if current_year < max_year else None
+            warnings.warn(UnsupportedYearWarning(msg))
+
+            # Assign  next and previous years (can be non-null if outside by 1)
+            if current_year in [min_year - 1, max_year + 1]:
+                self.nextYear = min_year if current_year < min_year  else None
+                self.previousYear = max_year if current_year > max_year else None
+            else:
+                self.previousYear = self.nextYear = None
 
         # Access each element from the chart
         def getEntryAttr(selector, image=False):
