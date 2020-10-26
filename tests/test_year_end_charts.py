@@ -1,8 +1,11 @@
 import abc
 import json
-import six
 import unittest
+import warnings
+
 import billboard
+import six
+from billboard import UnsupportedYearWarning
 
 
 @six.add_metaclass(abc.ABCMeta)
@@ -51,15 +54,30 @@ class TestHot100Songs2019(Base, unittest.TestCase):
         cls.expectedNumEntries = 100
 
     def testNextYear(self):
-        self.assertEqual(self.chart.nextYear, None)
+        self.assertIsNone(self.chart.nextYear)
 
 
 class TestHotCountrySongs1970(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.chart = billboard.ChartData("hot-country-songs", year="1970")
+        name = "hot-country-songs"
+        year = 1970
+        warnings.filterwarnings(action="always", category=UnsupportedYearWarning)
+        with warnings.catch_warnings(record=True) as w:
+            cls.chart = billboard.ChartData(name, year=year)
+            cls.warning = w[0] if w else None
+
         cls.expectedTitle = "Hot Country Songs - Year-End"
         cls.expectedNumEntries = 34
+
+    def testUnsupportedYearWarning(self):
+        self.assertEquals(self.warning.category, UnsupportedYearWarning)
+
+    def testNextYear(self):
+        self.assertIsNone(self.chart.nextYear)
+
+    def testPreviousYear(self):
+        self.assertIsNone(self.chart.previousYear)
 
 
 class TestJazzAlbumsImprints2006(Base, unittest.TestCase):
@@ -73,3 +91,6 @@ class TestJazzAlbumsImprints2006(Base, unittest.TestCase):
         super(TestJazzAlbumsImprints2006, self).testEntriesValidity(skipTitleCheck=True)
         for entry in self.chart:
             self.assertEqual(entry.title, "")  # This chart has no titles
+
+    def testPreviousYear(self):
+        self.assertIsNone(self.chart.previousYear)
