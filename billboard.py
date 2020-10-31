@@ -113,12 +113,11 @@ class YearEndChartEntry(ChartEntry):
         year: The chart's year, as an int.
     """
 
-    def __init__(self, title, artist, image, rank, year):
+    def __init__(self, title, artist, image, rank):
         self.title = title
         self.artist = artist
         self.image = image
         self.rank = rank
-        self.year = year
 
 
 class ChartData:
@@ -442,7 +441,7 @@ class ChartData:
             image = getEntryAttr("div.ye-chart-item__image", image=True)
             rank = int(getEntryAttr("div.ye-chart-item__rank"))
 
-            entry = YearEndChartEntry(title, artist, image, rank, self.year)
+            entry = YearEndChartEntry(title, artist, image, rank)
             self.entries.append(entry)
 
     def _parsePage(self, soup):
