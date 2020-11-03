@@ -240,8 +240,12 @@ class ChartData:
         nextWeek = soup.select_one(_NEXT_DATE_SELECTOR)
         if prevWeek and prevWeek.parent.get("href"):
             self.previousDate = prevWeek.parent.get("href").split("/")[-1]
+        else:
+            self.previousDate = ""
         if nextWeek and nextWeek.parent.get("href"):
             self.nextDate = nextWeek.parent.get("href").split("/")[-1]
+        else:
+            self.nextDate = ""
 
         for entrySoup in soup.select(_ENTRY_LIST_SELECTOR):
             try:
