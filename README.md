@@ -96,6 +96,12 @@ The arguments are:
 * `max_retries` &ndash; The max number of times to retry when requesting data (default: 5).
 * `timeout` &ndash; The number of seconds to wait for a server response. If `None`, no timeout is applied.
 
+For example, to download the [Alternative Songs year-end chart for 2006](https://www.billboard.com/charts/year-end/2006/alternative-songs):
+
+```python	
+>>> chart = billboard.ChartData('alternative-songs', year=2006)
+```
+
 ### Walking through chart dates
 
 Every `ChartData` instance has a `previousDate` attribute containing a string representation of the previous chart's date. You can feed this into another `ChartData` instance to effectively walk back through previous charts.
@@ -106,6 +112,8 @@ while chart.previousDate:
     doSomething(chart)
     chart = billboard.ChartData('hot-100', chart.previousDate)
 ```
+
+Year-end charts have `previousYear` (and `nextYear`) instead.
 
 ### Accessing chart entries
 
