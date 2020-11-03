@@ -8,13 +8,13 @@ billboard.py
 Installation
 ------------
 
-To install with pip, run
+Install with pip:
 
 ```
 pip install billboard.py
 ```
 
-You can also clone this repository and run `python setup.py install`.
+Or clone this repo and run `python setup.py install`.
 
 Quickstart
 ----------
@@ -56,14 +56,6 @@ hot-100 chart from 2018-04-28
 # ...
 ```
 
-We are also able to search for year-end charts:
-
-```python
->>> chart = billboard.ChartData('alternative-songs', year=2006)
->>> chart.title
-'Alternative Songs - Year-End'
-```
-
 Guide
 -----
 
@@ -76,31 +68,30 @@ Use the `charts` function to list all chart names:
 ['hot-100', 'billboard-200', 'artist-100', 'social-50', ...
 ```
 
-Alternatively, the bottom of [this page](https://www.billboard.com/charts) shows all charts grouped by category.
+The bottom of [this page](https://www.billboard.com/charts) shows all charts grouped by category.
 
-The year-end charts can be listed by setting `year_end` to `True`:
+*Billboard* also publishes [year-end charts](https://en.wikipedia.org/wiki/Billboard_Year-End). List these by passing `year_end=True` to the `charts` function:
 
 ```python
 >>> billboard.charts(year_end=True)
 ['top-artists', 'top-artists-duo-group', 'top-artists-female', ...
 ```
 
-The year-end chart list is also [available online](https://www.billboard.com/charts/year-end).
-
-
+You can also find them [here](https://www.billboard.com/charts/year-end).
 
 ### Downloading a chart
 
 Use the `ChartData` constructor to download a chart:
 
 ```Python
-ChartData(name, date=None, fetch=True, timeout=25)
+ChartData(name, date=None, year=None, fetch=True, timeout=25)
 ```
 
 The arguments are:
 
 * `name` &ndash; The chart name, e.g. `'hot-100'` or `'pop-songs'`.
 * `date` &ndash; The chart date as a string, in YYYY-MM-DD format. By default, the latest chart is fetched.
+* `year` &ndash; The chart year, if requesting a year-end chart. Must be a string in YYYY format. Cannot supply both `date` and `year`.
 * `fetch` &ndash; A boolean indicating whether to fetch the chart data from Billboard.com immediately (at instantiation time). If `False`, the chart data can be populated at a later time using the `fetchEntries()` method.
 * `max_retries` &ndash; The max number of times to retry when requesting data (default: 5).
 * `timeout` &ndash; The number of seconds to wait for a server response. If `None`, no timeout is applied.
