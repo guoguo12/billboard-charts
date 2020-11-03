@@ -56,6 +56,14 @@ hot-100 chart from 2018-04-28
 # ...
 ```
 
+We are also able to search for year-end charts:
+
+```python
+>>> chart = billboard.ChartData('alternative-songs', year=2006)
+>>> chart.title
+'Alternative Songs - Year-End'
+```
+
 Guide
 -----
 
@@ -69,6 +77,17 @@ Use the `charts` function to list all chart names:
 ```
 
 Alternatively, the bottom of [this page](https://www.billboard.com/charts) shows all charts grouped by category.
+
+The year-end charts can be listed by setting `year_end` to `True`:
+
+```python
+>>> billboard.charts(year_end=True)
+['top-artists', 'top-artists-duo-group', 'top-artists-female', ...
+```
+
+The year-end chart list is also [available online](https://www.billboard.com/charts/year-end).
+
+
 
 ### Downloading a chart
 
@@ -95,7 +114,7 @@ chart = billboard.ChartData('hot-100')
 while chart.previousDate:
     doSomething(chart)
     chart = billboard.ChartData('hot-100', chart.previousDate)
-``` 
+```
 
 ### Accessing chart entries
 
@@ -167,7 +186,7 @@ Have an addition? Make a pull request!
 Dependencies
 ------------
 * [Beautiful Soup 4](http://www.crummy.com/software/BeautifulSoup/)
-* [Requests](http://requests.readthedocs.org/en/latest/) 
+* [Requests](http://requests.readthedocs.org/en/latest/)
 
 License
 -------
