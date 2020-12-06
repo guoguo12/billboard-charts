@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import warnings
+import json
 
 from bs4 import BeautifulSoup
 import requests
@@ -65,8 +66,17 @@ class ChartEntry:
         rank: The track's position on the chart, as an int.
         isNew: Whether the track is new to the chart, as a boolean.
     """
-
-    def __init__(self, title, artist, image, peakPos, lastPos, weeks, rank, isNew):
+    def __init__(self,
+                 title,
+                 artist,
+                 image,
+                 peakPos,
+                 lastPos,
+                 weeks,
+                 rank,
+                 isNew,
+                 artistImage=None):
+        self.artistImage = artistImage
         self.title = title
         self.artist = artist
         self.image = image
@@ -314,7 +324,43 @@ class ChartData:
             self.entries.append(entry)
 
     def _parseNewStylePage(self, soup):
-        dateElement = soup.select_one("button.date-selector__button.button--link")
+        artists = []
+        # extract artists info from page
+        pageContent = json.loads(soup.select_one("div#charts")['data-charts'])
+        for artist in pageContent:
+            artistName = artist['artist_name']
+            artistImages = artist['artist_images']
+            titleImages = artist['title_images']
+            artistImage = None
+            titleImage = None
+            # searching for image in 3 different sizes
+            if artistImages:
+                _artistImage = artistImages['sizes'].get('original')
+                if not _artistImage:
+                    _artistImage = artistImages['sizes'].get(
+                        'ye-landing-lg-2x')
+                if not _artistImage:
+                    _artistImage = artistImages['sizes'].get(
+                        'ye-landing-med-2x')
+                artistImage = _artistImage['Name'] if _artistImage else None
+            if titleImages:
+                _titleImage = titleImages['sizes'].get('ye-landing-lg-2x')
+                if not _titleImage:
+                    _titleImage = titleImages['sizes'].get('original')
+                if not _titleImage:
+                    _titleImage = titleImages['sizes'].get('ye-landing-med-2x')
+
+                titleImage = _titleImage['Name'] if _titleImage else None
+            title = artist['title']
+
+            artists.append({
+                "name": artistName,
+                "artistImage": artistImage,
+                "title": title,
+                "titleImage": titleImage
+            })
+        dateElement = soup.select_one(
+            "button.date-selector__button.button--link")
         if dateElement:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
@@ -346,8 +392,19 @@ class ChartData:
             if artist == "":
                 title, artist = artist, title
 
-            # TODO: Parse the image
-            image = None
+            # get image data from artists list
+            artistData = list(filter(lambda x: x['name'] == artist,
+                                     artists))[0]
+            # get artist image
+            artistImage = None
+            if artistData['artistImage']:
+                artistImage = "https://charts-static.billboard.com" + artistData[
+                    'artistImage']
+            # get album image
+            titleImage = None
+            if artistData['titleImage']:
+                titleImage = "https://charts-static.billboard.com" + artistData[
+                    'titleImage']
 
             try:
                 rank = int(getEntryAttr("span.chart-element__rank__number"))
@@ -381,9 +438,8 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(
-                title, artist, image, peakPos, lastPos, weeks, rank, isNew
-            )
+            entry = ChartEntry(title, artist, titleImage, peakPos, lastPos,
+                               weeks, rank, isNew, artistImage)
             self.entries.append(entry)
 
     def _parseYearEndPage(self, soup):
