@@ -53,9 +53,6 @@ class TestHot100Songs2019(Base, unittest.TestCase):
         cls.expectedTitle = "Hot 100 Songs - Year-End"
         cls.expectedNumEntries = 100
 
-    def testNextYear(self):
-        self.assertIsNone(self.chart.nextYear)
-
 
 class TestHotCountrySongs1970(Base, unittest.TestCase):
     @classmethod
