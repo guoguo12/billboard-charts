@@ -121,8 +121,8 @@ class YearEndChartEntry(ChartEntry):
         image: The URL of the image for the track.
         rank: The track's position on the chart, as an int.
         year: The chart's year, as an int.
+        artistImage: The URL of the image for the artist.
     """
-
     def __init__(self, title, artist, image, rank):
         self.title = title
         self.artist = artist
