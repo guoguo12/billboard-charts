@@ -66,16 +66,8 @@ class ChartEntry:
         rank: The track's position on the chart, as an int.
         isNew: Whether the track is new to the chart, as a boolean.
     """
-    def __init__(self,
-                 title,
-                 artist,
-                 image,
-                 peakPos,
-                 lastPos,
-                 weeks,
-                 rank,
-                 isNew,
-                 artistImage=None):
+    def __init__(self, title, artist, image, peakPos, lastPos, weeks, rank,
+                 isNew, artistImage):
         self.artistImage = artistImage
         self.title = title
         self.artist = artist
@@ -318,9 +310,8 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(
-                title, artist, image, peakPos, lastPos, weeks, rank, isNew
-            )
+            entry = ChartEntry(title, artist, image, peakPos, lastPos, weeks,
+                               rank, isNew, None)
             self.entries.append(entry)
 
     def _parseNewStylePage(self, soup):
