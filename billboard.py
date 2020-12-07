@@ -315,41 +315,48 @@ class ChartData:
             self.entries.append(entry)
 
     def _parseNewStylePage(self, soup):
-        artists = []
-        # extract artists info from page
-        pageContent = json.loads(soup.select_one("div#charts")['data-charts'])
-        for artist in pageContent:
-            artistName = artist['artist_name']
-            artistImages = artist['artist_images']
-            titleImages = artist['title_images']
-            artistImage = None
-            titleImage = None
-            # searching for image in 3 different sizes
-            if artistImages:
-                _artistImage = artistImages['sizes'].get('original')
-                if not _artistImage:
-                    _artistImage = artistImages['sizes'].get(
-                        'ye-landing-lg-2x')
-                if not _artistImage:
-                    _artistImage = artistImages['sizes'].get(
-                        'ye-landing-med-2x')
-                artistImage = _artistImage['Name'] if _artistImage else None
-            if titleImages:
-                _titleImage = titleImages['sizes'].get('ye-landing-lg-2x')
-                if not _titleImage:
-                    _titleImage = titleImages['sizes'].get('original')
-                if not _titleImage:
-                    _titleImage = titleImages['sizes'].get('ye-landing-med-2x')
+        def extract_entries_images(soup, selector):
+            artists = {}
+            # extract artists info from page
+            pageContent = json.loads(soup.select_one(selector)['data-charts'])
+            for data in pageContent:
+                artistName = data['artist_name']
+                artistImages = data['artist_images']
+                titleImages = data['title_images']
+                artistImage = None
+                titleImage = None
+                # searching for image in 3 different sizes
+                if artistImages:
+                    _artistImage = artistImages['sizes'].get('original')
+                    if not _artistImage:
+                        _artistImage = artistImages['sizes'].get(
+                            'ye-landing-lg-2x')
+                    if not _artistImage:
+                        _artistImage = artistImages['sizes'].get(
+                            'ye-landing-med-2x')
+                    artistImage = _artistImage['Name'] if _artistImage else None
+                if titleImages:
+                    _titleImage = titleImages['sizes'].get('ye-landing-lg-2x')
+                    if not _titleImage:
+                        _titleImage = titleImages['sizes'].get('original')
+                    if not _titleImage:
+                        _titleImage = titleImages['sizes'].get(
+                            'ye-landing-med-2x')
 
-                titleImage = _titleImage['Name'] if _titleImage else None
-            title = artist['title']
+                    titleImage = _titleImage['Name'] if _titleImage else None
+                title = data['title']
+                if artistName in artists.keys():
+                    artists[artistName][title] = titleImage
+                    continue
+                artists.update({
+                    artistName: {
+                        "artistImage": artistImage,
+                        title: titleImage
+                    }
+                })
+            return artists
 
-            artists.append({
-                "name": artistName,
-                "artistImage": artistImage,
-                "title": title,
-                "titleImage": titleImage
-            })
+        artists = extract_entries_images(soup, "div#charts")
         dateElement = soup.select_one(
             "button.date-selector__button.button--link")
         if dateElement:
@@ -393,10 +400,9 @@ class ChartData:
                     'artistImage']
             # get album image
             titleImage = None
-            if artistData['titleImage']:
+            if artistData.get(title):
                 titleImage = "https://charts-static.billboard.com" + artistData[
-                    'titleImage']
-
+                    title]
             try:
                 rank = int(getEntryAttr("span.chart-element__rank__number"))
             except:
