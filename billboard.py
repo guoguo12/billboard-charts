@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import warnings
+import json
 
 from bs4 import BeautifulSoup
 import requests
@@ -65,8 +66,9 @@ class ChartEntry:
         rank: The track's position on the chart, as an int.
         isNew: Whether the track is new to the chart, as a boolean.
     """
-
-    def __init__(self, title, artist, image, peakPos, lastPos, weeks, rank, isNew):
+    def __init__(self, title, artist, image, peakPos, lastPos, weeks, rank,
+                 isNew, artistImage):
+        self.artistImage = artistImage
         self.title = title
         self.artist = artist
         self.image = image
@@ -111,8 +113,8 @@ class YearEndChartEntry(ChartEntry):
         image: The URL of the image for the track.
         rank: The track's position on the chart, as an int.
         year: The chart's year, as an int.
+        artistImage: The URL of the image for the artist.
     """
-
     def __init__(self, title, artist, image, rank):
         self.title = title
         self.artist = artist
@@ -308,13 +310,66 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(
-                title, artist, image, peakPos, lastPos, weeks, rank, isNew
-            )
+            entry = ChartEntry(title, artist, image, peakPos, lastPos, weeks,
+                               rank, isNew, None)
             self.entries.append(entry)
 
     def _parseNewStylePage(self, soup):
-        dateElement = soup.select_one("button.date-selector__button.button--link")
+        def extract_entries_images(soup, selector):
+            sizes = [
+                'original', 'ye-landing-lg-2x', 'ye-landing-med-2x',
+                'ye-landing-lg', 'ye-landing-sm-2x', 'ye-landing-med',
+                'medium', 'detail-med-2x', 'ye-landing-sm', 'x-small-2x',
+                'small', 'detail-med'
+            ]
+            artists = {}
+            # extract artists info from page
+            try:
+                pageContent = json.loads(
+                    soup.select_one(selector)['data-charts'])
+            except Exception as e:
+                print(e)
+                pageContent = []
+            for data in pageContent:
+                artistName = data['artist_name']
+                artistImages = data['artist_images']
+                titleImages = data['title_images']
+                artistImage = None
+                titleImage = None
+                # searching for image in 3 different sizes
+                for variant in sizes:
+                    _artistImage = _artistImage or artistImages['sizes'].get(
+                        variant)
+
+                artistImage = _artistImage['Name'] if _artistImage else None
+                if titleImages:
+                    for variant in sizes:
+                        _artistImage = _artistImage or artistImages[
+                            'sizes'].get(variant)
+
+                    _titleImage = titleImages['sizes'].get('ye-landing-lg-2x')
+                    if not _titleImage:
+                        _titleImage = titleImages['sizes'].get('original')
+                    if not _titleImage:
+                        _titleImage = titleImages['sizes'].get(
+                            'ye-landing-med-2x')
+
+                    titleImage = _titleImage['Name'] if _titleImage else None
+                title = data['title']
+                if artistName in artists.keys():
+                    artists[artistName][title] = titleImage
+                    continue
+                artists.update({
+                    artistName: {
+                        "artistImage": artistImage,
+                        title: titleImage
+                    }
+                })
+            return artists
+
+        artists = extract_entries_images(soup, "div#charts")
+        dateElement = soup.select_one(
+            "button.date-selector__button.button--link")
         if dateElement:
             dateText = dateElement.text.strip()
             curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
@@ -338,17 +393,26 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                artist = getEntryAttr("span.chart-element__information__artist") or ""
+                artist = getEntryAttr(
+                    "span.chart-element__information__artist") or ""
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
 
             if artist == "":
                 title, artist = artist, title
-
-            # TODO: Parse the image
-            image = None
-
+            # get image data from artists dictionary
+            artistData = artists.get(artist)
+            # get artist image
+            artistImage = None
+            if artistData['artistImage']:
+                artistImage = "https://charts-static.billboard.com" + artistData[
+                    'artistImage']
+            # get album image
+            titleImage = None
+            if artistData.get(title):
+                titleImage = "https://charts-static.billboard.com" + artistData[
+                    title]
             try:
                 rank = int(getEntryAttr("span.chart-element__rank__number"))
             except:
@@ -381,9 +445,8 @@ class ChartData:
                 peakPos = lastPos = weeks = None
                 isNew = False
 
-            entry = ChartEntry(
-                title, artist, image, peakPos, lastPos, weeks, rank, isNew
-            )
+            entry = ChartEntry(title, artist, titleImage, peakPos, lastPos,
+                               weeks, rank, isNew, artistImage)
             self.entries.append(entry)
 
     def _parseYearEndPage(self, soup):
