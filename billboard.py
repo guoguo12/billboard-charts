@@ -324,7 +324,12 @@ class ChartData:
             ]
             artists = {}
             # extract artists info from page
-            pageContent = json.loads(soup.select_one(selector)['data-charts'])
+            try:
+                pageContent = json.loads(
+                    soup.select_one(selector)['data-charts'])
+            except Exception as e:
+                print(e)
+                pageContent = []
             for data in pageContent:
                 artistName = data['artist_name']
                 artistImages = data['artist_images']
