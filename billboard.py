@@ -316,6 +316,12 @@ class ChartData:
 
     def _parseNewStylePage(self, soup):
         def extract_entries_images(soup, selector):
+            sizes = [
+                'original', 'ye-landing-lg-2x', 'ye-landing-med-2x',
+                'ye-landing-lg', 'ye-landing-sm-2x', 'ye-landing-med',
+                'medium', 'detail-med-2x', 'ye-landing-sm', 'x-small-2x',
+                'small', 'detail-med'
+            ]
             artists = {}
             # extract artists info from page
             pageContent = json.loads(soup.select_one(selector)['data-charts'])
@@ -326,16 +332,16 @@ class ChartData:
                 artistImage = None
                 titleImage = None
                 # searching for image in 3 different sizes
-                if artistImages:
-                    _artistImage = artistImages['sizes'].get('original')
-                    if not _artistImage:
-                        _artistImage = artistImages['sizes'].get(
-                            'ye-landing-lg-2x')
-                    if not _artistImage:
-                        _artistImage = artistImages['sizes'].get(
-                            'ye-landing-med-2x')
-                    artistImage = _artistImage['Name'] if _artistImage else None
+                for variant in sizes:
+                    _artistImage = _artistImage or artistImages['sizes'].get(
+                        variant)
+
+                artistImage = _artistImage['Name'] if _artistImage else None
                 if titleImages:
+                    for variant in sizes:
+                        _artistImage = _artistImage or artistImages[
+                            'sizes'].get(variant)
+
                     _titleImage = titleImages['sizes'].get('ye-landing-lg-2x')
                     if not _titleImage:
                         _titleImage = titleImages['sizes'].get('original')
@@ -382,17 +388,16 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                artist = getEntryAttr("span.chart-element__information__artist") or ""
+                artist = getEntryAttr(
+                    "span.chart-element__information__artist") or ""
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
 
             if artist == "":
                 title, artist = artist, title
-
-            # get image data from artists list
-            artistData = list(filter(lambda x: x['name'] == artist,
-                                     artists))[0]
+            # get image data from artists dictionary
+            artistData = artists.get(artist)
             # get artist image
             artistImage = None
             if artistData['artistImage']:
