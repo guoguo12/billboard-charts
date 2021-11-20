@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 6.3.0 &ndash; 2021-11-20
+### Fixed
+- Fixed support for basic charts (the Billboard.com UI changed).
+
 ## 6.2.1 &ndash; 2020-11-02
 ### Added
 - Add support for year-end charts (#69, #33).
