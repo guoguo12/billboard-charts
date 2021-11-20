@@ -18,7 +18,7 @@ __email__ = "guoguo12@gmail.com"
 
 
 # css selector constants
-_CHART_NAME_SELECTOR = 'meta[name="title"]'
+_CHART_NAME_SELECTOR = 'meta[property="og:title"]'
 _DATE_ELEMENT_SELECTOR = "button.chart-detail-header__date-selector-button"
 _PREVIOUS_DATE_SELECTOR = "span.fa-chevron-left"
 _NEXT_DATE_SELECTOR = "span.fa-chevron-right"
@@ -314,31 +314,31 @@ class ChartData:
             self.entries.append(entry)
 
     def _parseNewStylePage(self, soup):
-        dateElement = soup.select_one("button.date-selector__button.button--link")
+        dateElement = soup.select_one("#chart-date-picker")
         if dateElement:
-            dateText = dateElement.text.strip()
-            curDate = datetime.datetime.strptime(dateText, "%B %d, %Y")
-            self.date = curDate.strftime("%Y-%m-%d")
+            self.date = dateElement["data-date"]
 
-        self.previousDate = soup.select_one("#charts")["data-chart-prev-date"]
-        self.nextDate = soup.select_one("#charts")["data-chart-next-date"]
+        # TODO: Fix this (if possible).
+        self.previousDate = None
+        self.nextDate = None
 
-        for entrySoup in soup.select("li.chart-list__element"):
+        for entrySoup in soup.select("ul.o-chart-results-list-row"):
 
-            def getEntryAttr(selector):
-                element = entrySoup.select_one(selector)
+            # TODO: Document this.
+            def getEntryAttr(which_li, selector):
+                element = entrySoup.select("li")[which_li].select_one(selector)
                 if element:
                     return element.text.strip()
                 return None
 
             try:
-                title = getEntryAttr("span.chart-element__information__song")
+                title = getEntryAttr(3, "#title-of-a-story")
             except:
                 message = "Failed to parse title"
                 raise BillboardParseException(message)
 
             try:
-                artist = getEntryAttr("span.chart-element__information__artist") or ""
+                artist = getEntryAttr(3, "span.c-label") or ""
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
@@ -350,32 +350,31 @@ class ChartData:
             image = None
 
             try:
-                rank = int(getEntryAttr("span.chart-element__rank__number"))
+                rank = int(getEntryAttr(0, "span.c-label"))
             except:
                 message = "Failed to parse rank"
                 raise BillboardParseException(message)
 
-            def getMeta(attribute, ifNoValue=None):
+            def getMeta(attribute, which_li, ifNoValue=None):
                 try:
-                    selected = entrySoup.select_one(
-                        "span.chart-element__meta.text--%s" % attribute
-                    )
-                    if (
-                        not selected
-                        or selected.string is None
-                        or selected.string == "-"
-                    ):
+                    selected = entrySoup.select_one("ul").select("li")[which_li]
+
+                    if not selected:
+                        return ifNoValue
+
+                    value = selected.text.strip()
+                    if value == "-":
                         return ifNoValue
                     else:
-                        return int(selected.string.strip())
+                        return int(value)
                 except:
                     message = "Failed to parse metadata value: %s" % attribute
                     raise BillboardParseException(message)
 
             if self.date:
-                peakPos = getMeta("peak")
-                lastPos = getMeta("last", ifNoValue=0)
-                weeks = getMeta("week", ifNoValue=1)
+                peakPos = getMeta("peak", 4)
+                lastPos = getMeta("last", 3, ifNoValue=0)
+                weeks = getMeta("week", 5, ifNoValue=1)
                 isNew = True if weeks == 1 else False
             else:
                 peakPos = lastPos = weeks = None
@@ -405,7 +404,9 @@ class ChartData:
         current_year = int(self.year)
         min_year, max_year = min(years), max(years)
         if current_year in years:
-            self.previousYear = str(current_year - 1) if current_year > min_year else None
+            self.previousYear = (
+                str(current_year - 1) if current_year > min_year else None
+            )
             self.nextYear = str(current_year + 1) if current_year < max_year else None
         else:
             # Warn the user about having requested an unsupported year.
@@ -413,12 +414,17 @@ class ChartData:
             %s is not a supported year-end chart from Billboard.
             Results may be incomplete, inconsistent, or missing entirely.
             The min and max supported years for the '%s' chart are %d and %d, respectively.
-            """ % (current_year, self.name, min_year, max_year)
+            """ % (
+                current_year,
+                self.name,
+                min_year,
+                max_year,
+            )
             warnings.warn(UnsupportedYearWarning(msg))
 
             # Assign  next and previous years (can be non-null if outside by 1)
             if current_year in [min_year - 1, max_year + 1]:
-                self.nextYear = min_year if current_year < min_year  else None
+                self.nextYear = min_year if current_year < min_year else None
                 self.previousYear = max_year if current_year > max_year else None
             else:
                 self.previousYear = self.nextYear = None
