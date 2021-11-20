@@ -500,25 +500,6 @@ class ChartData:
         self._parsePage(soup)
 
 
-def charts(year_end=False):
-    """Gets a list of all Billboard charts from Billboard.com.
-
-    Args:
-        year_end: If True, will list Billboard's year-end charts.
-    """
-    session = _get_session_with_retries(max_retries=5)
-    url = "https://www.billboard.com/charts"
-    if year_end:
-        url += "/year-end"
-    req = session.get(url, timeout=25)
-    req.raise_for_status()
-    soup = BeautifulSoup(req.text, "html.parser")
-    return [
-        link["href"].split("/")[-1]
-        for link in soup.findAll("a", {"class": "chart-panel__link"})
-    ]
-
-
 def _get_session_with_retries(max_retries):
     session = requests.Session()
     session.mount(

@@ -29,19 +29,3 @@ class MiscTest(unittest.TestCase):
         """Checks that a difficult chart title receives proper casing."""
         chart = billboard.ChartData("greatest-r-b-hip-hop-songs")
         self.assertEqual(chart.title, "Greatest of All Time Hot R&B/Hip-Hop Songs")
-
-    def testCharts(self):
-        """Checks that the function for listing all charts returns reasonable
-        results."""
-        charts = billboard.charts()
-        self.assertTrue("hot-100" in charts)
-        self.assertTrue(100 <= len(charts) <= 400)
-
-    def testChartsYearEnd(self):
-        """Checks that the function for listing all year-end charts
-        returns reasonable results."""
-        charts = billboard.charts(year_end=True)
-        chart_names = ["top-artists", "radio-songs", "top-country-albums"]
-        for name in chart_names:
-            self.assertTrue(name in charts)
-        self.assertTrue(300 <= len(charts) <= 500)

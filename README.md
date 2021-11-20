@@ -59,25 +59,11 @@ hot-100 chart from 2018-04-28
 Guide
 -----
 
-### Listing all charts
+### What charts exist?
 
-Use the `charts` function to list all chart names:
+[This page](https://www.billboard.com/charts) shows all charts grouped by category.
 
-```Python
->>> billboard.charts()
-['hot-100', 'billboard-200', 'artist-100', 'social-50', ...
-```
-
-The bottom of [this page](https://www.billboard.com/charts) shows all charts grouped by category.
-
-*Billboard* also publishes [year-end charts](https://en.wikipedia.org/wiki/Billboard_Year-End). List these by passing `year_end=True` to the `charts` function:
-
-```python
->>> billboard.charts(year_end=True)
-['top-artists', 'top-artists-duo-group', 'top-artists-female', ...
-```
-
-You can also find them [here](https://www.billboard.com/charts/year-end).
+Year-end charts are [here](https://www.billboard.com/charts/year-end).
 
 ### Downloading a chart
 
