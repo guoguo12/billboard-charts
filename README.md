@@ -102,19 +102,6 @@ For example, to download the [Alternative Songs year-end chart for 2006](https:/
 >>> chart = billboard.ChartData('alternative-songs', year=2006)
 ```
 
-### Walking through chart dates
-
-Every `ChartData` instance has a `previousDate` attribute containing a string representation of the previous chart's date. You can feed this into another `ChartData` instance to effectively walk back through previous charts.
-
-```python
-chart = billboard.ChartData('hot-100')
-while chart.previousDate:
-    doSomething(chart)
-    chart = billboard.ChartData('hot-100', chart.previousDate)
-```
-
-Year-end charts have `previousYear` (and `nextYear`) instead.
-
 ### Accessing chart entries
 
 If `chart` is a `ChartData` instance, we can ask for its `entries` attribute to get the chart entries (see below) as a list.

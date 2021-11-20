@@ -127,8 +127,8 @@ class ChartData:
         name: The chart name, as a string.
         title: The human-readable chart name, as a string.
         date: The date of the chart.
-        previousDate: The date of the previous chart, as a string in YYYY-MM-DD
-            format, or None if this information was not available.
+        previousDate: Deprecated. Is always None or an empty string.
+        nextDate: Deprecated. Is always None or an empty string.
         entries: A list of ChartEntry objects, ordered by position on the chart
             (highest first).
     """
@@ -318,7 +318,10 @@ class ChartData:
         if dateElement:
             self.date = dateElement["data-date"]
 
-        # TODO: Fix this (if possible).
+        # TODO: Fix these, if possible. These used to be exposed directly in the
+        # HTML. There were tests for these, removed in
+        # 4d2f4ad06719341faa0bc2df5568c6354d66fc3c. If this is ever fixed,
+        # update the documentation above.
         self.previousDate = None
         self.nextDate = None
 
