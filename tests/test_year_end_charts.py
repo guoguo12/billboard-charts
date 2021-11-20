@@ -65,7 +65,7 @@ class TestHotCountrySongs1970(Base, unittest.TestCase):
             cls.warning = w[0] if w else None
 
         cls.expectedTitle = "Hot Country Songs - Year-End"
-        cls.expectedNumEntries = 34
+        cls.expectedNumEntries = 100  # Just shows the latest chart
 
     def testUnsupportedYearWarning(self):
         self.assertEquals(self.warning.category, UnsupportedYearWarning)

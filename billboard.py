@@ -229,6 +229,8 @@ class ChartData:
         """
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
+    # TODO: As of 2021-11-20, this doesn't seem to be used anymore, since
+    # Billboard has made their styling consistent across charts.
     def _parseOldStylePage(self, soup):
         dateElement = soup.select_one(_DATE_ELEMENT_SELECTOR)
         if dateElement:
@@ -389,21 +391,13 @@ class ChartData:
             self.entries.append(entry)
 
     def _parseYearEndPage(self, soup):
-        def get_year_from_url(url):
-            pattern = re.compile(r"/((1|2)\d{3})/")
-            return int(re.search(pattern, url).group(1))
-
-        try:
-            href = soup.select_one("link").get("href")
-            self.year = str(get_year_from_url(href))
-        except AttributeError:
-            message = "Could not find a year in the URL."
-            raise BillboardNotFoundException(message)
+        # This is for consistency with Billboard.com's former title style
+        self.title += " - Year-End"
 
         # Determine the next and previous year-end chart
-        year_links = soup.select_one("ul.dropdown__year-select-options")
-        year_links = [li.get("href") for li in year_links.find_all("a")]
-        years = sorted(map(get_year_from_url, year_links))
+        years = [
+            int(li.text.strip()) for li in soup.select("div.a-chart-o-nav-left ul li")
+        ]
         current_year = int(self.year)
         min_year, max_year = min(years), max(years)
         if current_year in years:
@@ -432,27 +426,22 @@ class ChartData:
             else:
                 self.previousYear = self.nextYear = None
 
-        # Access each element from the chart
-        def getEntryAttr(selector, image=False):
-            try:
-                element = entrySoup.select_one(selector)
+        # TODO: This is all copied from `_parseNewStylePage` above, but with
+        # worse error-handling. They should be merged.
+        for entrySoup in soup.select("ul.o-chart-results-list-row"):
+
+            def getEntryAttr(which_li, selector):
+                element = entrySoup.select("li")[which_li].select_one(selector)
                 if element:
-                    if image:
-                        return element.find("img").get("src")
                     return element.text.strip()
                 return None
-            except Exception:
-                name = selector.split("__", 1)[-1]
-                message = "Failed to parse %s" % name
-                raise BillboardParseException(message)
 
-        for entrySoup in soup.select("article.ye-chart-item"):
-            title = getEntryAttr("div.ye-chart-item__title")
-            artist = getEntryAttr("div.ye-chart-item__artist")
+            title = getEntryAttr(3, "#title-of-a-story")
+            artist = getEntryAttr(3, "#title-of-a-story + span.c-label") or ""
             if artist == "":
                 title, artist = artist, title
-            image = getEntryAttr("div.ye-chart-item__image", image=True)
-            rank = int(getEntryAttr("div.ye-chart-item__rank"))
+            image = None
+            rank = int(getEntryAttr(0, "span.c-label"))
 
             entry = YearEndChartEntry(title, artist, image, rank)
             self.entries.append(entry)
