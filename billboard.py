@@ -324,7 +324,6 @@ class ChartData:
 
         for entrySoup in soup.select("ul.o-chart-results-list-row"):
 
-            # TODO: Document this.
             def getEntryAttr(which_li, selector):
                 element = entrySoup.select("li")[which_li].select_one(selector)
                 if element:
@@ -338,11 +337,12 @@ class ChartData:
                 raise BillboardParseException(message)
 
             try:
-                artist = getEntryAttr(3, "span.c-label") or ""
+                artist = getEntryAttr(3, "#title-of-a-story + span.c-label") or ""
             except:
                 message = "Failed to parse artist"
                 raise BillboardParseException(message)
 
+            # For artist charts like the Artist 100
             if artist == "":
                 title, artist = artist, title
 
