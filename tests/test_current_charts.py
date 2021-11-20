@@ -14,7 +14,6 @@ class Base:
 
     def testDate(self):
         self.assertIsNotNone(self.chart.date)
-        self.assertEqual(self.chart.nextDate, "")
 
     def testTitle(self):
         self.assertEqual(self.chart.title, self.expectedTitle)

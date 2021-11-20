@@ -22,8 +22,6 @@ class Base:
         self.assertEqual(self.chart.name, reference["name"])
         self.assertEqual(self.chart.title, reference["title"])
         self.assertEqual(self.chart.date, reference["date"])
-        self.assertEqual(self.chart.previousDate, reference["previousDate"])
-        self.assertEqual(self.chart.nextDate, reference["nextDate"])
 
         self.assertEqual(len(self.chart.entries), len(reference["entries"]))
         for chartEntry, referenceEntry in zip(self.chart.entries, reference["entries"]):

@@ -15,29 +15,6 @@ class DateTest(unittest.TestCase):
         chart = billboard.ChartData("hot-100", date="2019-12-31")
         self.assertEqual(chart.date, "2020-01-04")
 
-    def testPreviousNext(self):
-        """Checks that the date, previousDate, and nextDate attributes are parsed
-        from the HTML, not computed. Specifically, we shouldn't assume charts are
-        always published seven days apart, since (as this example demonstrates)
-        this is not true.
-        """
-        chart = billboard.ChartData("hot-100", date="1962-01-06")
-        self.assertEqual(chart.date, "1962-01-06")
-        self.assertEqual(chart.nextDate, "1962-01-13")
-        self.assertEqual(chart.previousDate, "1961-12-25")
-
-        chart = billboard.ChartData("hot-100", date="1961-12-25")
-        self.assertEqual(chart.date, "1961-12-25")
-        self.assertEqual(chart.nextDate, "1962-01-06")
-        self.assertEqual(chart.previousDate, "1961-12-18")
-
-    def testNoPrevious(self):
-        """Checks that previousDate is empty when there is no previous chart."""
-        chart = billboard.ChartData("country-songs", date="1958-10-20")
-        self.assertEqual(chart.date, "1958-10-20")
-        self.assertEqual(chart.nextDate, "1958-10-27")
-        self.assertEqual(chart.previousDate, "")
-
     def testDatetimeDate(self):
         """Checks that ChartData correctly handles datetime objects as the
         date parameter.
