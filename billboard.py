@@ -351,9 +351,11 @@ class ChartData:
             if artist == "":
                 title, artist = artist, title
 
-            image = entrySoup.select_one("li:nth-child(2) img").get(
-                "data-lazy-src", None
-            )
+            imageElement = entrySoup.select_one("li:nth-child(2) img")
+            if imageElement:
+                image = imageElement.get("data-lazy-src", None)
+            else:
+                image = None
 
             try:
                 rank = int(getEntryAttr(0, "span.c-label"))
