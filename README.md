@@ -1,8 +1,6 @@
 billboard.py
 ============
 
-[![Build Status](https://travis-ci.org/guoguo12/billboard-charts.svg)](https://travis-ci.org/guoguo12/billboard-charts)
-
 **billboard.py** is a Python API for accessing music charts from [Billboard.com](http://www.billboard.com/charts/).
 
 Installation
@@ -123,8 +121,6 @@ Pull requests are welcome! Please adhere to the following style guidelines:
 * Variable names should be in `mixedCase`.
 
 ### Running tests
-
-We use [Travis CI](https://travis-ci.org/guoguo12/billboard-charts) to automatically run our test suite on all PRs.
 
 To run the test suite locally, install [nose](https://nose.readthedocs.org/en/latest/) and run
 
