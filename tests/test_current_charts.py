@@ -50,7 +50,7 @@ class TestCurrentHot100(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.chart = billboard.ChartData("hot-100")
-        cls.expectedTitle = "The Hot 100"
+        cls.expectedTitle = "Billboard Hot 100™"
         cls.expectedNumEntries = 100
 
 
@@ -91,7 +91,7 @@ class TestCurrentArtist100(Base, unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.chart = billboard.ChartData("artist-100")
-        cls.expectedTitle = "Artist 100"
+        cls.expectedTitle = "Billboard Artist 100"
         cls.expectedNumEntries = 100
 
     def testEntriesValidity(self):

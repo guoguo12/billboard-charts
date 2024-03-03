@@ -174,7 +174,7 @@
             "weeks": 11
         },
         {
-            "artist": "Earth, Wind & Fire with The Emotions",
+            "artist": "Earth, Wind & Fire With The Emotions",
             "image": null,
             "isNew": false,
             "lastPos": 11,
@@ -1007,5 +1007,5 @@
     "name": "hot-100",
     "nextDate": "1979-08-11",
     "previousDate": "1979-07-28",
-    "title": "The Hot 100"
+    "title": "Billboard Hot 100™"
 }
