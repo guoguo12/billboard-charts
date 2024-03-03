@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 7.0.1 &ndash; 2024-03-03
+### Fixed
+- Fix image parsing (#70).
+
 ## 7.0.0 &ndash; 2021-11-20
 ### Deprecated
 - Deprecate `previousDate` and `nextDate`.
