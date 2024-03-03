@@ -148,6 +148,8 @@ Projects and articles that use billboard.py:
 * ["Predicting Movement on 70s & 80s Billboard R&B Charts"](https://afriedman412.github.io/Predicting-Movement-On-70s-&-80s-Billboard-R&B-Charts/) by Andy Friedman
 * ["Billboard Trends"](https://tom-johnson.net/2018/08/12/billboard-trends/) by Tom Johnson
 * ["Billboard Charts Alexa Skill"](https://www.amazon.com/Cameron-Ezell-Billboard-Charts/dp/B07K5SX95L) by Cameron Ezell
+* ["In the Mix: What's the Secret Formula Behind the Hottest Tracks?"](https://medium.com/swlh/in-the-mix-8f22db7a69d2) by Jason Kibozi-Yocka
+* ["MUHSIC: An Open Dataset with Temporal Musical Success Information"](https://sol.sbc.org.br/index.php/dsw/article/view/17415) by Gabriel P. Oliveira et al.
 
 Have an addition? Make a pull request!
 
