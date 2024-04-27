@@ -377,7 +377,7 @@ class ChartData:
                         return int(value)
                 except:
                     message = "Failed to parse metadata value: %s" % attribute
-                    raise BillboardParseException(message)
+                    # raise BillboardParseException(message)
 
             if self.date:
                 peakPos = getMeta("peak", 4)
