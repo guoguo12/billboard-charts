@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 7.1.0 &ndash; 2024-08-12
+### Added
+- Add support for TikTok charts (#95).
+
 ## 7.0.2 &ndash; 2024-07-13
 ### Added
 - Add description for pypi.org.
