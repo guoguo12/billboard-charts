@@ -317,14 +317,13 @@ class ChartData:
             )
             self.entries.append(entry)
 
-
-    def _page_has_award_column(self, soup):
+    def _pageHasAwardColumn(self, soup):
         cols = soup.select(_CHART_HEADER_CELLS)
         for span in cols:
-            if 'award' in span.string.lower():
+            if "award" in span.string.lower():
                 return True
         return False
-        
+
     def _parseNewStylePage(self, soup):
         dateElement = soup.select_one("#chart-date-picker")
         if dateElement:
@@ -391,7 +390,7 @@ class ChartData:
 
             # Some pages do not show an award column in their chart data.
             # If missing, this changes the column number offsets.
-            awardColumnOffset = 0 if self._page_has_award_column(soup) else -1
+            awardColumnOffset = 0 if self._pageHasAwardColumn(soup) else -1
             if self.date:
                 peakPos = getMeta("peak", 4 + awardColumnOffset)
                 lastPos = getMeta("last", 3 + awardColumnOffset, ifNoValue=0)
