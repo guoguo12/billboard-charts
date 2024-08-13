@@ -27,7 +27,9 @@ _ENTRY_TITLE_ATTR = "data-title"
 _ENTRY_ARTIST_ATTR = "data-artist"
 _ENTRY_IMAGE_SELECTOR = "img.chart-list-item__image"
 _ENTRY_RANK_ATTR = "data-rank"
-
+# On new style pages, the column headings of chart data
+# Used to determine if the "Award" column is present in the chart.
+_CHART_HEADER_CELLS = "div.o-chart-results-list-header__item span"
 
 # constants for the getMinistatsCellValue helper function
 _MINISTATS_CELL = "div.chart-list-item__ministats-cell"
@@ -315,6 +317,14 @@ class ChartData:
             )
             self.entries.append(entry)
 
+
+    def _page_has_award_column(self, soup):
+        cols = soup.select(_CHART_HEADER_CELLS)
+        for span in cols:
+            if 'award' in span.string.lower():
+                return True
+        return False
+        
     def _parseNewStylePage(self, soup):
         dateElement = soup.select_one("#chart-date-picker")
         if dateElement:
@@ -379,10 +389,13 @@ class ChartData:
                     message = "Failed to parse metadata value: %s" % attribute
                     raise BillboardParseException(message)
 
+            # Some pages do not show an award column in their chart data.
+            # If missing, this changes the column number offsets.
+            awardColumnOffset = 0 if self._page_has_award_column(soup) else -1
             if self.date:
-                peakPos = getMeta("peak", 4)
-                lastPos = getMeta("last", 3, ifNoValue=0)
-                weeks = getMeta("week", 5, ifNoValue=1)
+                peakPos = getMeta("peak", 4 + awardColumnOffset)
+                lastPos = getMeta("last", 3 + awardColumnOffset, ifNoValue=0)
+                weeks = getMeta("week", 5 + awardColumnOffset, ifNoValue=1)
                 isNew = True if weeks == 1 else False
             else:
                 peakPos = lastPos = weeks = None
