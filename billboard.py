@@ -95,6 +95,21 @@ class ChartEntry:
         else:
             return s
 
+
+    def __iter__(self):
+        """Returns the entry as a dictionary. Uses snake case to conform to Python conventions.
+        Example: 
+            dict(entry)
+        """
+        yield 'title', self.title
+        yield 'artist', self.artist
+        yield 'image', self.image
+        yield 'peak_pos', self.peakPos
+        yield 'latest_pos', self.lastPos
+        yield 'weeks', self.weeks
+        yield 'rank', self.rank
+        yield 'is_new', self.isNew
+        
     def json(self):
         """Returns the entry as a JSON string.
         This is useful for caching.
